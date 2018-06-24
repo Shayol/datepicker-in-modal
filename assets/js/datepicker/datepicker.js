@@ -206,7 +206,7 @@ window.addEventListener('load', function () {
                                         + updateCalendar(yearTo, monthTo, 'to');
                                         addDayListener();
 
-                                        inputTo.focus(); //after entering start data focuse on end input
+                                        inputTo.focus(); //after entering start data focus on end input
                                 }
 
                                 else if (e.target == inputTo) {
@@ -266,7 +266,7 @@ window.addEventListener('load', function () {
                 window.getComputedStyle(calBoth.children[0]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
                 calBoth.children[0].style.left = "0%";
                 calBoth.children[1].style.left = "53.47%";
-                calBoth.children[2].style.left = "120%";
+                calBoth.children[2].style.left = "100%";
 
                 setTimeout(function() {
                     calBoth.removeChild(calBoth.children[2]);
@@ -282,8 +282,20 @@ window.addEventListener('load', function () {
                 yearTo = to.getFullYear();
                 monthTo = to.getMonth();
 
-                wrapper.getElementsByClassName("calendar__both")[0].innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
-                    + updateCalendar(yearTo, monthTo, 'to');
+                var newNode = document.createElement('div');
+                newNode.innerHTML = updateCalendar(yearTo, monthTo, 'right');
+                
+                calBoth.appendChild(newNode);
+                calBoth.children[2].style.left = "100%";
+                window.getComputedStyle(calBoth.children[2]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
+                calBoth.children[2].style.left = "53.47%";
+                calBoth.children[1].style.left = "0%";
+                calBoth.children[0].style.left = "-50%";
+
+                setTimeout(function() {
+                    calBoth.removeChild(calBoth.children[0]);
+                },700);
+
                 addDayListener();
             });
         }

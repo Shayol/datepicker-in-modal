@@ -50,14 +50,9 @@
 } */
 
 .calendar__both {
-    /* display: flex;
-    justify-content: center; */
-    /* width: 1288px; */
+    overflow: hidden;
     position: relative;
     min-height: 330px;
-    /* left: -57%; */
-    /* font-size: 0; */
-    /* white-space: nowrap; */
 }
 
 .day {
