@@ -4,17 +4,60 @@
 
 .Container.noselect {
     width: 100%;
+    overflow: hidden;
+}
+
+.FromToInputs {
+    padding-right: 56px;
 }
 .Calendar {
     display: -ms-grid;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto;
 }
 
+.calendar__both > div {
+    float: none !important;
+    margin-right: 42px;
+    /* margin-left: 21px; */
+    position: absolute;
+    display: inline-block;
+    /* font-size: 15px; */
+    /* left: 25%; */
+    top: 0;
+    transition: left 0.7s;
+}
+.calendar__both > div:last-child {
+    margin-right: 0;
+}
+
+/* .calendar__left {
+    left: -50%;
+    top: 0;
+} */
+
+.calendar__from {
+    left: 0;
+}
+
+.calendar__to {
+    left: 53.47%;
+}
+
+/* .calendar__both > div:last-child {
+    margin-right: 0;
+} */
+
 .calendar__both {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: center; */
+    /* width: 1288px; */
+    position: relative;
+    min-height: 330px;
+    /* left: -57%; */
+    /* font-size: 0; */
+    /* white-space: nowrap; */
 }
 
 .day {

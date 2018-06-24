@@ -20,6 +20,7 @@ window.addEventListener('load', function () {
 
         var inputFrom;
         var inputTo;
+        var calBoth;
 
         var allowedMin;
         var allowedMax;
@@ -113,7 +114,7 @@ window.addEventListener('load', function () {
                                 +   '<span class="Next icon-arrow-right13"></span>'    
                                 + '<div class="calendar__both">' 
                                 +   updateCalendar(yearFrom, monthFrom, 'from') 
-                                +   updateCalendar(yearTo, monthTo, 'to') 
+                                +   updateCalendar(yearTo, monthTo, 'to')
                                 + '</div>'
                                 + '</div>'
                                 + '</div>'
@@ -124,6 +125,7 @@ window.addEventListener('load', function () {
 
             inputFrom = wrapper.getElementsByTagName('input')[0];
             inputTo = wrapper.getElementsByTagName('input')[1];
+            calBoth = wrapper.getElementsByClassName("calendar__both")[0];
 
             inputFrom.focus();  //place cursor on load in from input
 
@@ -249,15 +251,26 @@ window.addEventListener('load', function () {
 
         function addNextPrevListener() {
             wrapper.getElementsByClassName("Previous")[0].addEventListener('click', function () {
-                to = new Date(yearTo, monthTo-1, 0);
+                to = new Date(yearTo, monthTo-1);
                 yearTo = to.getFullYear();
                 monthTo = to.getMonth();
 
-                from = new Date(yearFrom, monthFrom-1, 0);
+                from = new Date(yearFrom, monthFrom-1);
                 yearFrom = from.getFullYear();
                 monthFrom = from.getMonth();
-                wrapper.getElementsByClassName("calendar__both")[0].innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
-                    + updateCalendar(yearTo, monthTo, 'to');
+                var newNode = document.createElement('div');
+                newNode.innerHTML = updateCalendar(yearFrom, monthFrom, 'left');
+                
+                calBoth.insertBefore(newNode, calBoth.children[0]);
+                calBoth.children[0].style.left = "-50%";
+                window.getComputedStyle(calBoth.children[0]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
+                calBoth.children[0].style.left = "0%";
+                calBoth.children[1].style.left = "53.47%";
+                calBoth.children[2].style.left = "120%";
+
+                setTimeout(function() {
+                    calBoth.removeChild(calBoth.children[2]);
+                },700);
                 addDayListener();
             });
             wrapper.getElementsByClassName("Next")[0].addEventListener('click', function () {
@@ -278,7 +291,7 @@ window.addEventListener('load', function () {
 
         function updateCalendar(year, month, toOrFrom) {
 
-            var calendar = '<div class="CalendarContainer calendar-' + toOrFrom + '"' + '>' 
+            var calendar = '<div class="CalendarContainer calendar__' + toOrFrom + '"' + '>' 
                             +   '<div class="Month">' + MONTHS[month] + ' ' + year + '</div>'
                             +        '<div class="Calendar">';
 
