@@ -1,0 +1,4321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Simb</title>
+
+
+	<!-- Global stylesheets -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/colors_icons.css" title="color" rel="stylesheet" type="text/css">
+	<link href="assets/css/core.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/components.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/piechart.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="assets/css/datepicker.css">
+	<!-- /global stylesheets -->
+	
+	<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
+
+	<!-- Core JS files -->
+	<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
+	<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
+	<script type="text/javascript" src="assets/js/pages/form_bootstrap_select.js"></script>
+	
+	<script type="text/javascript" src="assets/js/plugins/forms/styling/switchery.min.js"></script>
+	<script type="text/javascript" src="assets/js/pages/form_checkboxes_radios.js"></script>
+	
+	<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
+
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	
+	<script type="text/javascript" src="assets/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/inputs/typeahead/handlebars.min.js"></script>
+	<script type="text/javascript" src="assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+	<script type="text/javascript" src="assets/js/pages/jqueryui_interactions.js"></script>
+	
+	<!-- Pie chart files -->
+	
+	<script src="assets/js/piechart/es6-promise.min.js"></script>
+    <script src="assets/js/piechart/es6-promise.auto.min.js"></script>
+    <script src="assets/js/piechart/fetch.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="assets/js/piechart/d3-tip.js"></script>
+	
+	<!-- Datepicker files -->
+
+	<script src="assets/js/datepicker/datepicker.js"></script>
+
+	<!-- /theme JS files -->
+	
+	<script>
+		function ShowSnackbar() {
+		var x = document.getElementById("Snackbar");
+		x.className = "show";
+		setTimeout(function(){ x.className = x.className.replace("show", ""); }, 8000);
+		}
+	</script>
+	
+	<script>
+		function ShowSnackbar_Deleted() {
+		var x = document.getElementById("Snackbar_Deleted");
+		x.className = "show";
+		setTimeout(function(){ x.className = x.className.replace("show", ""); }, 8000);
+		}
+	</script>
+
+	
+</head>
+
+<body>
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-inverse">
+		<div class="navbar-header">
+			<a class="navbar-brand SimbLogo" href="index.html"></a>
+
+			<ul class="nav navbar-nav pull-right visible-xs-block">
+				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+			</ul>
+		</div>
+
+		<div class="navbar-collapse collapse" id="navbar-mobile">
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#" data-toggle="modal" data-target="#modal_add_transaction"><b class="icon-add">&nbsp;</b> Add transaction</a></li>
+				<li><span class="SpaceBetweenButtons"></span></li>
+				<li class="dropdown dropdown-user">
+					<a class="dropdown-toggle" data-toggle="dropdown">
+						<img src="https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/12313734_10153271513122218_3709781393146629219_n.jpg?oh=fabe807cf2d9411ff7c67ee97dc34000&amp;oe=5B0A6EB9" alt="">
+						<span>Renat Buga</span>
+						<i class="caret"></i>
+					</a>
+
+					<ul class="dropdown-menu dropdown-menu-right bg-slate-600">
+						<li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /main navbar -->
+
+
+	<!-- Page container -->
+	<div class="page-container">
+
+		<!-- Page content -->
+		<div class="page-content">
+
+			<!-- Main content -->
+			<div class="content-wrapper">
+
+				<!-- Main charts -->
+				<div class="row">
+					<div class="col-lg-5">
+
+						<!-- Ballance -->
+						<div class="panel panel-flat S">
+							<div class="SContainer">
+								<div class="TableCardTitle">
+									<div><h6 class="CardTitle">Balance</h6></div>
+									<div class="Income">4 369,39 &euro;</div>
+								</div>	
+								<div class="ContainerAccounts">
+									<div class="RowContent"><div class="Swedbank"></div><div><a href="#" title="Change account name" data-toggle="modal" data-target="#modal_change_account_name">LT787300010000916175  DAINIUS KINDERIS</a><p>Feb 2, 10:51</p></div><div>3 826,52 &euro;<a href="#" class="ButtonHoverBg" title="Update" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_importing"></a></div></div>
+									<div class="RowContent"><div class="SEB"></div><div><a href="#" title="Change account name" data-toggle="modal" data-target="#modal_date_picker">LT32 7300 0101 5431 0766</a><p>Feb 14, 14:30</p></div><div>542,87 &euro;<a href="#" class="ButtonHoverBg" title="Update" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_account_select"></a></div></div>
+									<div class="RowContent"><div class="DNB"></div><div><a href="#" title="Change account name" data-toggle="modal" data-target="#modal_month_picker">Card  *1083</a><p>Feb 10, 18:23</p></div><div>1082,20 &euro;<a href="#" class="ButtonHoverBg" title="Update" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_dialog_keyword_assignment_rule"></a></div></div>
+								</div>
+								
+								<div class="ButtonAddAccount">
+									<button type="button" class="btn btn-default btn-rounded-more"  data-toggle="modal" data-target="#modal_select_bank">Add bank account</button>
+								</div>
+								
+							</div>
+							
+						</div>
+						<!-- /ballance -->
+						
+						
+						<!-- What Simon found -->
+						<div class="panel panel-flat S" style="display:none">
+							<div class="DidYouKnow">					
+							
+								<h6 class="CardTitle">What Simb found</h6>
+								
+								<!--My question-->
+								<div class="MyQuestion" style="display:none">
+									<div class="Question">How much did I spend for...</div>
+									<div>
+										<input type="text" class="form-control typeahead-basic" style="font-size:1.2em; border-color:#bbb;" placeholder="Eg. restaurants, Maxima">
+									</div>	
+								
+								
+								</div>
+								<!--/My question-->
+								
+								
+								<!--Ready facts-->
+								<div class="Content">
+								
+									<div class="Fact" style="display:none">
+										<div class="Fact1">Last month you spent in Rimi <span class="Spent">542,20 &euro;</span>.</div>									
+										<div class="Fact2">This is <span class="Earned">62,60 &euro;</span> less than in <a href="#">September</a>.</div>
+										<div class="ButtonSeeTransactions">
+											<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_transactions_simon">See transactions</button>
+										</div>
+									</div>
+
+									<div class="LoadingFact">
+										<span class="loader"><b></b><b></b><b></b></span>
+									</div>
+									
+									<div class="ButtonsBottom">
+										<button type="button" class="btn text-teal-600 border-teal-600 btn-flat" style="border-width:1px"><i class="icon-magic-wand2 position-left"></i> Surprise me again</button>
+										
+									</div>
+						
+								</div>
+								<!--/ Ready facts-->
+								
+							</div>
+							
+						</div>
+						<!-- /what Simon found -->
+						
+						
+						<!-- Totals of spendings -->
+						<div class="panel panel-flat S">
+							<div class="ContainerTotalSpendings">
+							
+								<div class="ButtonPositionTopRight">
+									
+									
+									<div class="btn-group pull-right">
+										<button type="button" class="btn btn-default btn-rounded-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Past 30 days <span class="caret"></span></button>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li class="active"><a href="#"></i>Past 30 days</a></li>
+											<li><a href="#">This month</a></li>
+											<li><a href="#">Last month</a></li>
+											<li><a href="#">This year</a></li>
+											<li class="divider"></li>
+											<li><a href="#" data-toggle="modal" data-target="#modal_date_picker"><i class="icon-calendar"></i>Custom interval</a></li>
+										</ul>
+									</div>
+									
+									<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonsMarginBetween">Hide empty</button>
+	
+								</div>
+							
+							
+								<h6 class="CardTitle">Totals</h6>
+							<div class="TotalSpendings">
+							
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-home">
+									<span class="amount">1196 &euro;</span>
+									<i>Home</i>
+								</a>
+								
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-food">
+									<span class="loader"><b></b><b></b><b></b></span>
+									<i>Food &amp; Drinks</i>
+								</a>
+								
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-auto-transport">							
+									<span class="amount">842 &euro;</span>
+									<i>Auto &amp; Transport</i>
+								</a>
+								
+								<a href="#" data-toggle="modal" data-target="#modal_loader" class="IconCat-travel Empty">
+									<span class="amount">0 &euro;</span>
+									<i>Travel</i>
+								</a>
+								
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-utilities">					
+									<span class="amount">698 &euro;</span>
+									<i>Utilities</i>
+								</a>
+								
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-entertainment Empty">
+									<span class="amount">0 &euro;</span>
+									<i>Leisure &amp; Entertainment</i>
+								</a>
+								
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-kids">
+									<span class="amount">548 &euro;</span>
+									<i>Kids</i>
+								</a>
+								
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-health-fitness Empty">					
+									<span class="amount">0 &euro;</span>
+									<i>Health &amp; Fitness</i>
+								</a>
+								
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-gifts-donations">
+									<span class="amount">428 &euro;</span>
+									<i>Gifts & Donations</i>
+								</a>
+								
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-income">						
+									<span class="amount">2750 &euro;</span>
+									<i>Income</i>
+								</a>
+								
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-personal-care">
+									<span class="amount">80 &euro;</span>
+									<i>Personal care</i>
+								</a>
+							
+								
+								<a href="#" data-toggle="modal" data-target="#modal" class="IconCat-uncategorized">
+									<span class="amount">52 &euro;</span>
+									<i>Uncategorized</i>
+								</a>
+								
+								<div class="Totals">
+									<div class="Row">
+										<div class="Type">Income</div>
+										<div class="Amount Income">1 647,40 &euro;</div>
+									</div>
+									<div class="Row">
+										<div class="Type">Expenses</div>
+										<div class="Amount Expenses">1 677,16 &euro;</div>
+									</div>
+									
+									<div class="Row" style="display:none">
+										<div class="Type">Expenses</div>
+										<div class="Amount"><span class="loader"><b></b><b></b><b></b></span></div>
+									</div>
+
+									<div class="Row NetAmount">
+										<div class="Type">Net</div>
+										<div class="Amount Expenses">-29,76 &euro;</div>
+									</div>	
+									
+								</div>
+						
+
+							</div>
+								
+							</div>
+							
+						</div>
+						<!-- /totals of spendings -->
+						
+						
+						<!-- Pie chart -->
+						<div class="panel panel-flat S">
+							<div class="PieChart">
+							
+								<div class="ButtonPositionTopRight">
+									
+										<div class="TransactionType">
+											<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonTrendsRight ButtonPressed">Spending</button>
+											<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonTrendsLeft">Income</button>
+										</div>
+									
+										<div class="btn-group">
+											<button type="button" class="btn btn-default btn-rounded-more dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Past 30 days <span class="caret"></span></button>
+											<ul class="dropdown-menu dropdown-menu-right">
+												<li class="active"><a href="#"></i>Past 30 days</a></li>
+												<li><a href="#">This month</a></li>
+												<li><a href="#">Last month</a></li>
+												<li><a href="#">This year</a></li>
+												<li><a href="#">Last year</a></li>
+												<li><a href="#">All time</a></li>
+											</ul>
+									</div>
+									
+								</div>
+							
+							
+								<h6 class="CardTitle">Pie chart</h6>
+								
+								<div class="Path"><a>All categories</a> &rsaquo; <a>Food & Drinks</a> &rsaquo; <span>Cafes, bars, restaurants</span></div>
+								
+								<div class="PieChartContent">
+							
+									<div id="piechart"></div>
+									<script src="assets/js/piechart/piechart.js"></script>	
+
+								</div>
+									
+								
+							</div>
+							
+						</div>
+						<!-- /pie chart -->
+						
+						
+
+					</div>
+					
+
+					<div class="col-lg-7">
+
+						
+						
+						<!-- Recent transactions -->
+						<div class="panel panel-flat S">
+							<div class="RecentTransactions">
+							
+								<div class="ButtonPositionTopRight">
+										<button type="button" class="btn btn-default btn-rounded-more"  data-toggle="modal" data-target="#modal_all_transactions">See all transactions</button>
+								</div>
+
+							<h6 class="CardTitle">Recent transactions</h6>
+							
+							<div class="MultiSelectActions">
+									<button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal_change_cateory">Change category</button>
+									<button type="button" class="btn btn-default">Cancel</button>
+									<span class="pull-right">3 selected</span>
+							</div>
+							
+								<table class="STable table-hover">
+
+								<tbody>
+									
+									<tr>
+										<td>today</td>
+										<td>
+											<span style="background-image:url(assets/images/icons/logos/rimi.svg); background-color:#db002f;"></span></td>
+										<td data-toggle="modal" data-target="#modal_trans_details">
+											<div class="TransDescr">Už draudimo polisą pagal užsakymą nr.D-2018-1010561</div>
+											<div class="Bank-Account">Už draudimo polisą pagal užsakymą nr.D-2018-1010561Už draudimo polisą pagal užsakymą nr.D-2018-1010561 Už draudimo polisą pagal užsakymą nr.D-2018-1010561</div>
+										</td>
+										<td>-15,24 &euro;</td>
+										<td class="noselect" data-toggle="modal" data-target="#modal_change_cateory"><span class="CategoryName">Groceries</span><span class="ChangeCategory">change</span></td>
+									</tr>
+									<tr>
+										<td>yesterday</td>
+										<td>
+											<span class="SelectInactive" style="background-image:url(assets/images/icons/logos/ryanair.svg); background-color:#004990;"></span></td>
+										<td data-toggle="modal" data-target="#modal_trans_details_pending">
+											<div class="TransDescr">Ryanair</div>
+											<div class="Bank-Account">SEB • Savings account</div>										
+										</td>
+										<td>-138 &euro;<a title="Edit split" class="SplittedTransaction ButtonHoverBg" data-toggle="modal" data-target="#modal_split_transaction"></a></td>
+										<td class="LoadingCategory"><span class="loader"><b></b><b></b><b></b></span></td>
+										
+									</tr>
+									<tr>
+										<td>Nov 24</td>
+										<td>
+											<span class="SelectInactive IconCat-account-replenishment CatColor-account-replenishment CatBg-account-replenishment"></span></td>
+										<td data-toggle="modal" data-target="#modal_trans_details">
+											<div class="TransDescr">Account replenishment</div>
+											<div class="Bank-Account">Luminor • LT32 ... 0766</div>
+										</td>
+										<td><b>800 &euro;</b><a title="Edit split" class="SplittedTransaction ButtonHoverBg" data-toggle="modal" data-target="#modal_split_transaction"></a></td>
+										<td class="noselect" data-toggle="modal" data-target="#modal_change_cateory"><span class="CategoryName">Cafes, restaurants, bars</span><span class="ChangeCategory">change</span></td>
+									</tr>
+									<tr>
+										<td>Nov 24</td>
+										<td>
+											<span class="SelectActive" style="background-image:url(assets/images/icons/logos/maxima.svg); background-color:#004990;"></span></td>
+										<td data-toggle="modal" data-target="#modal_edit_transaction">
+											<div class="TransDescr">Maxima, Ulonu G. 45 Vilnius</div>
+											<div class="Bank-Account">Swedbank • Current account</div>
+										</td>
+										<td>-15,24 &euro;<a title="Edit manual transaction" class="SplittedTransaction ManualTransaction ButtonHoverBg" data-toggle="modal" data-target="#modal_edit_transaction"></a></td>
+										<td class="noselect" data-toggle="modal" data-target="#modal_change_cateory"><span class="CategoryName">Groceries</span><span class="ChangeCategory">change</span></td>
+									</tr>
+									<tr>
+										<td>Nov 23</td>
+										<td>
+											<span style="background-image:url(assets/images/icons/logos/uber.svg); background-color:#000000;"></span>
+										<td data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true">
+											<div class="TransDescr">Uber</div>
+											<div class="Bank-Account">Luminor • Current account</div>
+										</td>
+										<td>-47,88 &euro;</td>
+										<td class="noselect" data-toggle="modal" data-target="#modal_change_cateory"><span class="CategoryName">Taxi</span><span class="ChangeCategory">change</span></td>
+									</tr>	
+									
+								</tbody>
+							</table>
+
+							<div class="NeedsYourAttention">
+								<div>27 transactions need your help in categorization. <a href="#">Check out</a></div>
+							</div>
+						
+							</div>
+						</div>
+						
+						<!-- /recent transactions -->
+						
+						<!-- Trends Compare -->
+						<div class="panel panel-flat S">
+							<div class="SModal SpendingOverTime">
+							
+								<div class="ButtonPositionTopRight">
+	
+									<div>
+										<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonTrendsRight ButtonPressed">Compare</button>
+										<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonTrendsMiddle">Spending</button>
+										<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonTrendsLeft">Income</button>
+										
+										<div class="SimonSearchAllTrans">
+											<input placeholder="Filter by category or keyword" class="SearchSpendingOverTime" required="" type="text" style="float:right; display:inline-block">
+											<a href="#" class="BrowseCat" data-toggle="modal" data-target="#modal_change_cateory">Browse</a>
+
+											<div class="SearchCatSpend">
+												<ul>
+													<li>
+														<span class="Merchant IconCat-bank-fee">mokestis (68)<b>in Bank Fees</b></span>
+													</li>
+													<li>
+														<span class="Category IconCat-food">Food &amp; Drinks (89)<b></b></span>
+													</li>
+													<li>
+														<span class="Merchant IconCat-select-all">insurance (18)<b>in all categories</b></span>
+													</li>
+													<li>
+														<span class="Merchant IconCat-fuel">circle k (55)<b>in Fuel</b></span>
+													</li>
+													<li>
+														<span class="Category IconCat-income">Income (62)<b></b></span>
+													</li>
+													<li>
+														<span class="Category IconCat-spending">Spending (1823)<b></b></span>
+													</li>
+												</ul>
+											</div>
+										</div>												
+									</div>
+									
+								</div>
+							
+								<h6 class="CardTitle">Trends</h6>
+							
+								<div class="SpendingOverTimeCont">
+									
+									<div class="SelectedChips">
+										<a class="Chip noselect" title="Remove" data-popup="tooltip" data-placement="top">Income<span class="Remove"></span></a>
+										<a class="Chip noselect" title="Remove" data-popup="tooltip" data-placement="top">Spending<span class="Remove"></span></a>
+									</div>
+								
+								<div class="BarsChart">
+								
+									<div class="Grid">
+										<div class="Row" style="height:25%"><div class="Gradation">160 &euro;</div></div>
+										<div class="Row" style="height:25%"><div class="Gradation">120 &euro;</div></div>
+										<div class="Row" style="height:25%"><div class="Gradation">80 &euro;</div></div>
+										<div class="Row" style="height:25%"><div class="Gradation">40 &euro;</div></div>
+										<div class="Row"><div class="Gradation">0</div></div>
+
+										<div class="BarsContainer">
+											
+											<div class="SpendBarChart2 TwoBars">
+
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:54%">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>
+													</div>
+												</div>
+												<div class="Bar"  data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Right" style="height:68%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:50%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>
+													</div>
+												</div>	
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">	
+													<div class="Right" style="height:23%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:68%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">												
+													<div class="Right" style="height:69%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>												
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:100%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">												
+													<div class="Right" style="height:56%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:46%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>													
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">												
+													<div class="Right" style="height:80%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:12%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">												
+													<div class="Right" style="height:54%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:45%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">												
+													<div class="Right" style="height:68%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:86%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">												
+													<div class="Right" style="height:32%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:46%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>													
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">												
+													<div class="Right" style="height:62%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:85%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>											
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">												
+													<div class="Right" style="height:68%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:98%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">												
+													<div class="Right" style="height:89%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+																								
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:67%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Income</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">												
+													<div class="Right" style="height:44%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Spending</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+								
+											</div>
+											
+											<div class="RefRepeaterBarChart">
+												<div class="Division">Apr 2017</div>
+												<div class="Division">May</div>
+												<div class="Division">Jun</div>
+												<div class="Division">Jul</div>
+												<div class="Division">Aug</div>
+												<div class="Division">Sep</div>
+												<div class="Division">Oct</div>
+												<div class="Division">Nov</div>
+												<div class="Division">Dec</div>
+												<div class="Division">Jan 2018</div>
+												<div class="Division">Feb</div>
+												<div class="Division">Mar</div>								
+											</div>
+										
+										</div>
+
+									</div>
+									
+								</div>
+								
+								<div class="ButtonMonthlyBreakdownCont">
+									<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonMonthlyBreakdown"  data-toggle="modal" data-target="#modal_monthly_breakdown_compare">Monthly breakdown</button>
+								</div>
+									
+								</div>
+							</div>
+						</div>
+						<!-- / Trends compare -->
+						
+						<!-- Trends single bar -->
+						<div class="panel panel-flat S">
+							<div class="SModal SpendingOverTime">
+							
+								<div class="ButtonPositionTopRight">
+	
+									<div>
+										<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonTrendsRight">Compare</button>
+										<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonTrendsMiddle ButtonPressed">Spending</button>
+										<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonTrendsLeft">Income</button>
+										
+										<div class="SimonSearchAllTrans">
+											<input placeholder="Filter by category or keyword" class="SearchSpendingOverTime" required="" type="text" style="float:right; display:inline-block">
+											<a href="#" class="BrowseCat" data-toggle="modal" data-target="#modal_change_cateory">Browse</a>
+
+											<div class="SearchCatSpend">
+												<ul>
+													<li>
+														<span class="Category IconCat-entertainment-other">Music, arts, cinema (34)<b>in Leisure & Entertainment</b></span>
+													</li>
+													<li>
+														<span class="Category IconCat-home-maintenance">Home maintenance (26)<b>in Household</b></span>
+													</li>
+													<li>
+														<span class="Category IconCat-spa-massage">Spa &amp; Massage (4)<b>in Household</b></span>
+													</li>
+													<li>
+														<span class="Merchant IconCat-select-all">maxima (46)<b>in all categories</b></span>
+													</li>
+													<li>
+														<span class="Merchant IconCat-groceries">maxima (44)<b>in Groceries</b></span>
+													</li>
+													<li>
+														<span class="Merchant IconCat-household-supplies">maxima (2)<b>in Home supplies</b></span>
+													</li>
+												</ul>
+											</div>
+										</div>												
+									</div>
+									
+								</div>
+							
+								<h6 class="CardTitle">Trends</h6>
+							
+								<div class="SpendingOverTimeCont">
+									
+									<div class="SelectedChips">
+										<a class="Chip noselect" title="Remove" data-popup="tooltip" data-placement="top">Groceries<span class="Remove"></span></a>
+										<a class="Chip noselect" title="Remove" data-popup="tooltip" data-placement="top">maxima (all categories)<span class="Remove"></span></a>
+										<a class="Chip noselect" title="Remove" data-popup="tooltip" data-placement="top">Leisure & Entertainment<span class="Remove"></span></a>
+									</div>
+								
+								<div class="BarsChart">
+								
+									<div class="Grid">
+										<div class="Row" style="height:25%"><div class="Gradation">160 &euro;</div></div>
+										<div class="Row" style="height:25%"><div class="Gradation">120 &euro;</div></div>
+										<div class="Row" style="height:25%"><div class="Gradation">80 &euro;</div></div>
+										<div class="Row" style="height:25%"><div class="Gradation">40 &euro;</div></div>
+										<div class="Row"><div class="Gradation">0</div></div>
+
+										<div class="BarsContainer">
+										
+											<div class="SpendBarChart2 OneBar">
+
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:54%">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Apr 2017</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="Bar" title="May 2017" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:50%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">May 2017</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>
+													</div>
+												</div>
+
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:68%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Jun 2017</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:100%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Jul 2017</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>											
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:46%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Aug 2017</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>											
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:12%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Sep 2017</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>											
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:45%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Oct 2017</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>											
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:86%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Nov 2017</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>											
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:46%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Dec 2017</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>											
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:85%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Jan 2018</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>										
+												
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:98%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Feb 2018</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>											
+																								
+												<div class="Bar" data-toggle="modal" data-target="#modal_matching_transactions">
+													<div class="Left" style="height:67%;">
+														<div class="Ref">
+															<div class="SpendBarTooltip">
+																<i class="Month">Mar 2018</i>
+																<i class="Amount">81 &euro;</i>
+																<i class="NrTrans">24 transactions</i>
+															</div>	
+														</div>													
+													</div>
+												</div>
+								
+											</div>
+											
+											<div class="RefRepeaterBarChart">
+												<div class="Division">Apr 2017</div>
+												<div class="Division">May</div>
+												<div class="Division">Jun</div>
+												<div class="Division">Jul</div>
+												<div class="Division">Aug</div>
+												<div class="Division">Sep</div>
+												<div class="Division">Oct</div>
+												<div class="Division">Nov</div>
+												<div class="Division">Dec</div>
+												<div class="Division">Jan 2018</div>
+												<div class="Division">Feb</div>
+												<div class="Division">Mar</div>								
+											</div>
+										
+										</div>
+										
+									</div>
+									
+								</div>
+								
+								<div class="ButtonMonthlyBreakdownCont">
+									<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonMonthlyBreakdown"  data-toggle="modal" data-target="#modal_monthly_breakdown">Monthly breakdown</button>
+								</div>
+									
+								</div>
+							</div>
+						</div>
+						<!-- / Trends single bar -->
+						
+						
+						<!-- Your budget -->
+						<div class="panel panel-flat S">
+							<div class="SContainerBars">
+							
+								<div class="ButtonPositionTopRight">
+	
+									<div>
+										<div class="btn-group pull-right">
+											<button type="button" class="btn btn-default btn-rounded-more" data-toggle="dropdown" aria-expanded="false">This month <span class="caret"></span></button>
+											<ul class="dropdown-menu dropdown-menu-right btn-sm">
+												<li class="active"><a href="#"></i>This month</a></li>
+												<li><a href="#">Last month</a></li>
+												<li><a href="#">February 2018</a></li>
+												<li><a href="#">January 2018</a></li>
+												<li class="divider"></li>
+												<li><a href="#" data-toggle="modal" data-target="#modal_month_picker"><i class="icon-calendar"></i>Other months</a></li>
+											</ul>
+										</div>
+									
+										<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonsMarginBetween" data-toggle="modal" data-target="#modal_manage_budget">Manage budget</button>
+											
+									</div>
+									
+								<div class="MonthlyBudgetText">Monthly budget</div>
+								
+								</div>
+							
+							<h6 class="CardTitle">Your budget this month</h6>
+							
+							
+								<div class="SpendingBarsContainer">
+							
+										
+									<div class="ProgresBarRow">
+										<div class="Category" style="background-image:url(assets/images/icons/cat/auto-transport.svg);">Auto &amp; Transport</div>
+										
+										<div class="SProgresBar">	
+											<div class="ProgresBar" title="See transactions" data-popup="tooltip" data-placement="top" data-toggle="modal" data-target="#modal">
+												<div class="Fill Red" style="width:90%"><div class="Inside">842 &euro;</div></div>
+											</div>	
+											<div class="TypicalSpending">958 &euro;</div>
+										</div>	
+									</div>
+									
+									<div class="ProgresBarRow">
+										<div class="Category" style="background-image:url(assets/images/icons/cat/utilities.svg);">Utilities</div>
+										
+										<div class="SProgresBar">							
+											<div class="ProgresBar" title="See transactions" data-popup="tooltip" data-placement="top" data-toggle="modal" data-target="#modal">
+												<div class="Fill Green" style="width:40%"><div class="Inside">128 &euro;</div></div>
+											</div>
+											<div class="TypicalSpending">436 &euro;</div>
+										</div>
+									</div>
+									
+									<div class="ProgresBarRow">
+										<div class="Category" style="background-image:url(assets/images/icons/cat/food.svg);">Food &amp; Dinning</div>
+										
+										<div class="SProgresBar">							
+											<div class="ProgresBar" title="See transactions" data-popup="tooltip" data-placement="top" data-toggle="modal" data-target="#modal">
+												<div class="Fill Green" style="width:5%"><div class="Outside" style="left:37px">8 &euro;</div></div>
+											</div>
+											<div class="TypicalSpending">134 &euro;</div>
+										</div>
+									</div>
+									
+									<div class="ProgresBarRow">
+										<div class="Category Keyword" style="background-image:url(assets/images/icons/cat/keyword.svg);">Coffee Inn</div>
+										
+										<div class="SProgresBar">		
+											<div class="ProgresBar" title="See transactions" data-popup="tooltip" data-placement="top" data-toggle="modal" data-target="#modal_check_transactions">
+												<div class="Fill Yellow" style="width:75%"><div class="Inside">1196 &euro;</div></div>
+											</div>	
+											<div class="TypicalSpending">1253 &euro;</div>
+										</div>
+									</div>
+								
+								</div>
+						
+						
+							</div>
+						</div>
+						<!-- /Your budget -->
+						
+						
+						<!-- Modal All Transactions -->
+						<div id="modal_all_transactions" class="modal fade" tabindex="-1">
+							<div class="modal-dialog modal-lg">
+								
+								
+								<div class="modal-content S SModal AllTrans">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+								
+								
+									<div class="HeadBar">
+								
+										<div class="CardName">All transactions</div>
+
+										<button class="search-tips-icon" type="button" title="Search tips" data-popup="tooltip" data-placement="top" data-toggle="modal" data-target="#modal_search_tips"></button>
+	
+										<div class="ButtonPositionTopRightAllTransactions">
+											<div class="btn-group">
+												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">All time <span class="caret"></span></button>
+												<ul class="dropdown-menu dropdown-menu-right">
+													<li class="active"><a href="#"></i>All time</a></li>
+													<li><a href="#">This month</a></li>
+													<li><a href="#">Last month</a></li>
+													<li><a href="#">This year</a></li>
+													<li><a href="#">Past 12 months</a></li>
+													<li class="divider"></li>
+													<li><a href="#" data-toggle="modal" data-target="#modal_date_picker"><i class="icon-calendar"></i>Custom interval</a></li>
+												</ul>
+											</div>
+										</div>
+																			
+										<form>
+										
+											<div class="SimonSearchAllTrans">
+												<input placeholder="eg. maxima" required="" type="text">
+													<button class="close-icon icon-cross2" type="reset" title="Clear" data-popup="tooltip" data-placement="top"></button>
+											</div>						
+
+										</form>	
+										
+									</div>	
+								
+									<div class="AllTransactions">
+									
+												<div class="SearchTotalsCont" style="display:none">
+													<div class="SearchTotals">
+														<div class="Row">
+															<div class="DateRange">2018-01-01 to 2018-04-01</div>
+															<div class="Totals">
+																<div class="Name">Total spent</div>
+																<div class="Amount Expenses">-420,01 &euro;</div>
+															</div>
+															<div class="NrTransactions">24 transactions</div>
+														</div>
+														<div class="Row">
+															<div class="DateRange"></div>
+															<div class="Totals">
+																<div class="Name">Total income</div>
+																<div class="Amount Income">30 &euro;</div>
+															</div>
+															<div class="NrTransactions">3 transactions</div>
+														</div>
+
+													</div>
+													<div class="Excluded">Transfers between accounts excluded.</div>
+												</div>
+												
+												<div class="MultiSelectActions">
+													<button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal_change_cateory">Change category</button>
+													<button type="button" class="btn btn-default">Cancel</button>
+													<span class="pull-right">3 selected</span>
+												</div>
+												
+									
+												<div class="Header">
+													<a><i class="S-Sort-Desc"></i></a>
+													<div></div>
+													<div></div>
+													<a><i class="S-Sort"></i></a>
+													<div></div>
+												</div>
+												
+
+												
+											<div class="Content">
+											
+												<div class="LoadingFact" style="display:none">
+													<span class="loader"><b></b><b></b><b></b></span>
+												</div>
+											
+											<div class="NothingFound" style="display:none">
+												<p>Nothing found.</p>
+												You might want to check these <a data-toggle="modal" data-target="#modal_search_tips">search tips</a>.
+											</div>		
+											
+											
+												<table class="STable table-hover">
+													<tbody>
+														<tr>
+															<td>2017-12-16</td>
+															<td>
+																<span style="background-image:url(assets/images/icons/logos/rimi.svg); background-color:#db002f;"></span></td>
+															<td data-toggle="modal" data-target="#modal_trans_details">
+																<div class="TransDescr">Už draudimo polisą pagal užsakymą nr.D-2018-1010561</div>
+																<div class="Bank-Account">SEB • Visa Card</div>
+															</td>
+															<td>-15,24 &euro;<a title="Edit split" class="SplittedTransaction" data-toggle="modal" data-target="#modal_split_transaction"></a></td>
+															<td data-toggle="modal" data-target="#modal_change_cateory"><span class="CategoryName">Groceries</span><span class="ChangeCategory">change</span></td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details_pending">
+															<td>2017-12-16</td>
+															<td>
+																<span style="background-image:url(assets/images/icons/logos/ryanair.svg); background-color:#004990;"></span></td>
+															<td>
+																<div class="TransDescr">Ryanair</div>
+																<div class="Bank-Account">SEB • Savings account</div>										
+															</td>
+															<td>-138 &euro;<a title="Edit split" class="SplittedTransaction" data-toggle="modal" data-target="#modal_split_transaction"></a></td>
+															<td class="LoadingCategory"><span class="loader"><b></b><b></b><b></b></span></td>
+															
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-14</td>
+															<td>
+																<span class="IconCat-hair CatColor-hair CatBg-hair"></span></td>
+															<td>
+																<div class="TransDescr">Bliss &amp; Fashion</div>
+																<div class="Bank-Account">Luminor • LT32 ... 0766</div>
+															</td>
+															<td>-30 &euro;</td>
+															<td>Hair</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-14</td>
+															<td>
+																<span class="IconCat-restaurants CatColor-restaurants CatBg-restaurants"></span></td>
+															<td>Sushi Express</td>
+															<td>-6,50 &euro;</td>
+															<td>Restaurants</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-12</td>
+															<td>
+																<span class="IconCat-transfer-between-accounts CatColor-transfer-between-accounts CatBg-transfer-between-accounts"></span></td>
+															<td>Transfer between own accounts</td>
+															<td><b>400 &euro;</b></td>
+															<td>Account replenishment</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-12</td>
+															<td>
+																<span class="IconCat-cash-atm CatColor-cash-atm CatBg-cash-atm"></span></td>
+															<td>Swedbank</td>
+															<td>-100 &euro;</td>
+															<td>Cash & ATM</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-12</td>
+															<td>
+																<span class="IconCat-medicine CatColor-medicine CatBg-medicine"></span></td>
+															<td>Kristoforo odontologijos klinika</td>
+															<td>-140 &euro;</td>
+															<td>Medicine</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-11</td>
+															<td>
+																<span class="IconCat-toys CatColor-toys CatBg-toys"></span></td>
+															<td>************0010EUR12017-11-29LTUZACH173344F89</td>
+															<td>-10 000,99 &euro;</td>
+															<td>Toys</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-11</td>
+															<td>
+																<span class="IconCat-parking CatColor-parking CatBg-parking"></span></td>
+															<td>Unipark</td>
+															<td>-140 &euro;</td>
+															<td>Parking</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-11</td>
+															<td>
+																<span class="IconCat-clothing-shoes CatColor-clothing-shoes CatBg-clothing-shoes"></span></td>
+															<td>Apranga</td>
+															<td>-35,40 &euro;</td>
+															<td>Clothing & Shoes</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-11</td>
+															<td>
+																<span class="IconCat-clothing-shoes CatColor-clothing-shoes CatBg-clothing-shoes"></span></td>
+															<td>Desigual</td>
+															<td>-28 &euro;</td>
+															<td>Clothing & Shoes</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-11</td>
+															<td>
+																<span class="IconCat-coffee-shops CatColor-coffee-shops CatBg-coffee-shops"></span></td>
+															<td>Vero Cafe</td>
+															<td>-2,50 &euro;</td>
+															<td>Coffee shops</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-10</td>
+															<td>
+																<span class="IconCat-cinema CatColor-cinema CatBg-cinema"></span></td>
+															<td>Forum Cinemas</td>
+															<td>-6 &euro;</td>
+															<td>Cinema</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-10</td>
+															<td>
+																<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span></td>
+															<td>Pegasas</td>
+															<td>-15,20 &euro;</td>
+															<td>Books & Supplies</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-10</td>
+															<td>
+																<span class="IconCat-furniture-decor CatColor-furniture-decor CatBg-furniture-decor"></span></td>
+															<td>Jysk</td>
+															<td>-40,92 &euro;</td>
+															<td>Home equipment & decor</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-09</td>
+															<td>
+																<span class="IconCat-pets CatColor-pets CatBg-pets"></span></td>
+															<td>Kika</td>
+															<td>-8,15 &euro;</td>
+															<td>Pets</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-08</td>
+															<td>
+																<span class="IconCat-gifts CatColor-gifts CatBg-gifts"></span></td>
+															<td>Gera dovana</td>
+															<td>-20</td>
+															<td>Gifts</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-08</td>
+															<td>
+																<span class="IconCat-cosmetics CatColor-cosmetics CatBg-cosmetics"></span></td>
+															<td>Kosmada</td>
+															<td>-10,80 &euro;</td>
+															<td>Cosmetics</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-07</td>
+															<td>
+																<span class="IconCat-pharmacy CatColor-pharmacy CatBg-pharmacy"></span></td>
+															<td>Euro Vaistinė</td>
+															<td>-25 &euro;</td>
+															<td>Pharmacy</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-07</td>
+															<td>
+																<span class="IconCat-electronics CatColor-electronics CatBg-electronics"></span></td>
+															<td>Elektromarkt</td>
+															<td>-124,58 &euro;</td>
+															<td>Electronics</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-07</td>
+															<td>
+																<span style="background-image:url(assets/images/icons/logos/maxima.svg); background-color:#004990;"></span></td>
+															<td>Maxima, Ulonu G. 45 Vilnius</td>
+															<td>-15,24 &euro;</td>
+															<td>Groceries</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true">
+															<td>2017-12-06</td>
+															<td>
+																<span style="background-image:url(assets/images/icons/logos/uber.svg); background-color:#000000;"></span>
+															<td>Uber</td>
+															<td>-47,88 &euro;</td>
+															<td>Taxi</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-05</td>
+															<td>
+																<span class="IconCat-water CatColor-water CatBg-water"></span></td>
+															<td>Vilniaus vandenys</td>
+															<td>-2,12 &euro;</td>
+															<td>Water</td>
+															
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-04</td>
+															<td>
+																<span class="IconCat-car-wash CatColor-car-wash CatBg-car-wash"></span></td>
+															<td>Švaros broliai</td>
+															<td>25 &euro;</td>
+															<td>Car wash</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-04</td>
+															<td>
+																<span style="background-image:url(assets/images/icons/logos/circle-k.svg); background-color:#d61a0c;"></span></td>
+															<td>Circle K</td>
+															<td>-25 &euro;</td>
+															<td>Fuel</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true">
+															<td>2017-12-04</td>
+															<td>
+																<span class="IconCat-hobbies CatColor-hobbies CatBg-hobbies"></span></td>
+															<td>Menų studija</td>
+															<td>-15 &euro;</td>
+															<td>Hobbies</td>
+														</tr>													
+													</tbody>
+												</table>	
+											</div>
+	
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- /modal all transactions-->
+						
+						<!-- Modal Split Transaction -->
+						<div id="modal_split_transaction" class="modal fade" tabindex="-1" style="z-index:100000">
+							<div class="modal-dialog modal-lg">
+								
+								
+								<div class="modal-content S SModal SplitTrans">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+																
+									<div class="HeadBar">
+										<div class="CardName">Split transaction</div>
+									</div>	
+								
+									<div class="SplitTransaction">
+									
+										<table>
+											<tr>
+												<td><input type="text" maxlength="8" value="2018-05-10" disabled></td>
+												<td><input type="text" maxlength="255" value="Maxima" disabled></td>
+												<td><span class="IconCat-groceries Disabled">Groceries</span></td>
+												<td><input type="text" maxlength="12" value="-225,22 €" disabled></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td><input class="Error" type="text" maxlength="10" value="2020-16-10"></td>
+												<td><input class="Error" type="text" maxlength="255" value=""></td>
+												<td><span class="Error IconCat-coffee-shops" data-toggle="modal" data-target="#modal_change_cateory">Cafes, bars, restaurants adsa d asd</span></td>
+												<td><input type="text" maxlength="12" value="-25,22 €"></td>
+												<td><i class="Remove" title="Delete" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_delete_split"></i></td>
+											</tr>
+											<tr>
+												<td><input type="text" maxlength="8" value="2018-05-10"></td>
+												<td><input type="text" maxlength="255" value=""></td>
+												<td><span class="IconCat-household-supplies" data-toggle="modal" data-target="#modal_change_cateory">House supplies</span></td>
+												<td><input type="text" maxlength="12" value="-25,22 €"></td>
+												<td><i class="Remove" title="Delete" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_delete_split"></i></td>
+											</tr>
+											<tr>
+												<td><input type="text" maxlength="8" value="2018-05-10"></td>
+												<td><input type="text" maxlength="255" placeholder="Add split"></td>
+												<td><span></span></td>
+												<td><input type="text" maxlength="12" value=""></td>
+												<td></td>
+											</tr>
+										
+										</table>
+										
+									</div>
+								
+								</div>
+
+							</div>
+						</div>
+						<!-- /modal split transaction-->
+						
+						
+					
+						<!-- Modal Transactions Category -->
+						<div id="modal" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+								
+										<div class="BigCatIcon SModalGradient-auto-transport"><span class="IconCat-auto-transport"></span></div>										
+										<div class="SpendingCatTitle">Auto &amp; Transport<br /><span>spendings past 30 days</span></div>
+										
+										<div class="SpendingCat">
+										
+											<div class="MultiSelectActions">
+												<button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal_change_cateory">Change category</button>
+												<button type="button" class="btn btn-default">Cancel</button>
+												<span class="pull-right">3 selected</span>
+											</div>
+										
+										
+											<div class="Header">
+												<span class="Column1"><i class="S-Sort-Desc S-Sorted" title="Sorted by date" data-placement="top" data-popup="tooltip"></i></span>
+												<div></div>
+												<a class="Column3"><i class="S-Sort" title="Sort by amount" data-placement="top" data-popup="tooltip"></i></a>
+											</div>
+
+											
+											<div class="ScrollList">
+											
+			
+												<table class="STable table-hover">
+												<tbody>
+														
+													<tr>
+														<td>today</td>
+														<td>
+															<span class="IconCat-service-auto-parts CatColor-service-auto-parts CatBg-service-auto-parts"></span></td>
+														<td data-toggle="modal" data-target="#modal_trans_details">
+															<div class="TransDescr">Autokodas</div>
+															<div class="Bank-Account">SEB • Visa Card</div>
+														</td>
+														<td>-15,24 &euro;<a title="Edit split" class="SplittedTransaction" data-toggle="modal" data-target="#modal_split_transaction"></a></td>
+													</tr>
+													<tr>
+														<td>yesterday</td>
+														<td>
+															<span class="SelectInactive" style="background-image:url(assets/images/icons/logos/uber.svg); background-color:#000000;"></span>
+														<td data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true">
+															<div class="TransDescr">Uber</div>
+															<div class="Bank-Account">Swedbank • Master Card</div>
+														</td>
+														<td>-47,88 &euro;<a title="Edit split" class="SplittedTransaction" data-toggle="modal" data-target="#modal_split_transaction"></a></td>
+													</tr>
+													
+													<tr>
+														<td>yesterday</td>
+														<td>
+															<span class="SelectInactive" style="background-image:url(assets/images/icons/logos/circle-k.svg); background-color:#d61a0c;"></span></td>
+														<td data-toggle="modal" data-target="#modal_trans_details">Circle K</td>
+														<td>-48 &euro;</td>
+														
+													</tr>
+													
+													<tr>
+														<td>Nov 24</td>
+														<td>
+															<span class="SelectActive IconCat-taxi CatColor-taxi CatBg-taxi"></span></td>
+														<td data-toggle="modal" data-target="#modal_trans_details">Smart Taxi</td>
+														<td>-6,80 &euro;</td>
+													</tr>
+													<tr>
+														<td>Nov 24</td>
+														<td>
+															<span class="IconCat-fuel CatColor-fuel CatBg-fuel"></span></td>
+														<td data-toggle="modal" data-target="#modal_trans_details">Neste</td>
+														<td>-12,20 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 23</td>
+														<td>
+															<span class="IconCat-parking CatColor-parking CatBg-parking"></span></td>
+														<td>Unipark</td>
+														<td>-3,25 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 23</td>
+														<td>
+															<span class="IconCat-car-wash CatColor-car-wash CatBg-car-wash"></span>
+														</td>
+														<td>Švaros broliai</td>
+														<td>-25 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true">
+														<td>Nov 23</td>
+														<td>
+															<span style="background-image:url(assets/images/icons/logos/uber.svg); background-color:#000000;"></span>
+														<td>Uber</td>
+														<td>-4,20 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 22</td>
+														<td>
+															<span class="IconCat-auto-insurance CatColor-auto-insurance CatBg-auto-insurance"></span></td>
+														<td>Lietuvos draudimas</td>
+														<td>-148 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 22</td>
+														<td>
+															<span class="IconCat-public-transport CatColor-public-transport CatBg-public-transport"></span></td>
+														<td>Kautra</td>
+														<td>-10,30 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 20</td>
+														<td>
+															<span class="IconCat-public-transport CatColor-public-transport CatBg-public-transport"></span></td>
+														<td>Lietuvos geležinkeliai</td>
+														<td>-8,50 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 19</td>
+														<td>
+															<span class="IconCat-parking CatColor-parking CatBg-parking"></span></td>
+														<td>Unipark</td>
+														<td>-3,25 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 19</td>
+														<td>
+															<span class="IconCat-parking CatColor-parking CatBg-parking"></span></td>
+														<td>ADCParking</td>
+														<td>-3,25 &euro;</td>
+													</tr>													
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 18</td>
+														<td>
+															<span class="IconCat-parking CatColor-parking CatBg-parking"></span></td>
+														<td>Unipark</td>
+														<td>-3,25 &euro;</td>
+													</tr>
+													
+												</tbody>
+											</table>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+						<!-- / transactions category -->
+						
+						<!-- Modal Loader Transactions Category -->
+						<div id="modal_loader" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+								
+										<div class="BigCatIcon SModalGradient-travel"><span class="IconCat-travel"></span></div>										
+										<div class="SpendingCatTitle">Travel<br /><span>spendings past 30 days</span></div>
+										
+										<div class="SpendingCat">
+											<div class="Header">
+												<span class="Column1"><i class="S-Sort-Desc S-Sorted" title="Sorted by date" data-placement="top" data-popup="tooltip"></i></span>
+												<div></div>
+												<a class="Column3"><i class="S-Sort" title="Sort by amount" data-placement="top" data-popup="tooltip"></i></a>
+											</div>
+																			
+											<div class="ScrollList">
+											
+											<div class="loader"><b></b><b></b><b></b></div>
+			
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+						<!-- / loader transactions category -->
+						
+						
+						<!-- Modal Transacions by Simon -->
+						<div id="modal_transactions_simon" class="modal fade" tabindex="-1">
+							<div class="modal-dialog modal-lg">
+								
+								
+								<div class="modal-content S SModal AllTrans">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+								
+								
+									<div class="HeadBar">
+								
+										<div class="CardName">Transactions</div>
+
+																			
+										<form>
+											<div class="SimonSearchAllTrans">
+												<input type="text" placeholder="Search..." required />
+													<button class="close-icon icon-cross2" type="reset"></button>
+											</div>	
+										</form>	
+										
+									</div>	
+								
+									<div class="AllTransactions">
+									
+												<div class="Header">
+													<a><i class="S-Sort-Desc"></i></a>
+													<div></div>
+													<div></div>
+													<a><i class="S-Sort"></i></a>
+													<div></div>
+												</div>
+											<div class="Content">
+												<table class="STable table-hover">
+													<tbody>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-16</td>
+															<td>
+																<span style="background-image:url(assets/images/icons/logos/rimi.svg); background-color:#db002f;"></span></td>
+															<td>Rimi Bieliunu G. 1 Vilnius</td>
+															<td>-15,24 &euro;</td>
+															<td>Groceries</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details_pending">
+															<td>2017-12-16</td>
+															<td>
+																<span style="background-image:url(assets/images/icons/logos/ryanair.svg); background-color:#004990;"></span></td>
+															<td>Ryanair</td>
+															<td>-138 &euro;</td>
+															<td class="LoadingCategory"><span class="loader"><b></b><b></b><b></b></span></td>
+															
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-14</td>
+															<td>
+																<span class="IconCat-hair CatColor-hair CatBg-hair"></span></td>
+															<td>Bliss &amp; Fashion</td>
+															<td>-30 &euro;</td>
+															<td>Hair</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-14</td>
+															<td>
+																<span class="IconCat-restaurants CatColor-restaurants CatBg-restaurants"></span></td>
+															<td>Sushi Express</td>
+															<td>-6,50 &euro;</td>
+															<td>Restaurants</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-12</td>
+															<td>
+																<span class="IconCat-transfer-between-accounts CatColor-transfer-between-accounts CatBg-transfer-between-accounts"></span></td>
+															<td>Transfer between own accounts</td>
+															<td><b>400 &euro;</b></td>
+															<td>Account replenishment</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-12</td>
+															<td>
+																<span class="IconCat-cash-atm CatColor-cash-atm CatBg-cash-atm"></span></td>
+															<td>Swedbank</td>
+															<td>-100 &euro;</td>
+															<td>Cash & ATM</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-12</td>
+															<td>
+																<span class="IconCat-medicine CatColor-medicine CatBg-medicine"></span></td>
+															<td>Kristoforo odontologijos klinika</td>
+															<td>-140 &euro;</td>
+															<td>Medicine</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-11</td>
+															<td>
+																<span class="IconCat-toys CatColor-toys CatBg-toys"></span></td>
+															<td>Žaislų planeta</td>
+															<td>-10,99 &euro;</td>
+															<td>Toys</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-11</td>
+															<td>
+																<span class="IconCat-parking CatColor-parking CatBg-parking"></span></td>
+															<td>Unipark</td>
+															<td>-140 &euro;</td>
+															<td>Parking</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-11</td>
+															<td>
+																<span class="IconCat-clothing-shoes CatColor-clothing-shoes CatBg-clothing-shoes"></span></td>
+															<td>Apranga</td>
+															<td>-35,40 &euro;</td>
+															<td>Clothing & Shoes</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-11</td>
+															<td>
+																<span class="IconCat-clothing-shoes CatColor-clothing-shoes CatBg-clothing-shoes"></span></td>
+															<td>Desigual</td>
+															<td>-28 &euro;</td>
+															<td>Clothing & Shoes</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-11</td>
+															<td>
+																<span class="IconCat-coffee-shops CatColor-coffee-shops CatBg-coffee-shops"></span></td>
+															<td>Vero Cafe</td>
+															<td>-2,50 &euro;</td>
+															<td>Coffee shops</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-10</td>
+															<td>
+																<span class="IconCat-cinema CatColor-cinema CatBg-cinema"></span></td>
+															<td>Forum Cinemas</td>
+															<td>-6 &euro;</td>
+															<td>Cinema</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-10</td>
+															<td>
+																<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span></td>
+															<td>Pegasas</td>
+															<td>-15,20 &euro;</td>
+															<td>Books & Supplies</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-10</td>
+															<td>
+																<span class="IconCat-furniture-decor CatColor-furniture-decor CatBg-furniture-decor"></span></td>
+															<td>Jysk</td>
+															<td>-40,92 &euro;</td>
+															<td>Home equipment & decor</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-09</td>
+															<td>
+																<span class="IconCat-pets CatColor-pets CatBg-pets"></span></td>
+															<td>Kika</td>
+															<td>-8,15 &euro;</td>
+															<td>Pets</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-08</td>
+															<td>
+																<span class="IconCat-gifts CatColor-gifts CatBg-gifts"></span></td>
+															<td>Gera dovana</td>
+															<td>-20</td>
+															<td>Gifts</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-08</td>
+															<td>
+																<span class="IconCat-cosmetics CatColor-cosmetics CatBg-cosmetics"></span></td>
+															<td>Kosmada</td>
+															<td>-10,80 &euro;</td>
+															<td>Cosmetics</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-07</td>
+															<td>
+																<span class="IconCat-pharmacy CatColor-pharmacy CatBg-pharmacy"></span></td>
+															<td>Euro Vaistinė</td>
+															<td>-25 &euro;</td>
+															<td>Pharmacy</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-07</td>
+															<td>
+																<span class="IconCat-electronics CatColor-electronics CatBg-electronics"></span></td>
+															<td>Elektromarkt</td>
+															<td>-124,58 &euro;</td>
+															<td>Electronics</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-07</td>
+															<td>
+																<span style="background-image:url(assets/images/icons/logos/maxima.svg); background-color:#004990;"></span></td>
+															<td>Maxima, Ulonu G. 45 Vilnius</td>
+															<td>-15,24 &euro;</td>
+															<td>Groceries</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true">
+															<td>2017-12-06</td>
+															<td>
+																<span style="background-image:url(assets/images/icons/logos/uber.svg); background-color:#000000;"></span>
+															<td>Uber</td>
+															<td>-47,88 &euro;</td>
+															<td>Taxi</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-05</td>
+															<td>
+																<span class="IconCat-water CatColor-water CatBg-water"></span></td>
+															<td>Vilniaus vandenys</td>
+															<td>-2,12 &euro;</td>
+															<td>Water</td>
+															
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-04</td>
+															<td>
+																<span class="IconCat-car-wash CatColor-car-wash CatBg-car-wash"></span></td>
+															<td>Švaros broliai</td>
+															<td>25 &euro;</td>
+															<td>Car wash</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details">
+															<td>2017-12-04</td>
+															<td>
+																<span style="background-image:url(assets/images/icons/logos/circle-k.svg); background-color:#d61a0c;"></span></td>
+															<td>Circle K</td>
+															<td>-25 &euro;</td>
+															<td>Fuel</td>
+														</tr>
+														<tr data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true">
+															<td>2017-12-04</td>
+															<td>
+																<span class="IconCat-hobbies CatColor-hobbies CatBg-hobbies"></span></td>
+															<td>Menų studija</td>
+															<td>-15 &euro;</td>
+															<td>Hobbies</td>
+														</tr>													
+													</tbody>
+												</table>	
+											</div>
+	
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- / Transacions by Simon -->
+						
+					<!-- Modal Change account name -->
+					<div id="modal_change_account_name" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal SModalChangeAccName">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Change account name</div>
+											
+											<div class="Container">
+												<span class="InputField">
+													<input type="text" value="" autofocus="autofocus" maxlength="24" placeholder="eg. Checking account" required="">
+													<span class="charcount">24</span>
+												</span>
+												<div class="AccountInfo">
+													<span class="Luminor"></span>
+													<p>LT32 7300 0101 5431 0766</p>
+												</div>
+												
+												<div class="Buttons">
+													<button type="button" class="btn text-grey-800 border-grey btn-flat" data-dismiss="modal">Cancel</button>
+													<button type="button" class="btn bg-teal-400">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+												</div>
+											
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Change account name -->
+					
+					<!-- Modal Month Picker -->
+					<div id="modal_month_picker" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal SModalMonthPicker">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Pick a month</div>
+											
+											<div class="Container">
+											
+												<span class="Previous icon-arrow-left12 Disabled"></span>
+												<span class="Next icon-arrow-right13"></span>
+												
+												<div class="CalendarContainer">
+													<div class="Year">2017</div>
+													<div class="Calendar noselect">
+														<div><i class="Disabled">Jan</i></div>
+														<div><i class="Disabled">Feb</i></div>
+														<div><i class="Disabled">Mar</i></div>
+														<div><i>Apr</i></div>
+														<div><i class="Selected">May</i></div>
+														<div><i>Jun</i></div>
+														<div><i>Jul</i></div>
+														<div><i>Aug</i></div>
+														<div><i>Sep</i></div>
+														<div><i>Oct</i></div>
+														<div><i>Nov</i></div>
+														<div><i>Dec</i></div>										
+													</div>
+												</div>
+												
+												</div>
+												
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Month Picker -->
+					
+					
+					<!-- Modal Date Picker -->
+					<div id="modal_date_picker" class="modal fade" tabindex="-1">
+							<div class="modal-dialog width-calendars">
+
+								<div class="modal-content S SModal SModalDatePicker">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="FromToInputs">
+											<div class="InputDate">
+												From<input class="" type="text" maxlength="10" value="2017-06-16">
+											</div>
+											<div class="InputDate">
+												To<input class="" type="text" maxlength="10" value="2018-06-15">
+											</div>
+										</div>
+									
+										<div class="ModalTitle">Pick a date range</div>
+											
+											<div class="Container noselect">
+											
+												<span class="Previous icon-arrow-left12"></span>
+												<span class="Next icon-arrow-right13 Disabled"></span>
+												
+												<div class="CalendarContainer Left">
+													<div class="Month">April 2018</div>
+													<div class="Calendar">
+														<div><i class="Disabled"></i></div>
+														<div><i class="Disabled"></i></div>
+														<div><i class="Disabled"></i></div>
+														<div><i class="Disabled"></i></div>
+														<div><i class="Disabled"></i></div>
+														<div><i class="Disabled"></i></div>
+														<div><i>1</i></div>
+														<div><i>2</i></div>
+														<div><i>3</i></div>
+														<div><i>4</i></div>
+														<div><i>5</i></div>
+														<div><i>6</i></div>
+														<div><i>7</i></div>
+														<div><i>8</i></div>
+														<div><i>9</i></div>
+														<div><i>10</i></div>
+														<div><i>11</i></div>
+														<div><i>12</i></div>
+														<div><i>13</i></div>
+														<div><i>14</i></div>
+														<div><i>15</i></div>
+														<div><i>16</i></div>
+														<div><i>17</i></div>
+														<div><i>18</i></div>
+														<div class="From"><i class="Selected">19</i></div>
+														<div class="Included"><i>20</i></div>
+														<div class="Included"><i>21</i></div>
+														<div class="Included"><i>22</i></div>
+														<div class="Included"><i>23</i></div>
+														<div class="Included"><i>24</i></div>
+														<div class="Included"><i>25</i></div>
+														<div class="Included"><i>26</i></div>
+														<div class="Included"><i>27</i></div>
+														<div class="Included"><i>28</i></div>
+														<div class="Included"><i>29</i></div>
+														<div class="Included"><i>30</i></div>											
+													</div>
+												</div>
+												
+												<div class="CalendarContainer">
+													<div class="Month">May 2018</div>
+													<div class="Calendar">
+														<div><i class="Disabled"></i></div>
+														<div class="Included"><i>1</i></div>
+														<div class="Included"><i>2</i></div>
+														<div class="Included"><i>3</i></div>
+														<div class="Included"><i>4</i></div>
+														<div class="Included"><i>5</i></div>
+														<div class="To"><i class="Selected">6</i></div>
+														<div><i>7</i></div>
+														<div><i>8</i></div>
+														<div><i>9</i></div>
+														<div><i>10</i></div>
+														<div><i>11</i></div>
+														<div><i>12</i></div>
+														<div><i>13</i></div>
+														<div><i>14</i></div>
+														<div><i>15</i></div>
+														<div><i>16</i></div>
+														<div><i>17</i></div>
+														<div><i>18</i></div>
+														<div><i>19</i></div>
+														<div><i class="Disabled">20</i></div>
+														<div><i class="Disabled">21</i></div>
+														<div><i class="Disabled">22</i></div>
+														<div><i class="Disabled">23</i></div>
+														<div><i class="Disabled">24</i></div>
+														<div><i class="Disabled">25</i></div>
+														<div><i class="Disabled">26</i></div>
+														<div><i class="Disabled">27</i></div>
+														<div><i class="Disabled">28</i></div>
+														<div><i class="Disabled">29</i></div>
+														<div><i class="Disabled">30</i></div>
+														<div><i class="Disabled">31</i></div>											
+													</div>
+												</div>
+												
+											</div>
+												
+									</div>
+									
+									<div class="SaveCancelButtons">
+										<button type="button" class="btn btn-primary pull-right">Done</button>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Date Picker -->
+					
+					
+						<!-- Modal Transaction Details -->
+						<div id="modal_trans_details" class="modal fade" tabindex="-1" style="z-index:10001">
+							<div class="modal-dialog">
+								
+								<div class="modal-content S SModal SModalTransactionDetails">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+									
+									<div class="HeadCategory SModalGradient-groceries CatColor-groceries">
+										<a data-toggle="modal" data-target="#modal_change_cateory" class="IconCat-groceries"><p>Groceries</p><span class="noselect"><b>change</b></span></a>
+									</div>
+								
+
+								
+									<div class="TransactionDetails">
+										<div class="Date">2017-11-24</div>
+										<div class="PayerPayee">Uždaroji akcinė bendrovė "TIKETA"</div>
+										<div class="SpendingTitle">
+											<div class="TransDetails" contentEditable="true" placeholder="Tiketa bilietai, Rezervacijos kodas R6957153W1G">Tiketa bilietai, Rezervacijos kodas R6957153W1G Tiketa bilietai, Rezervacijos</div>
+										</div>
+										<div class="Amount">-15,24 &euro;</div>
+										<div class="AmountOriginalCurrency">(18,52 $)</div>
+										<div class="SplitButton"><a class="Split" data-toggle="modal" data-target="#modal_split_transaction">Split</a><a class="SplitActive" data-toggle="modal" data-target="#modal_split_transaction">Edit split</a></div>
+										<div class="BankAccount">Swedbank&nbsp;&nbsp;•&nbsp;&nbsp;Checking account</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- /modal transaction details-->
+						
+						
+						<!-- Modal Add Transaction -->
+						<div id="modal_add_transaction" class="modal fade" tabindex="-1" style="z-index:10001">
+							<div class="modal-dialog">
+								
+								<div class="modal-content S SModal SModalTransactionDetails AddTransaction">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+									
+									<div class="HeadCategory SModalGradient-uncategorized CatColor-uncategorized">
+										<a data-toggle="modal" data-target="#modal_change_cateory" class="IconCat-uncategorized">Uncategorized<br /><span>change</span></a>
+									</div>
+								
+
+								
+									<div class="TransactionDetails">
+										<input type="text" class="Date Error" spellcheck="false" value="2020-11-24">
+										<div class="SpendingTitle">
+											<div class="TransDetails" contentEditable="true" placeholder="Transaction description"></div>
+										</div>
+										
+											<input type="text" class="Amount" size="4" spellcheck="false" placeholder="0 &euro;" value="">
+											<div class="SplitButton DebitCredit"><a class="SplitActive">Debit</a><a class="Split">Credit</a></div>
+									</div>
+									
+									<div class="AddTransactionButtons">
+										<button type="button" class="btn btn-primary pull-right" onclick="ShowSnackbar()">Save</button>
+										<button type="button" class="btn btn-default pull-right">Cancel</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- /modal add transaction-->
+						
+						<!-- Modal Edit manually added transaction -->
+						<div id="modal_edit_transaction" class="modal fade" tabindex="-1" style="z-index:10001">
+							<div class="modal-dialog">
+								
+								<div class="modal-content S SModal SModalTransactionDetails AddTransaction">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+									
+									<div class="HeadCategory SModalGradient-uncategorized CatColor-uncategorized">
+										<a data-toggle="modal" data-target="#modal_change_cateory" class="IconCat-uncategorized">Uncategorized<br /><span>change</span></a>
+									</div>
+								
+
+								
+									<div class="TransactionDetails">
+										<input type="text" class="Date Error" spellcheck="false" value="2020-11-24">
+										<div class="SpendingTitle">
+											<div class="TransDetails" contentEditable="true" placeholder="Transaction description"></div>
+										</div>
+										
+											<input type="text" class="Amount" size="4" spellcheck="false" placeholder="0 &euro;" value="">
+											<div class="BankAccount">Manually added</div>
+									
+									</div>
+									
+										<span class="ButtonDelete" title="Delete" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_delete_transaction">
+											<svg version="1.1" x="0px" y="0px" width="14px" height="18px" viewBox="0 0 14 18" style="enable-background:new 0 0 14 18;" xml:space="preserve">
+												<path class="st0" d="M1,16c0,1.1,0.9,2,2,2h8c1.1,0,2-0.9,2-2V4H1V16z M14,1h-3.5l-1-1h-5l-1,1H0v2h14V1z"/>
+											</svg>
+										</span>
+								</div>
+
+							</div>
+						</div>
+						<!-- /modal edit manually added transaction-->
+						
+						
+						<!-- Modal Transaction Details (pending transaction category) -->
+						<div id="modal_trans_details_pending" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+								
+								
+								<div class="modal-content S SModal SModalTransactionDetails">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+									
+									<div class="HeadCategory SModalGradient-uncategorized CatColor-uncategorized">
+										<span class="LoadingCategory"><span class="loader"><b></b><b></b><b></b></span></span>
+										
+									</div>
+								
+
+								
+									<div class="TransactionDetails">
+										<div class="BigIcon">
+											<span style="background-image:url(assets/images/icons/logos/rimi.svg); background-color:#db002f;"></span>
+										</div>
+										<div class="SpendingTitle">Rimi Bieliunu G. 1 Vilnius</div>
+										<div class="Date">2017-11-24</div>
+										<div class="Amount">- 15,24 &euro;</div>
+										<div class="AmountOriginalCurrency">- 18,52 $</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- /modal transaction details (pending transaction category) -->
+						
+						<!-- Modal Dialog set keyword assignment rule -->
+						<div id="modal_dialog_keyword_assignment_rule" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal SModalDialogKewordwRule">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Set a rule?</div>
+											
+											<div class="Container">
+												<div class="DoYouWant">
+													<div class="TextBlock">
+														<p>Do you want to assign all similar current and future transactions the category<p>
+														<div class="Line3">
+															<div>
+																<i class="IconCat-taxi CatBg-taxi"></i><strong></strong>
+															<div class="CatColor-taxi">Groceries</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="Buttons">
+													<button type="button" class="btn bg-teal-400 pull-right">Yes, set the rule</button>
+													<button type="button" class="btn text-grey-800 border-grey btn-flat pull-right" data-dismiss="modal">No, it's one-time assignment</button>
+												</div>
+											
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Dialog set keyword assignment rule -->
+					
+					
+					<!-- Modal Manage Budget -->
+						<div id="modal_manage_budget" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal SModalManageBudget">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ButtonAddBudget">
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_create_budget">Add budget</button>
+										</div>
+									
+										<div class="ModalTitle">Manage budget</div>
+
+											<div class="Container noselect">
+												
+												<div class="Row">
+													<div class="Category" style="background-image:url(assets/images/icons/cat/groceries.svg);">Groceries</div>
+													<div class="Amount">
+														<input type="text" maxlength="8" placeholder="0 &euro;">
+														<a href="#" title="Delete budget" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_delete_budget"></a>
+													</div>
+												</div>
+												
+												<div class="Row Dragged">
+													<div class="Category" style="background-image:url(assets/images/icons/cat/auto-transport.svg);">Auto &amp; Transport</div>
+													<div class="Amount">
+														<input type="text" maxlength="8" placeholder="0 &euro;">
+														<a href="#" title="Delete budget" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_delete_budget"></a>
+
+													</div>
+												</div>
+												
+												<div class="RowEmpty"></div>
+												
+												<div class="Row">
+													<div class="Category" style="background-image:url(assets/images/icons/cat/auto-transport.svg);">Auto &amp; Transport</div>
+													<div class="Amount">
+														<input type="text" maxlength="8" placeholder="0 &euro;">
+														<span></span>
+													</div>
+												</div>
+																								
+												<div class="Row">
+													<div class="Category" style="background-image:url(assets/images/icons/cat/auto-transport.svg);">Auto &amp; Transport</div>
+													<div class="Amount">
+														<input type="text" maxlength="8" placeholder="0 &euro;">
+														<a href="#" title="Delete budget" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_delete_budget"></a>
+													</div>
+												</div>
+																								
+												<div class="Row">
+													<div class="Category" style="background-image:url(assets/images/icons/cat/auto-transport.svg);">Auto &amp; Transport</div>
+													<div class="Amount">
+														<input type="text" maxlength="8" placeholder="0 &euro;">
+														<a href="#" title="Delete budget" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_delete_budget"></a>
+													</div>
+												</div>											
+											
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Manage Budget -->
+					
+					<!-- Modal Confirm Delete Budget -->
+						<div id="modal_delete_budget" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal SModalConfirmDeleteBudget">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Are you sure?</div>
+
+											<div class="Container">
+											
+											<div class="Question">Are you sure you want to delete this budget?</div>
+												
+												<div class="Buttons">
+													<button type="button" class="btn bg-danger pull-right">Yes, delete it</button>
+													<button type="button" class="btn text-grey-800 border-grey btn-flat pull-right" data-dismiss="modal">Cancel</button>
+												</div>
+											
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Confirm Delete Budget -->
+					
+					<!-- Modal Confirm Delete Split -->
+						<div id="modal_delete_split" class="modal fade" tabindex="-1" style="z-index:2000000">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal SModalConfirmDeleteBudget">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Are you sure?</div>
+
+											<div class="Container">
+											
+											<div class="Question">Are you sure you want to delete this split?</div>
+												
+												<div class="Buttons">
+													<button type="button" class="btn bg-danger pull-right">Yes, delete it</button>
+													<button type="button" class="btn text-grey-800 border-grey btn-flat pull-right" data-dismiss="modal">Cancel</button>
+												</div>
+											
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Confirm Delete Split -->
+					
+					
+					<!-- Modal Create Budget -->
+						<div id="modal_create_budget" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal SModalCreateBudget">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Create a monthly budget</div>
+
+											<div class="Container">
+												
+												<div class="Row">
+													<div class="Left">Choose a category</div>
+													<div class="Right">
+														<div class="CategorySelection">
+															<a href="#" class="Selected" title="Change category" data-popup="tooltip" data-placement="top">Food &amp; Dining</a>
+															<a href="#" class="Remove" title="Remove" data-popup="tooltip" data-placement="top"></a>
+														</div>	
+													</div>
+												</div>
+												
+												<div class="Row">
+													<div class="Left">Choose a category</div>
+													<div class="Right">
+														<div class="CategorySelection Disabled noselect">
+															<a href="#" class="Unselected" title="Select category" data-popup="tooltip" data-placement="top">Select category</a>
+														</div>	
+													</div>
+												</div>
+												
+												<div class="Row">
+													<div class="Left">or set a keyword</div>
+													<div class="Right">
+														<input class="Keyword" type="text" disabled placeholder="eg. Coffee Inn">
+														<div class="SeeTransactions">
+															<a href="#" data-toggle="modal" data-target="#modal_check_transactions">Check</a>
+														</div>
+													</div>
+												</div>
+												
+												<div class="Row">
+													<div class="Left">Set the amount</div>
+													<div class="Right">
+														<input class="Amount" maxlength="8" type="text" value="80 &euro;" placeholder="0 &euro;">
+													</div>
+												</div>
+												
+												<div class="Explanation">We will set a budget of <strong>350 &euro;</strong> each month for <strong>Coffee Inn</strong> that starts over at the beginning of every month.</div>
+											
+												<div class="Buttons">
+													<button type="button" class="btn btn-primary pull-right">Create budget</button>
+													<button type="button" class="btn text-grey-800 border-grey btn-flat pull-right" data-dismiss="modal">Cancel</button>
+												</div>
+											
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Create Budget -->
+					
+					<!-- Modal Confirm Delete Transaction -->
+						<div id="modal_delete_transaction" class="modal fade" tabindex="-1" style="z-index:100000">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal SModalConfirmDeleteBudget">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Are you sure?</div>
+
+											<div class="Container">
+											
+											<div class="Question">Are you sure you want to delete this transaction?</div>
+												
+												<div class="Buttons">
+													<button type="button" class="btn bg-danger pull-right" onclick="ShowSnackbar_Deleted()">Yes, delete it</button>
+													<button type="button" class="btn text-grey-800 border-grey btn-flat pull-right" data-dismiss="modal">Cancel</button>
+												</div>
+											
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Confirm Delete Transaction -->
+					
+					<!-- Modal Search Tips -->
+						<div id="modal_search_tips" class="modal fade" tabindex="-1">
+							<div class="modal-dialog modal-lg">
+
+								<div class="modal-content S SModal SModalSearchTips">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">You can use for search</div>
+
+											<div class="Container">
+												
+												<div class="Block">
+													<div class="BlockTitle">Keywords from transaction description</div>
+													<div class="Row">
+														<div class="KeywordType">Company names</div>
+														<div class="KeywordExample">maxima</div>
+													</div>
+													<div class="Row">
+														<div class="KeywordType">Senders or recepients</div>
+														<div class="KeywordExample">john smith</div>
+													</div>
+													<div class="Row">
+														<div class="KeywordType">Services or fees</div>
+														<div class="KeywordExample">mokestis</div>
+													</div>
+												</div>
+												
+												<div class="Block">
+													<div class="BlockTitle">Transaction types</div>
+													<div class="Row">
+														<div class="KeywordType">Categories</div>
+														<div class="KeywordExample">taxi</div>
+													</div>
+													<div class="Row">
+														<div class="KeywordType">Tags</div>
+														<div class="KeywordExample">food</div>
+													</div>
+												</div>
+												
+												<div class="Block">
+													<div class="BlockTitle">Date</div>
+													<div class="Row">
+														<div class="KeywordType">Year</div>
+														<div class="KeywordExample">2018</div>
+													</div>
+													<div class="Row">
+														<div class="KeywordType">Month</div>
+														<div class="KeywordExample">2018-04</div>
+													</div>
+													<div class="Row">
+														<div class="KeywordType">Day</div>
+														<div class="KeywordExample">2018-04-28</div>
+													</div>
+												</div>
+											
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Search Tips -->
+					
+					<!-- Modal Check Transactions (ONLY FOR DEMO)-->
+						<div id="modal_check_transactions" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+										<div class="BigCatIcon SModalGradient-keyword"><span class="IconCat-keyword"></span></div>										
+										<div class="SpendingCatTitle">"Coffee Inn"<br /><span>spendings this month</span></div>
+										
+										
+										<div class="SpendingCat">
+											<div class="Header">
+												<span class="Column1"><i class="S-Sort-Desc S-Sorted" title="Sorted by date" data-placement="top" data-popup="tooltip"></i></span>
+												<div></div>
+												<a class="Column3"><i class="S-Sort" title="Sort by amount" data-placement="top" data-popup="tooltip"></i></a>
+											</div>
+																			
+											<div class="ScrollList">
+			
+												<table class="STable table-hover">
+												<tbody>
+														
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>today</td>
+														<td>
+															<span class="IconCat-service-auto-parts CatColor-service-auto-parts CatBg-service-auto-parts"></span></td>
+														<td>
+															<div class="TransDescr">Autokodas</div>
+															<div class="Bank-Account">SEB • Visa Card</div>
+														</td>
+														<td>-15,24 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true">
+														<td>yesterday</td>
+														<td>
+															<span style="background-image:url(assets/images/icons/logos/uber.svg); background-color:#000000;"></span>
+														<td>
+															<div class="TransDescr">Uber</div>
+															<div class="Bank-Account">Swedbank • Master Card</div>
+														</td>
+														<td>-47,88 &euro;</td>
+													</tr>
+													
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>yesterday</td>
+														<td>
+															<span style="background-image:url(assets/images/icons/logos/circle-k.svg); background-color:#d61a0c;"></span></td>
+														<td>Circle K</td>
+														<td>-48 &euro;</td>
+														
+													</tr>
+													
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 24</td>
+														<td>
+															<span class="IconCat-taxi CatColor-taxi CatBg-taxi"></span></td>
+														<td>Smart Taxi</td>
+														<td>-6,80 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 24</td>
+														<td>
+															<span class="IconCat-fuel CatColor-fuel CatBg-fuel"></span></td>
+														<td>Neste</td>
+														<td>-12,20 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 23</td>
+														<td>
+															<span class="IconCat-parking CatColor-parking CatBg-parking"></span></td>
+														<td>Unipark</td>
+														<td>-3,25 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 23</td>
+														<td>
+															<span class="IconCat-car-wash CatColor-car-wash CatBg-car-wash"></span></td></td>
+														<td>Švaros broliai</td>
+														<td>-25 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true">
+														<td>Nov 23</td>
+														<td>
+															<span style="background-image:url(assets/images/icons/logos/uber.svg); background-color:#000000;"></span>
+														<td>Uber</td>
+														<td>-4,20 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 22</td>
+														<td>
+															<span class="IconCat-auto-insurance CatColor-auto-insurance CatBg-auto-insurance"></span></td>
+														<td>Lietuvos draudimas</td>
+														<td>-148 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 22</td>
+														<td>
+															<span class="IconCat-public-transport CatColor-public-transport CatBg-public-transport"></span></td>
+														<td>Kautra</td>
+														<td>-10,30 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 20</td>
+														<td>
+															<span class="IconCat-public-transport CatColor-public-transport CatBg-public-transport"></span></td>
+														<td>Lietuvos geležinkeliai</td>
+														<td>-8,50 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 19</td>
+														<td>
+															<span class="IconCat-parking CatColor-parking CatBg-parking"></span></td>
+														<td>Unipark</td>
+														<td>-3,25 &euro;</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 19</td>
+														<td>
+															<span class="IconCat-parking CatColor-parking CatBg-parking"></span></td>
+														<td>ADCParking</td>
+														<td>-3,25 &euro;</td>
+													</tr>													
+													<tr data-toggle="modal" data-target="#modal_trans_details">
+														<td>Nov 18</td>
+														<td>
+															<span class="IconCat-parking CatColor-parking CatBg-parking"></span></td>
+														<td>Unipark</td>
+														<td>-3,25 &euro;</td>
+													</tr>
+													
+												</tbody>
+											</table>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+						<!-- / Modal Check Transactions -->
+						
+						<!-- Modal Matching transactions-->
+						<div id="modal_matching_transactions" class="modal fade" tabindex="-1" style="z-index:10000">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal MatchingTransactions">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+										<div class="BigCatIcon SModalGradient-keyword"></div>						
+										<div class="SpendingCatTitle">Matching transactions<br /><span>Apr 2017</span></div>
+										
+										
+										<div class="SpendingCat">
+											<div class="Header">
+												<span class="Column1"><i class="S-Sort-Desc S-Sorted" title="Sorted by date" data-placement="top" data-popup="tooltip"></i></span>
+												<div></div>
+												<a class="Column3"><i class="S-Sort" title="Sort by amount" data-placement="top" data-popup="tooltip"></i></a>
+											</div>
+																			
+											<div class="ScrollList">
+			
+											<table class="STable table-hover static">
+																	<tbody>
+																	<tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52628">
+																	
+																		<td class="data-date">2017-11-30</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-atm-fee CatColor-atm-fee CatBg-atm-fee"></span>
+																		</td>
+																		<td class="data-name">************3019EUR12017-11-28000000</td>
+																		<td class="data-amount">-1,60 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52629">
+																	
+																		<td class="data-date">2017-11-30</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-groceries CatColor-groceries CatBg-groceries"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Rimi Saltoniskiu G. 9Vilnius Rimi Saltoniskiu G. 9Vilnius</div>
+																			<div class="Bank-Account">Rimi Saltoniskiu G. 9Vilnius</div>
+																		</td>
+																		<td class="data-amount">-17,65 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52630">
+																	
+																		<td class="data-date">2017-11-30</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-cash-atm CatColor-cash-atm CatBg-cash-atm"></span>
+																		</td>
+																		<td class="data-name">Seb Atm070 Cashvilnius</td>
+																		<td class="data-amount">-400 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52631">
+																	
+																		<td class="data-date">2017-11-30</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-bank-fee CatColor-bank-fee CatBg-bank-fee"></span>
+																		</td>
+																		<td class="data-name">************0010EUR12017-11-29LTUZACH173344F89</td>
+																		<td class="data-amount">-0,55 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52632">
+																	
+																		<td class="data-date">2017-11-30</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-bank-fee CatColor-bank-fee CatBg-bank-fee"></span>
+																		</td>
+																		<td class="data-name">************3019EUR12017-11-29LTUZACH173340ZGO</td>
+																		<td class="data-amount">-0,55 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52633">
+																	
+																		<td class="data-date">2017-11-27</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-clothing-shoes CatColor-clothing-shoes CatBg-clothing-shoes"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Peek &amp; Cloppenburg</div>
+																			<div class="Bank-Account">UAB Peek &amp; Cloppenburg Livilnius</div>
+																		</td>
+																		<td class="data-amount">-547,60 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52634">
+																	
+																		<td class="data-date">2017-11-27</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon Kindle</div>
+																			<div class="Bank-Account">Amazon Services-Kindle 86888-802-3080</div>
+																		</td>
+																		<td class="data-amount">-3,13 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52635">
+																	
+																		<td class="data-date">2017-11-27</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon Kindle</div>
+																			<div class="Bank-Account">Amazon Services-Kindle 86888-802-3080</div>
+																		</td>
+																		<td class="data-amount">-4,18 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52637">
+																	
+																		<td class="data-date">2017-11-24</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon Kindle</div>
+																			<div class="Bank-Account">Amazon Services-Kindle866-321-8851</div>
+																		</td>
+																		<td class="data-amount">-12,77 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52638">
+																	
+																		<td class="data-date">2017-11-24</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon Kindle</div>
+																			<div class="Bank-Account">Amazon Services-Kindle 86888-802-3080</div>
+																		</td>
+																		<td class="data-amount">-10,55 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52639">
+																	
+																		<td class="data-date">2017-11-24</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon Kindle</div>
+																			<div class="Bank-Account">Amazon Services-Kindle866-321-8851</div>
+																		</td>
+																		<td class="data-amount">-6,33 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52640">
+																	
+																		<td class="data-date">2017-11-24</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-medicine CatColor-medicine CatBg-medicine"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Gidenta</div>
+																			<div class="Bank-Account">UAB Gidentavilnius</div>
+																		</td>
+																		<td class="data-amount">-60 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52641">
+																	
+																		<td class="data-date">2017-11-24</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-groceries CatColor-groceries CatBg-groceries"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Maxima</div>
+																			<div class="Bank-Account">Maxima LT, X-555Vilnius</div>
+																		</td>
+																		<td class="data-amount">-5,61 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52642">
+																	
+																		<td class="data-date">2017-11-23</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-charity CatColor-charity CatBg-charity"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Caritate.md</div>
+																			<div class="Bank-Account">Paypal *caritate.md35314369001</div>
+																		</td>
+																		<td class="data-amount">-10 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52643">
+																	
+																		<td class="data-date">2017-11-22</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon Kindle</div>
+																			<div class="Bank-Account">Amazon Services-Kindle 86888-482-7820</div>
+																		</td>
+																		<td class="data-amount">-17,97 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52644">
+																	
+																		<td class="data-date">2017-11-22</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-groceries CatColor-groceries CatBg-groceries"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Rimi</div>
+																			<div class="Bank-Account">Rimi Saltoniskiu G. 9Vilnius</div>
+																		</td>
+																		<td class="data-amount">-25,86 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52645">
+																	
+																		<td class="data-date">2017-11-20</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon Kindle</div>
+																			<div class="Bank-Account">Amazon Services-Kindle866-321-8851</div>
+																		</td>
+																		<td class="data-amount">-5,26 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52646">
+																	
+																		<td class="data-date">2017-11-20</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-software CatColor-software CatBg-software"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Apple iTunes</div>
+																			<div class="Bank-Account">itunes.com/billitunes.com</div>
+																		</td>
+																		<td class="data-amount">-32,99 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52647">
+																	
+																		<td class="data-date">2017-11-20</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-charity CatColor-charity CatBg-charity"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Caritate.md</div>
+																			<div class="Bank-Account">Paypal *caritate.md35314369001</div>
+																		</td>
+																		<td class="data-amount">-15 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52648">
+																	
+																		<td class="data-date">2017-11-20</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon Kindle</div>
+																			<div class="Bank-Account">************3019USD0.********-**-19Amazon Services-Kindle866-***-8851USALTUZACH1732424UA</div>
+																		</td>
+																		<td class="data-amount">-10,17 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52649">
+																	
+																		<td class="data-date">2017-11-17</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon Kindle</div>
+																			<div class="Bank-Account">Amazon Services-Kindle866-321-8851</div>
+																		</td>
+																		<td class="data-amount">-6,30 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52650">
+																	
+																		<td class="data-date">2017-11-15</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-online-learning CatColor-online-learning CatBg-online-learning"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Languagepod101.com</div>
+																			<div class="Bank-Account">www.languagepod101.comfranklin Squa</div>
+																		</td>
+																		<td class="data-amount">-0,88 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52651">
+																	
+																		<td class="data-date">2017-11-15</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-coffee-shops CatColor-coffee-shops CatBg-coffee-shops"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Bu5Y Beet</div>
+																			<div class="Bank-Account">Pietausim.ltvilnius</div>
+																		</td>
+																		<td class="data-amount">-5,48 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52652">
+																	
+																		<td class="data-date">2017-11-14</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-groceries CatColor-groceries CatBg-groceries"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Maxima</div>
+																			<div class="Bank-Account">Maxima LT, X-300Vilnius</div>
+																		</td>
+																		<td class="data-amount">-9,82 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52653">
+																	
+																		<td class="data-date">2017-11-14</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-pharmacy CatColor-pharmacy CatBg-pharmacy"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Gintarinė Vaistinė</div>
+																			<div class="Bank-Account">Gintarine Vaistinevilnius</div>
+																		</td>
+																		<td class="data-amount">-28,19 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52654">
+																	
+																		<td class="data-date">2017-11-14</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-coffee-shops CatColor-coffee-shops CatBg-coffee-shops"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Beigeliu Kautuvelė</div>
+																			<div class="Bank-Account">Kavine Beigeliu Krautuvelvilnius</div>
+																		</td>
+																		<td class="data-amount">-3,80 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52655">
+																	
+																		<td class="data-date">2017-11-13</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon Kindle</div>
+																			<div class="Bank-Account">Amazon Services-Kindle866-321-8851</div>
+																		</td>
+																		<td class="data-amount">-14,93 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52656">
+																	
+																		<td class="data-date">2017-11-13</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-software CatColor-software CatBg-software"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Apple iTunes</div>
+																			<div class="Bank-Account">itunes.com/billitunes.com</div>
+																		</td>
+																		<td class="data-amount">-27,99 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52657">
+																	
+																		<td class="data-date">2017-11-13</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-phone CatColor-phone CatBg-phone"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Labas</div>
+																			<div class="Bank-Account">Mano.labas.ltvilnius</div>
+																		</td>
+																		<td class="data-amount">-5 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52658">
+																	
+																		<td class="data-date">2017-11-13</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-software CatColor-software CatBg-software"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Flinto</div>
+																			<div class="Bank-Account">Hello@flinto.comhttpswww.flin</div>
+																		</td>
+																		<td class="data-amount">-17,63 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52659">
+																	
+																		<td class="data-date">2017-11-13</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-fuel CatColor-fuel CatBg-fuel"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Neste</div>
+																			<div class="Bank-Account">Neste Gariunuvilnius</div>
+																		</td>
+																		<td class="data-amount">-50 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52660">
+																	
+																		<td class="data-date">2017-11-13</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-flights CatColor-flights CatBg-flights"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Airline Ticket</div>
+																			<div class="Bank-Account">Airline Ticket37052032906</div>
+																		</td>
+																		<td class="data-amount">-233,31 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52661">
+																	
+																		<td class="data-date">2017-11-13</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-furniture-decor CatColor-furniture-decor CatBg-furniture-decor"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Ermitažas</div>
+																			<div class="Bank-Account">Pc Ermitazas Vilniujevilnius</div>
+																		</td>
+																		<td class="data-amount">-13,22 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52662">
+																	
+																		<td class="data-date">2017-11-13</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-atm-fee CatColor-atm-fee CatBg-atm-fee"></span>
+																		</td>
+																		<td class="data-name">************3019EUR12017-11-10428302</td>
+																		<td class="data-amount">-1,04 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52663">
+																	
+																		<td class="data-date">2017-11-12</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-cash-atm CatColor-cash-atm CatBg-cash-atm"></span>
+																		</td>
+																		<td class="data-name">Dnb041 Savanoriu Pr. 247Vilnius</td>
+																		<td class="data-amount">-260 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52665">
+																	
+																		<td class="data-date">2017-11-09</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-gifts CatColor-gifts CatBg-gifts"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Aurea Verum</div>
+																			<div class="Bank-Account">Aurea Verum, Uabvilnius</div>
+																		</td>
+																		<td class="data-amount">-62,40 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52666">
+																	
+																		<td class="data-date">2017-11-09</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-charity CatColor-charity CatBg-charity"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Startuokim.LT</div>
+																			<div class="Bank-Account">Crd.LT/*startuokim.lt+37068303609</div>
+																		</td>
+																		<td class="data-amount">-1 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52667">
+																	
+																		<td class="data-date">2017-11-09</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Pegasas</div>
+																			<div class="Bank-Account">Didysis Pegaso Knygynasvilnius</div>
+																		</td>
+																		<td class="data-amount">-19,99 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52668">
+																	
+																		<td class="data-date">2017-11-09</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-groceries CatColor-groceries CatBg-groceries"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Assorti</div>
+																			<div class="Bank-Account">Assorti.LT Vilniaus Parduvilnius</div>
+																		</td>
+																		<td class="data-amount">-15,38 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52669">
+																	
+																		<td class="data-date">2017-11-09</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-auto-insurance CatColor-auto-insurance CatBg-auto-insurance"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Lietuvos Draudimas</div>
+																			<div class="Bank-Account">Lietuvos Draudimasvilnius</div>
+																		</td>
+																		<td class="data-amount">-92,35 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52670">
+																	
+																		<td class="data-date">2017-11-09</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-groceries CatColor-groceries CatBg-groceries"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Rimi</div>
+																			<div class="Bank-Account">Rimi Bieliunu G. 1Vilnius</div>
+																		</td>
+																		<td class="data-amount">-33,48 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52671">
+																	
+																		<td class="data-date">2017-11-09</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-service-auto-parts CatColor-service-auto-parts CatBg-service-auto-parts"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Regitra</div>
+																			<div class="Bank-Account">Vi Regitravilniaus R.</div>
+																		</td>
+																		<td class="data-amount">-42,86 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52672">
+																	
+																		<td class="data-date">2017-11-08</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-entertainment-other CatColor-entertainment-other CatBg-entertainment-other"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Time For Chopin</div>
+																			<div class="Bank-Account">Time For Chopin 31808Warszawa</div>
+																		</td>
+																		<td class="data-amount">-14,52 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52673">
+																	
+																		<td class="data-date">2017-11-08</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-taxi CatColor-taxi CatBg-taxi"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Uber</div>
+																			<div class="Bank-Account">Uber Trip 7Upk4 Help.uberhelp.uber.com</div>
+																		</td>
+																		<td class="data-amount">-5,85 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52674">
+																	
+																		<td class="data-date">2017-11-08</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-groceries CatColor-groceries CatBg-groceries"></span>
+																		</td>
+																		<td class="data-name">Maisto Krautuveleburokeliaivilnius</td>
+																		<td class="data-amount">-4,27 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52675">
+																	
+																		<td class="data-date">2017-11-08</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-service-auto-parts CatColor-service-auto-parts CatBg-service-auto-parts"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Tuvlita</div>
+																			<div class="Bank-Account">Tuvlita, Uabvilnius</div>
+																		</td>
+																		<td class="data-amount">-14,45 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52677">
+																	
+																		<td class="data-date">2017-11-07</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-books-supplies CatColor-books-supplies CatBg-books-supplies"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Moldpresa</div>
+																			<div class="Bank-Account">"moldpresa"- 423Chisinau (Mun</div>
+																		</td>
+																		<td class="data-amount">-25,41 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52678">
+																	
+																		<td class="data-date">2017-11-07</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-groceries CatColor-groceries CatBg-groceries"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Linella</div>
+																			<div class="Bank-Account">"lin 6" Market Cchisinau (Mun</div>
+																		</td>
+																		<td class="data-amount">-6,81 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52679">
+																	
+																		<td class="data-date">2017-11-07</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-software CatColor-software CatBg-software"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Google</div>
+																			<div class="Bank-Account">Google *google Storage855-836-3987</div>
+																		</td>
+																		<td class="data-amount">-1,76 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52680">
+																	
+																		<td class="data-date">2017-11-07</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-flights CatColor-flights CatBg-flights"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Lot</div>
+																			<div class="Bank-Account">Lot Ccent Ge080 Sntj6Warszawa</div>
+																		</td>
+																		<td class="data-amount">-20 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52681">
+																	
+																		<td class="data-date">2017-11-07</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-bank-fee CatColor-bank-fee CatBg-bank-fee"></span>
+																		</td>
+																		<td class="data-name">************3019EUR12017-11-06LTUZACH173114JJ8</td>
+																		<td class="data-amount">-0,60 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52682">
+																	
+																		<td class="data-date">2017-11-07</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-coffee-shops CatColor-coffee-shops CatBg-coffee-shops"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Juta Jazz Cafe</div>
+																			<div class="Bank-Account">Juta Jazz Cafevilnius</div>
+																		</td>
+																		<td class="data-amount">-5,20 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52683">
+																	
+																		<td class="data-date">2017-11-07</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-coffee-shops CatColor-coffee-shops CatBg-coffee-shops"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Coffee Republic</div>
+																			<div class="Bank-Account">Coffee Republicvilnius</div>
+																		</td>
+																		<td class="data-amount">-3,90 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52684">
+																	
+																		<td class="data-date">2017-11-06</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-phone CatColor-phone CatBg-phone"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Skype</div>
+																			<div class="Bank-Account">Skype.com/go/billluxembourg</div>
+																		</td>
+																		<td class="data-amount">-5 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52685">
+																	
+																		<td class="data-date">2017-11-06</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-software CatColor-software CatBg-software"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Dropbox</div>
+																			<div class="Bank-Account">Paypal *dropboxinte35314369001</div>
+																		</td>
+																		<td class="data-amount">-99 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52686">
+																	
+																		<td class="data-date">2017-11-06</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-home CatColor-home CatBg-home"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Amazon</div>
+																			<div class="Bank-Account">Amazon.uk Paymentsamazon.co.uk</div>
+																		</td>
+																		<td class="data-amount">-34,84 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52687">
+																	
+																		<td class="data-date">2017-11-06</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-taxi CatColor-taxi CatBg-taxi"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Uber</div>
+																			<div class="Bank-Account">Uber Trip K5Wf5 Help.uberhelp.uber.com</div>
+																		</td>
+																		<td class="data-amount">-6,54 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52688">
+																	
+																		<td class="data-date">2017-11-06</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-coffee-shops CatColor-coffee-shops CatBg-coffee-shops"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Shokoladnitza</div>
+																			<div class="Bank-Account">Tov Shokoladnitza-Ukrborispol</div>
+																		</td>
+																		<td class="data-amount">-8,33 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52689">
+																	
+																		<td class="data-date">2017-11-06</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-coffee-shops CatColor-coffee-shops CatBg-coffee-shops"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Shokoladnitza</div>
+																			<div class="Bank-Account">Tov Shokoladnitza-Ukrborispol</div>
+																		</td>
+																		<td class="data-amount">-6,56 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52690">
+																	
+																		<td class="data-date">2017-11-05</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-atm-fee CatColor-atm-fee CatBg-atm-fee"></span>
+																		</td>
+																		<td class="data-name">************3019EUR12017-11-02000000</td>
+																		<td class="data-amount">-2,40 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52691">
+																	
+																		<td class="data-date">2017-11-05</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-bank-fee CatColor-bank-fee CatBg-bank-fee"></span>
+																		</td>
+																		<td class="data-name">2017-10-31LTUZACH173093UM9</td>
+																		<td class="data-amount">-1,50 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52692">
+																	
+																		<td class="data-date">2017-11-05</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-groceries CatColor-groceries CatBg-groceries"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Assorti</div>
+																			<div class="Bank-Account">Assorti. LT Vilniaus Pardvilnius</div>
+																		</td>
+																		<td class="data-amount">-145,19 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52693">
+																	
+																		<td class="data-date">2017-11-05</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-cash-atm CatColor-cash-atm CatBg-cash-atm"></span>
+																		</td>
+																		<td class="data-name">Seb Atm368 Cashvilnius</td>
+																		<td class="data-amount">-600 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52694">
+																	
+																		<td class="data-date">2017-11-03</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-software CatColor-software CatBg-software"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Invision</div>
+																			<div class="Bank-Account">Invisionapp Inc646-5832321</div>
+																		</td>
+																		<td class="data-amount">-22,07 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52696">
+																	
+																		<td class="data-date">2017-11-02</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-it-services CatColor-it-services CatBg-it-services"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Facebook</div>
+																			<div class="Bank-Account">Facebk Wrkntdshd2Fb.me/ads</div>
+																		</td>
+																		<td class="data-amount">-31,20 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52697">
+																	
+																		<td class="data-date">2017-11-02</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-charity CatColor-charity CatBg-charity"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Startuokim.LT</div>
+																			<div class="Bank-Account">Crd.LT/*startuokim.lt+37068303609</div>
+																		</td>
+																		<td class="data-amount">-1 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52698">
+																	
+																		<td class="data-date">2017-11-02</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-charity CatColor-charity CatBg-charity"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Caritate.md</div>
+																			<div class="Bank-Account">Paypal *caritate.md35314369001</div>
+																		</td>
+																		<td class="data-amount">-20 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52699">
+																	
+																		<td class="data-date">2017-11-02</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-flights CatColor-flights CatBg-flights"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Lot</div>
+																			<div class="Bank-Account">Lot-Polish A0801997051453Warszawa</div>
+																		</td>
+																		<td class="data-amount">-208,93 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52700">
+																	
+																		<td class="data-date">2017-11-02</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-it-services CatColor-it-services CatBg-it-services"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Upwork</div>
+																			<div class="Bank-Account">Upwork -152602767Refupwork.com/bi</div>
+																		</td>
+																		<td class="data-amount">-35,05 €</td>
+																	</tr><tr class="transaction_info_modal" data-toggle="modal" data-target="#modal_trans_details" data-keyboard="true" data-id="52701">
+																	
+																		<td class="data-date">2017-11-02</td>
+																		<td class="data-icon transaction_list_icon">
+																			<span class="IconCat-charity CatColor-charity CatBg-charity"></span>
+																		</td>
+																		<td>
+																			<div class="data-name TransDescr">Startuokim.LT</div>
+																			<div class="Bank-Account">Crd.LT/*startuokim.lt+37068303609</div>
+																		</td>
+																		<td class="data-amount">-1 €</td>
+																	</tr></tbody>
+																</table>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+						<!-- / Modal Match Transactions -->
+						
+						
+						<!-- Monthly breakdown -->
+						<div id="modal_monthly_breakdown" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal MatchingTransactions MonthlyBreakdown">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+										<div class="BigCatIcon SModalGradient-keyword"></div>						
+										<div class="SpendingCatTitle">Monthly breakdown<br /><span>Apr 2017 – May 2018</span></div>
+										
+										<div class="MonthlyBreakdownCont">
+											<div class="MonthList SimpleTable">
+											
+												<table>
+													<tr>
+														<th>
+															<i class="S-Sort-Desc S-Sorted SortByMonth" title="Sorted by month" data-placement="top" data-popup="tooltip"></i>
+														</th>
+														<th>
+															<i class="S-Sort SortByAmount" title="Sort by amount" data-placement="top" data-popup="tooltip"></i>
+														</th>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">May 2017</td>
+														<td class="Amount">15,24 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Jun 2017</td>
+														<td class="Amount">125,80 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Jul 2017</td>
+														<td class="Amount">8,36 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Aug 2017</td>
+														<td class="Amount">12,23 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Sep 2017</td>
+														<td class="Amount">380,56 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Oct 2017</td>
+														<td class="Amount">42,90 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Nov 2017</td>
+														<td class="Amount">59,60 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Dec 2017</td>
+														<td class="Amount">32,56 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Jan 2018</td>
+														<td class="Amount">0,24 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Feb 2018</td>
+														<td class="Amount">17,98 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Mar 2018</td>
+														<td class="Amount">76,47 €</td>
+													</tr>
+													<tr data-toggle="modal" data-target="#modal_matching_transactions">
+														<td class="Month">Apr 2018</td>
+														<td class="Amount">89,20 €</td>
+													</tr>
+												</table>
+												
+												<div class="LoaderCont"><span class="loader"><b></b><b></b><b></b></span></div>
+												
+											</div>											
+											
+											<div class="Totals">
+												<div class="Row"><i>Total</i><span data-toggle="modal" data-target="#modal_matching_transactions">2 867,32 €</span></div>
+												<div class="Row"><i>Average per month</i><span class="loader"><b></b><b></b><b></b></span></div>
+											</div>
+											
+										</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- / Monthly Breakdown -->
+						
+						
+						<!-- Monthly breakdown Compare-->
+						<div id="modal_monthly_breakdown_compare" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal MatchingTransactions MonthlyBreakdown">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+										<div class="BigCatIcon SModalGradient-keyword"></div>						
+										<div class="SpendingCatTitle">Monthly breakdown<br /><span>Apr 2017 – May 2018</span></div>
+										
+										<div class="MonthlyBreakdownCont">
+											<div class="MonthList CompareTable">
+											
+												<table>
+
+													<thead>
+														<tr>
+															<th class="Month"></th>
+															<th class="Amount"><span>Income</span></th>
+															<th class="Amount"><span>Spending</span></th>
+															<th class="Amount Income"><span>Difference</span></th>
+														</tr>
+														<tr>
+															<th>
+																<i class="S-Sort-Desc S-Sorted SortByMonth" title="Sorted by month" data-placement="top" data-popup="tooltip"></i>
+															</th>
+															<th>
+																<i class="S-Sort SortByAmount" title="Sort by amount" data-placement="top" data-popup="tooltip"></i>
+															</th>
+															<th>
+																<i class="S-Sort SortByAmount" title="Sort by amount" data-placement="top" data-popup="tooltip"></i>
+															</th>
+															<th>
+																<i class="S-Sort SortByAmount" title="Sort by amount" data-placement="top" data-popup="tooltip"></i>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="Month">Apr 2017</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-15,24 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">82,54 €</td>
+															<td class="Amount Income">67,30 €</td>
+														</tr>
+														<tr>
+															<td class="Month">May 2017</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-125,80 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">46,87 €</td>
+															<td class="Amount Expenses">-78,93 €</td>
+														</tr>
+														<tr>
+															<td class="Month">Jun 2017</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-8,36 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">8,36 €</td>
+															<td class="Amount">0 €</td>
+														</tr>
+														<tr>
+															<td class="Month">Jul 2017</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-15,24 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">82,54 €</td>
+															<td class="Amount Income">67,30 €</td>
+														</tr>
+														<tr>
+															<td class="Month">Aug 2017</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-125,80 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">46,87 €</td>
+															<td class="Amount Expenses">-78,93 €</td>
+														</tr>
+														<tr>
+															<td class="Month">Sep 2017</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-8,36 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">8,36 €</td>
+															<td class="Amount">0 €</td>
+														</tr>
+																												<tr>
+															<td class="Month">Oct 2017</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-15,24 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">82,54 €</td>
+															<td class="Amount Income">67,30 €</td>
+														</tr>
+														<tr>
+															<td class="Month">Nov 2017</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-125,80 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">46,87 €</td>
+															<td class="Amount Expenses">-78,93 €</td>
+														</tr>
+														<tr>
+															<td class="Month">Dec 2017</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-8,36 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">8,36 €</td>
+															<td class="Amount">0 €</td>
+														</tr>
+														<tr>
+															<td class="Month">Jan 2018</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-15,24 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">82,54 €</td>
+															<td class="Amount Income">67,30 €</td>
+														</tr>
+														<tr>
+															<td class="Month">Feb 2018</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-125,80 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">46,87 €</td>
+															<td class="Amount Expenses">-78,93 €</td>
+														</tr>
+														<tr>
+															<td class="Month">Mar 2018</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-8,36 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">8,36 €</td>
+															<td class="Amount">0 €</td>
+														</tr>
+													</tbody>
+													<tfoot>
+														<tr>
+															<td class="Month">Total</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">-2 867,32 €</td>
+															<td class="Amount" data-toggle="modal" data-target="#modal_matching_transactions">1835,86 €</td>
+															<td class="Amount Expenses">-456,32 €</td>
+														</tr>
+														<tr>
+															<td class="Month">Average per month</td>
+															<td class="Amount">456,32 €</td>
+															<td class="Amount">654,42 €</td>
+															<td class="Amount Expenses">-202,86 €</td>
+														</tr>
+													</tfoot>
+												</table>
+												
+												
+											</div>											
+											
+											
+										</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- / Monthly Breakdown Compare -->
+					
+					
+						<!-- Modal Change Category -->
+						<div id="modal_change_cateory" class="modal fade" tabindex="-1" style="z-index:200000">
+							<div class="modal-dialog">
+								
+								
+								<div class="modal-content S SModal ChangeCategory">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+									
+									<div class="ChangeCategory">
+										<div class="CardName">Choose category
+											<button type="button" class="btn btn-primary btn-flat pull-right" data-toggle="modal">Manage</button>
+											<button type="button" class="btn btn-primary pull-right" data-toggle="modal">Done</button>
+										</div>
+										<form>
+											<div class="SearchWrapper">
+												<input type="text" placeholder="eg. food" required="" />
+													<button class="close-icon icon-cross2" type="reset"></button>
+											</div>	
+										</form>
+										<div class="CategoryList">
+										
+										<ul class="EditMode">
+											<li><span class="Category Add IconCat-custom-category-level1-1"><input placeholder="Category name" class="Add Category" value="Custom category saved" type="text"></li>
+											<li>
+												<span class="Category Add IconCat-custom-category-inactive">
+												<input placeholder="Category name" class="Add Category Active" value="Custom category before first save" type="text">
+
+												<div class="form-group">
+													<select class="bootstrap-select" data-width="100%" disabled>
+														<option value="" selected>Expenses</option>
+														<option value="">Income</option>
+													</select>
+												</div>
+											
+												<i class="Remove" title="Delete" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_delete_category"></i>
+												</span>
+											</li>
+											
+												<ul>
+													<li><span class="Subcategory Add IconCat-custom-category-food"><input placeholder="Category name" class="Add Subcategory" value="Custom subcategory saved" type="text"></li>
+													<li><span class="Subcategory Add IconCat-custom-category-inactive"><input placeholder="Category name" class="Add Subcategory Active" value="Custom subcategory before first save" type="text"><i class="Remove" title="Delete" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_delete_category"></i></span></li>													
+													<li><span class="Subcategory Add IconCat-custom-category-inactive"><input placeholder="Add subcategory" class="Add Subcategory" type="text"></span></li>
+												</ul>	
+													
+											<li><span class="Category Add IconCat-custom-category-inactive"><input placeholder="Add category" class="Add Category" type="text"></span></li>
+											<li><a class="Category IconCat-food">Food &amp; Dining</a></li>
+												<ul>
+													<li><a class="Subcategory IconCat-groceries">Groceries</a></li>
+													<li><a class="Subcategory IconCat-restaurants">Cafes, restaurants, bars</a></li>
+													<li><a class="Subcategory IconCat-alcohol-bars">Alcohol &amp; Tobacco</a></li>
+													<li><span class="Subcategory Add IconCat-custom-category-food"><input placeholder="Category name" class="Add Subcategory" value="Custom subcategory" type="text"></li>
+													<li><span class="Subcategory Add IconCat-custom-category-inactive"><input placeholder="Category name" class="Add Subcategory Active" value="Custom subcategory" type="text"><i class="Remove" title="Delete" data-popup="tooltip" data-placement="right" data-toggle="modal" data-target="#modal_delete_category"></i></span></li>													
+													<li><span class="Subcategory Add IconCat-custom-category-inactive"><input placeholder="Add subcategory" class="Add Subcategory" type="text"></span></li>
+												</ul>
+											<li><a class="Category IconCat-auto-transport">Auto &amp; Transport</a></li>
+												<ul>
+													<li><a class="Subcategory IconCat-fuel">Fuel</a></li>
+													<li><a class="Subcategory IconCat-parking">Parking</a></li>
+													<li><a class="Subcategory IconCat-car-wash">Car wash</a></li>
+													<li><a class="Subcategory IconCat-service-auto-parts">Service & Auto parts</a></li>
+													<li><a class="Subcategory IconCat-auto-insurance">Auto insurance</a></li>
+													<li><a class="Subcategory IconCat-public-transport">Public transport</a></li>
+													<li><a class="Subcategory IconCat-taxi">Taxi</a></li>
+													<li><a class="Subcategory IconCat-tolls">Tolls</a></li>
+													<li><a class="Subcategory IconCat-car-leasing">Car leasing</a></li>
+												</ul>
+											<li><a class="Category IconCat-leisure">Leisure &amp; Entertainment</a></li>
+												<ul>
+													<li><a class="Subcategory IconCat-cinema">Parking</a></li>
+													<li><a class="Subcategory IconCat-music-concerts">Music &amp; Concerts</a></li>
+													<li><a class="Subcategory IconCat-arts">Arts &amp; Museums</a></li>
+													<li><a class="Subcategory IconCat-leisure">Leisure</a></li>
+													<li><a class="Subcategory IconCat-entertainment-centers">Leisure</a></li>
+													<li><a class="Subcategory IconCat-entertainment-other">Entertainment (other)</a></li>
+													<li><a class="Subcategory IconCat-hobbies">Hobbies</a></li>
+													<li><a class="Subcategory IconCat-software">Apps &amp; Software</a></li>
+													<li><a class="Subcategory IconCat-games">Games</a></li>
+												</ul>
+										</ul>												
+																																																																																																																																																																																				
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<!-- /modal change category-->
+						
+						<!-- Modal Confirm Delete Category -->
+						<div id="modal_delete_category" class="modal fade" tabindex="-1" style="z-index:200000">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal SModalConfirmDeleteBudget">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Are you sure?</div>
+
+											<div class="Container">
+											
+											<div class="Question">If you delete this category all transactions will be moved to <strong>Uncategorized</strong>.</div>
+												
+												<div class="Buttons">
+													<button type="button" class="btn bg-danger pull-right">Yes, delete it</button>
+													<button type="button" class="btn text-grey-800 border-grey btn-flat pull-right" data-dismiss="modal">Cancel</button>
+												</div>
+											
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+					</div>
+					<!-- /Modal Confirm Delete Category -->
+						
+						<!-- Modal Daterange picker-->
+						<div id="modal_select_daterange" class="modal fade" tabindex="-1">
+							<div class="modal-dialog modal-sm">
+								
+								
+								<div class="modal-content S SModal SModalSelectDate">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Select date range</div>
+										
+										<div class="DateFields">
+											
+											<div class="PickDateLabel">From:</div>
+											
+											<div class="input-group">
+												<span class="input-group-addon"><i class="icon-calendar"></i></span>
+												<input type="text" class="form-control datepicker" placeholder="Pick a date&hellip;">
+											</div>
+											
+											<div class="PickDateLabel">To:</div>
+											
+											<div class="input-group">
+												<span class="input-group-addon"><i class="icon-calendar"></i></span>
+												<input type="text" class="form-control datepicker" placeholder="Pick a date&hellip;">
+											</div>
+										
+										</div>
+
+									</div>
+									
+									<div class="PickDateFooterButtons">
+										<button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+										<button type="submit" class="btn bg-teal-400 pr-15 pl-15" disabled>Apply</button>
+									</div>
+									
+									
+								</div>
+
+							</div>
+						</div>
+						<!-- /Modal Daterange picker-->
+						
+						<!-- Modal Welcome Screen-->
+						<div id="modal_welcome" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1">
+							<div class="modal-dialog">
+								
+								
+								<div class="modal-content S SModal SModalWelcome">
+										
+									<div class="Content">
+									
+										<div class="Welcome">
+											<div class="Title">Welcome!</div>
+											<div class="Text">
+												<p>Great to you see you joined!</p>
+												<p>Simb helps you manage your money like never before. Just connect your bank accounts and it will do the magic. You can even add accounts of your family members to manage your family's budget. Get clarity and see the whole picture where your money goes.</p>
+											</div>
+											<div class="SelectBankTitle">Select your bank</div>
+											<div class="BankLogosContainer">
+
+												<a href="#" data-toggle="modal" data-target="#modal_account_select" data-dismiss="modal" class="dnb"></a>
+												<a href="#" data-toggle="modal" data-target="#modal_bank_login" data-dismiss="modal" class="swedbank"></a>
+												<a href="#" data-toggle="modal" data-target="#modal_importing" data-dismiss="modal" class="seb"></a>
+										
+											</div>
+										</div>
+										
+									</div>
+									
+								</div>
+
+							</div>
+						</div>
+						<!-- /Modal Welcome Screen-->
+						
+						
+						<!-- Modal Select bank-->
+						<div id="modal_select_bank" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1">
+							<div class="modal-dialog">
+								
+								
+								<div class="modal-content S SModal SModalSelectBank">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+
+											<div class="ModalTitle">Select your bank</div>
+											<div class="BankLogosContainer">
+												
+												<a href="#" data-toggle="modal" data-target="#modal_account_select" data-dismiss="modal" class="dnb"></a>
+												<a href="#" data-toggle="modal" data-target="#modal_bank_login" data-dismiss="modal" class="swedbank"></a>
+												<a href="#" data-toggle="modal" data-target="#modal_importing" data-dismiss="modal" class="seb"></a>
+												<!--<a href="#" data-toggle="modal" data-target="#modal_results_import" data-dismiss="modal" class="danske_bank"></a>
+												<a href="#" data-toggle="modal" data-target="#modal_bank_login" data-dismiss="modal" class="nordea"></a>
+												<a href="#" data-toggle="modal" data-target="#modal_bank_login" data-dismiss="modal" class="citadele"></a>
+												<a href="#" data-toggle="modal" data-target="#modal_bank_login" data-dismiss="modal" class="medicinos_bankas"></a>
+												<a href="#" data-toggle="modal" data-target="#modal_bank_login" data-dismiss="modal" class="siauliu_bankas"></a>-->
+											
+											</div>	
+										
+									</div>
+									
+								</div>
+
+							</div>
+						</div>
+						<!-- /Modal Select bank-->
+						
+						<!-- Modal Account selection-->
+						<div id="modal_account_select" class="modal fade" data-backdrop="static" data-keyboard="false">
+							<div class="modal-dialog">
+								
+								
+								<div class="modal-content S SModal SModalSelectAccount">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Choose accounts to add</div>
+											
+											<div class="SelectAccountContainer">
+												
+												<div class="Row">
+													<div class="Switch">
+														<input type="checkbox" class="switchery" checked="checked">
+													</div>
+													<div class="Account"><div>MasterCard Era</div>
+														<p>LT59 4010 0404 0020 9583</p>
+													</div>
+													<div class="Balance">389,54 &euro;</div>
+												</div>
+												
+												<div class="Row">
+													<div class="Switch">
+														<input type="checkbox" class="switchery" checked="checked">
+													</div>
+													<div class="Account"><div>Main account</div>
+														<p>LT59 4010 0404 0020 9583</p>
+													</div>
+													<div class="Balance">3270,32 &euro;</div>
+												</div>
+																								
+												<div class="Row">
+													<div class="Check"></div>
+													<div class="Account"><div>Visa card</div>
+														<p>LT59 4010 0404 0020 9583</p>
+													</div>
+													<div class="Balance">158 &euro;</div>
+												</div>
+
+												<div class="ButtonImport">
+													<button type="button">Import data</button>
+												</div>
+											
+											</div>
+									</div>
+									
+								</div>
+
+							</div>
+						</div>
+						<!-- /Modal Account selection-->
+						
+						<!-- Modal Account selection-->
+						<div id="modal_importing" class="modal fade" data-backdrop="static" data-keyboard="false">
+							<div class="modal-dialog">
+								
+								
+								<div class="modal-content S SModal SModalImporting">
+										
+									<div class="Content">
+									
+									<div class="Icons noselect">
+										<span class="SimbIcon"></span>
+										<span class="LoaderImport Forward"><b></b><b></b><b></b><b></b></span>
+										<span class="BankIcon"></span>
+									</div>
+									<!--Show after logging in-->
+									<div class="Status">
+										<div class="Status1">Getting the list of accounts...</div>
+										<div class="ProgressBarContainer">
+											<div class="ProgressBarImport"><div class="Fill" style="width:46%"></div></div>
+										</div>
+
+									</div>
+									<!--Show after the accounts are selected-->
+									<div class="Status" style="display:none">
+										<div class="Status1">Importing transactions: <span>0 from 598</span></div>
+										<div class="Status2">(this might take several minutes)</div>
+									</div>
+
+									</div>
+									
+								</div>
+
+							</div>
+						</div>
+						<!-- /Modal Account selection-->
+						
+						<!-- Modal Results Import-->
+						<div id="modal_results_import" class="modal fade" data-backdrop="static" data-keyboard="false">
+							<div class="modal-dialog">
+
+								<div class="modal-content S SModal SModalResultsImport">
+										
+									<div class="Content">
+										
+										<div class="IconStatus Success"></div>
+										<div class="Status">Imported 708 transactions.</div>
+										<div class="Timer">02:12</div>
+										
+										<div class="Button">
+											<button type="button" class="btn btn-primary" data-dismiss="modal">Show dashboard</button>	
+										</div>
+
+									</div>
+									
+								</div>
+
+							</div>
+						</div>
+						<!-- /Modal Modal Results Import-->
+						
+						<!-- Modal Bank Login -->
+						<div id="modal_bank_login" class="modal fade" data-backdrop="static" data-keyboard="false">
+							<div class="modal-dialog modal-lg">
+								
+								
+								<div class="modal-content S SModal SModalBankLogin">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Log in to your bank</div>
+										
+										<div class="Widget" style="">
+										
+											<div><div id="itor"></div></div>
+										
+										<!--
+											<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+											<script type="text/javascript" src="https://www.instantor.lt/frame-loader/instantor-0.7.3.min.js"></script>
+											<script type="text/javascript"> 
+										
+											//<![CDATA[
+											try {
+											  /* Enter the username Instantor has provided to you */
+											  var itor = new Instantor('Simb.lt');
+											  itor.frameParam('bankID', 'lt-swedbank');
+											  itor.frameParam('disableFinalStep', 'true');
+
+											  /* Initiate the Instantor frame at the targeted DOM element */
+											  itor.load('#itor');
+
+											  /* Optional function to process the feedback messages */
+											  itor.listener(function(response){
+												switch(response){
+												  case 'process-finished':
+													/* Process finished successfully. */
+													break;
+												  case 'invalid-login':
+													/* User did not provide correct login credentials. */
+													break;
+												  default:
+													/* Process encountered an error. */
+													break;
+												}
+											  });
+											} catch(err) {}
+											//]]>
+											</script>
+											-->
+											
+										</div>
+											
+
+									</div>
+									
+									
+								</div>
+
+							</div>
+						</div>
+						<!-- /modal Bank Login-->
+						
+						
+						<!-- Modal Upload -->
+						<div id="modal_upload" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+								
+								
+								<div class="modal-content S SModal SModalUpload">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+										<div class="ModalTitle">Upload bank statetement</div>
+										
+										<p class="Watch">Watch instructions how to generate bank statements in the required format.</p>
+										
+										<div class="FileFormats">
+											<span class="fileXML"></span>
+											<span class="fileXML"></span>
+											<span class="fileExcel"></span>
+										</div>
+										
+										<div class="VideoThumbs">
+											<a href="#" class="DNB" data-toggle="modal" data-target="#modal_video"></a>
+											<a href="#" class="SEB" data-toggle="modal" data-target="#modal_video"></a>
+											<a href="#" class="Swedbank" data-toggle="modal" data-target="#modal_video"></a>
+										</div>
+										
+										<p class="OnlyNew">Only new transactions will be imported into your account.</p>
+										
+										<div class="LoadingZone">
+											<div class="IconError"></div>
+											<div class="MessageError" style="display:none">Too many files.<br />Upload one file at a time.</div>
+											<div class="MessageError" style="display:none">Something went wrong.<br />We recorded it and already investigating (issue #2245).<br />We will email you soon as we solve the issue.</div>
+											<div class="MessageError" style="display:none">Unrecognized content.<br />Upload the file without changing its contents.</div>
+											<div class="MessageError">You can upload statements from Swedbank only in XML format.</div>
+											<button type="button" class="btn bg-teal">Try again</button>											
+										</div>
+										
+										<div class="LoadingZone" style="display:none">
+											<div class="IconSuccess"></div>
+											<div class="MessageSuccess">Upload succesful.</div>
+											<button type="button" class="btn btn-primary" data-dismiss="modal">Show dashboard</button>											
+										</div>
+										
+										<div class="LoadingZone" style="display:none">
+											<div class="IconLoadingCont">
+												<div class="lds-spin" style="width:100%;height:100%"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
+											</div>
+											<div class="Uploading">Uploading...</div>
+										</div>
+										
+										<div class="LoadingZone">
+
+											<div class="UploadButton" style="display:none">
+												<button type="button" class="btn btn-primary">Select file</button>
+											</div>	
+												
+										</div>
+									
+									</div>
+									
+									
+								</div>
+
+							</div>
+						</div>
+						<!-- /modal upload-->
+						
+						
+						<!-- Modal Upload - Video Tutorial -->
+						<div id="modal_video" class="modal fade" tabindex="-1">
+							<div class="modal-dialog modal-lg">
+								
+								
+								<div class="modal-content S SModal">
+										<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+										
+									<div class="Content">
+									
+									</div>
+									
+									
+								</div>
+
+							</div>
+						</div>
+						<!-- /modal upload - video tutorial-->
+						
+						<!--Snackbar notifications-->
+						<div id="Snackbar">
+							<div class="Message">Transaction added.</div>
+							<div class="ActionButton"><a>View</a></div>
+						</div>
+
+						<div id="Snackbar_Deleted">
+							<div class="Message">Transaction deleted.</div>
+							<a class="CloseSnackbar noselect"><span>×</span></a>
+						</div>
+						
+						<div id="Snackbar_Deleted_Multi">
+							<div class="Message">2 transactions deleted.</div>
+							<a class="CloseSnackbar noselect"><span>×</span></a>
+						</div>
+						<!--/snackbar notifications-->
+						
+						
+						
+					</div>
+				</div>
+				<!-- /main charts -->
+				
+
+
+				
+
+					</div>
+				</div>
+				<!-- /dashboard content -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+	
+	<!-- Footer -->
+	<div class="footer text-muted">
+		We would love to hear your questions and feedback at <a href="mailto:labas@simb.lt">labas@simb.lt</a> <i class="smile"></i>
+	</div>
+	<!-- /footer -->
+	
+
+	<script>
+		// bootstrap modal backdrop fix for multiple stacked modals
+		$(document).on('show.bs.modal', '.modal', function (event) {
+			var zIndex = 1040 + (10 * $('.modal:visible').length);
+			$(this).css('z-index', zIndex);
+			setTimeout(function() {
+			$('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+			}, 0);
+		});
+	</script>
+
+</body>
+</html>
+

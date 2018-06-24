@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#444;}
+</style>
+<title>travel-other</title>
+<g id="Layer_2">
+	<g id="Layer_1-2">
+		<path class="st0" d="M362.7,95.9C362.6,60.6,334,32.1,298.8,32h-85.5c-35.3,0.1-63.8,28.6-63.9,63.9v21.4H128V480h256V117.3h-21.3
+			V95.9z M320,117.3H192V95.9c0-11.7,9.5-21.2,21.2-21.2h85.6c11.7,0,21.2,9.5,21.2,21.2V117.3z"/>
+		<path class="st0" d="M0,181.4V416c0.1,35.3,28.7,63.9,64,64h21.3V117.3H64C28.7,117.4,0,146,0,181.4z"/>
+		<path class="st0" d="M448,117.3h-21.3V480H448c35.3-0.1,63.9-28.7,64-64V181.4C512,146,483.3,117.4,448,117.3z"/>
+	</g>
+</g>
+</svg>

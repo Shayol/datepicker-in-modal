@@ -1,0 +1,549 @@
+html {
+    margin: 0 auto;
+	padding:0;
+}
+
+body {
+	color:#191c1e;
+	font-family:Roboto,-apple-system,Helvetica Neue,Helvetica,Segoe UI,Arial,sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-size:16px;
+	line-height: 1.5em;
+	margin-bottom:200px; /* temporary */
+	padding:0;
+	margin:0;
+}
+
+p {
+	margin:0;
+	padding:0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	padding:0;
+	margin:0;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+input::-moz-focus-inner
+{ 
+    border: 0;
+    padding: 0;
+}
+
+img {
+	border:0;
+}
+
+.Container {
+	margin: 0 auto;
+    max-width:1368px;
+	width:100%;
+	padding-top:90px;
+	clear:both;
+	position:relative;
+	display:table;
+	z-index:1;
+}
+
+.Header {
+	/* padding:26px 70px 0 57px; */
+	height:90px;
+	
+	/* width:calc(100% - 70px - 57px); */
+	/* display:inline-block; */
+	display:block;
+	width:100%;
+}
+
+/* .Header div {
+	display:inline-block;
+	width:50%;
+} */
+
+.Logo {
+	background-image: url(../images/home/logo-web.svg);
+	background-position:left center;
+	background-size:132px 58px;
+	background-repeat:no-repeat;
+	width:132px;
+	height:58px;
+	position:absolute;
+	top:26px;
+	left:55px;
+	z-index:2;
+}
+
+.SoonLithuanian {
+	text-align:right;
+	color:#a0a6ad;
+	font-size:14px;
+	vertical-align:top;
+	padding-top:14px;
+	white-space:nowrap;
+	position:absolute;
+	z-index:2;
+	top:30px;
+	right:70px;
+}
+
+.Content {
+	margin:74px 24px 0 78px;
+	display:table;
+}
+
+
+.Content .Row {
+	width:100%;
+	display:table;
+	margin-bottom:180px; /* 166px */
+}
+
+.Content .RowLast {
+	width:100%;
+	display:table;
+	margin-bottom:58px; /* 166px */
+}
+
+.Content .RowBg {
+	background-color:#fafafa;
+}
+
+.Content div {
+	display:table-cell;
+}
+
+.Content .Text {
+	/* width:486px; */
+	color:#a0a6ad;
+	font-size:17px;
+	line-height:1.5em;
+	vertical-align:middle;
+}
+
+.Content .Text h2 {
+	font-family:'Lato', -apple-system,Helvetica Neue,Helvetica,Segoe UI,Arial,sans-serif;
+	font-size:40px;
+	/* font-size:3.4vw; */
+	line-height:1.3em;
+	font-weight:400;
+	color:#191c1e;
+	padding-bottom:36px;
+}
+
+.Content .Text p {
+	line-height:1.6em;
+	padding-bottom:96px;
+}
+
+.Content .Main h2,
+.Content .Main p {
+	padding-right:126px;
+}
+
+.Content .Features h2,
+.Content .Features p {
+	padding-right:80px;
+}
+
+.Content .Main .Image {
+	text-align:center;
+	/* width:763px; */
+}
+
+.Content .Features .Image {
+	padding-left:36px;
+}
+
+
+.Content .Image img {
+	/* width:94%;
+	height:94%; */
+}
+
+
+.JoinInviteList {
+	/* background:#fafbfb; */
+	width:100%;
+	padding:116px 0 116px 0;
+	display:table;
+	text-align:center;
+	margin:0 auto;
+}
+
+.JoinInviteList h3 {
+	color:#203343;
+	font-size:20px;
+	padding-bottom:32px;
+	text-align:center;
+	font-weight:300;
+}
+
+.JoinInviteList .Form {
+	padding:0;
+	text-align:center;
+	margin:0 auto;
+	position:relative;
+	display:table;
+	/* width:436px; */
+}
+
+.JoinInviteList .Form .ThankYou {
+	font-size:18px;
+	padding-left:16px;
+	padding-right:16px;
+}
+
+.JoinInviteList .Form .ThankYou .Lin1 {
+	padding-bottom:12px;
+}
+
+
+.JoinInviteList .Form input.Email {
+	border:#ced2d6 1px solid;
+	border-radius:8px 0 0 8px;
+	border-right:none;
+	color:#203343;
+	padding-left:16px;
+	display:inline-block;
+	-webkit-appearance: none;
+	vertical-align:middle;
+	width:264px;
+	margin:0;
+	
+}
+
+.JoinInviteList .Form button {
+	color:#fff;
+	font-weight:500;
+	text-align:center;
+	background-color:#0081ff;
+	border:#0081ff 1px solid;
+	margin:0;
+	border-left:none;
+	border-radius:0 8px 8px 0;
+	display:inline-block;
+	text-align:center;
+	cursor:pointer;
+	position:relative;
+	width:96px;
+	margin:0;
+	position:relative;
+	top:2px;
+}
+
+.JoinInviteList .Form input.Email,
+.JoinInviteList .Form button {
+	height:44px;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+}
+
+.JoinInviteList .Form button:disabled,
+.JoinInviteList .Form button:active {	
+	background-color:#80c0ff;
+	border-color:#80c0ff;
+}
+
+.JoinInviteList .Form input.Email,
+.JoinInviteList .Form button {
+	font-size:20px;
+}
+
+
+.JoinInviteList .Form input.Email::placeholder {
+    color: #a0a6ad;
+    opacity: 1; /* Firefox */
+}
+
+.JoinInviteList .Form input.Email:-ms-input-placeholder {
+    color: #a0a6ad;
+}
+
+.JoinInviteList .Form input.Email::-ms-input-placeholder { 
+    color: #a0a6ad;
+}
+
+.JoinInviteList .Form .Error {
+	color:#f44336;
+	font-size:16px;
+	padding-left:16px;
+	padding-top:10px;
+	clear:both;
+	/* width:408px; */
+	text-align:left;
+	position:absolute;
+	left:0;
+	top:46px;
+}
+
+
+.loader b:before {
+	font-size:16px;
+	content: ' \25CF';
+}
+
+@keyframes blink {
+    0% { opacity: 	0;}
+    20% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+.loader b {
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.loader b:nth-child(2) {
+    animation-delay: .15s;
+}
+
+.loader b:nth-child(3) {
+    animation-delay: .3s;
+}
+
+.Footer {
+	width:100%;
+	text-align:center;
+	color:#a0a6ad;
+	font-size:16px;
+	padding:56px 0 40px 0;
+}
+
+.Footer a {
+	color:#69a6eb;
+	text-decoration:none;
+}
+
+.Footer a:hover {
+	color:#0081ff;
+}
+
+.Footer .Line1 {
+	padding-left:16px;
+	padding-right:16px;
+}
+
+.Footer .Line2 {
+	padding-top:24px;
+}
+
+
+@media screen and (min-width: 1800px) {
+	
+	.Logo {
+		top:52px;
+	}
+
+	.SoonLithuanian {
+		top:54px;
+	}
+	
+	.Content {
+		margin-top:240px;
+	}
+	
+	.Content .Row {
+		margin-bottom:380px; /* 166px */
+	}
+	
+	.Content .RowLast {
+		margin-bottom:200px;
+	}
+
+	
+	.Footer {
+		margin-top:120px;
+		margin-bottom:20px;
+	}
+	
+}
+
+@media screen and (max-width: 1260px) {
+	.Content {
+		padding:0 24px;
+		margin:96px auto 0 auto;
+	}
+	
+	.Content .Main h2,
+	.Content .Features h2,
+	.Content .Main p,
+	.Content .Features p	{
+		padding-right:0;
+	}
+	
+	.Content .Main h2,
+	.Content .Features h2 {
+		font-size:36px;
+	}
+	
+	.Content .Row {
+		margin-bottom:140px;
+	}
+	
+	.Content .RowLast {
+		margin-bottom: 32px;
+	}
+	
+	.Content .Text h2 {
+		padding-bottom:16px;
+	}
+	
+	.Content .Text {
+		display:inline;
+		text-align:center;
+		padding-right:0;
+		vertical-align:top;
+	}
+	
+	.Content .Text h3 {
+		width:560px;
+		text-align:center;
+		padding-bottom:32px;
+		margin:0 auto;
+	}
+	
+	.Content .Text p {
+		width:560px;
+		text-align:center;
+		margin:0 auto;
+		padding-bottom:48px;
+	}
+	
+	.Content .Image {
+		padding-top:0;
+		text-align:center;
+		display:inline-block;
+		width:100%;
+		padding-left:0;
+		
+	}
+	
+	.Content .Features .Image {
+		padding-left: 0;
+	}
+}
+
+@media all and (max-width: 740px) {
+	
+	.Content {
+		padding:0 8px;
+		margin-top:32px;
+	}
+	
+	.Container {
+		margin: 0 auto;
+		width:100%;
+		display:table;
+	}
+	
+	.Content .Text h2,
+	.Content .Text p	{
+		margin-left:24px;
+		margin-right:24px;
+	}
+	
+	.Content .Text h2 {
+		font-size:28px;
+		line-height:1.3em;
+		padding-bottom:16px;
+	}
+	
+	.Content .Text p {
+		width:initial;
+		font-size:15px;
+		line-height:1.4em;
+		padding-bottom: 32px;
+	}
+	
+	.Content .Row {
+		margin-bottom:116px;
+	}
+	
+	.Content .RowLast {
+		margin-bottom:100px;
+	}
+	
+	.Logo {
+		background-size:89px 42px;
+		width:89px;
+		height:42px;
+		top:20px;
+		left:24px;
+	}
+	
+	.SoonLithuanian {
+		font-size:13px;
+		top:17px;
+		right:24px;
+	}
+
+	img.MainPicture {
+		max-width:100% !important;
+		height:auto !important;
+	}
+
+	img.FeaturesPicture {
+		max-width:100% !important;
+		height:auto !important;
+	}
+	
+	.JoinInviteList h3 {
+		font-size: 18px;
+		padding-left: 24px;
+		padding-right: 24px;
+		padding-bottom:32px;
+		line-height:1.5em;
+	}
+	
+	.JoinInviteList .Form {
+		/* margin-left:16px;
+		margin-right:16px; */
+		padding:0;
+	}
+	
+	.JoinInviteList .Form input.Email {
+		/* width:220px; */
+		padding-right:64px;
+		width:calc(100% - 28px);
+		/* width: calc(100% - 200px); */
+		height:44px;
+	}
+
+	.JoinInviteList .Form button {
+		width:64px;
+		height:44px;
+		position:absolute;
+		top:0;
+		right:10px;
+	}
+	
+	.JoinInviteList .Form input, .JoinInviteList .Form .SubmitEmail {
+		font-size: 18px;
+	}
+	
+	.Footer {
+		padding-left:15px;
+		padding-right:15px;
+		width:calc(100% - 30px);
+	}
+	
+	.loader b:before {
+	font-size:9px;
+	content: ' \25CF';
+}
+	
+	
+}
+
+
