@@ -24,6 +24,9 @@ window.addEventListener('load', function () {
         var allowedMin;
         var allowedMax;
 
+        var MONTHS = ["January","February","March","April","May","June","July",
+        "August","September","October","November","December"];
+
         function init(obj, options, cb) {
 
             wrapper = obj;
@@ -275,8 +278,8 @@ window.addEventListener('load', function () {
 
         function updateCalendar(year, month, toOrFrom) {
 
-            var calendar = '<div class="CalendarContainer calendar__"' + toOrFrom +  '>' 
-                            +   '<div class="Month">' + month + ' ' + year + '</div>'
+            var calendar = '<div class="CalendarContainer calendar-' + toOrFrom + '"' + '>' 
+                            +   '<div class="Month">' + MONTHS[month] + ' ' + year + '</div>'
                             +        '<div class="Calendar">';
 
             var firstDay = new Date(year, month, 1);
@@ -338,7 +341,7 @@ window.addEventListener('load', function () {
 
     var calend = new Picker();
 
-    var allowedMin = new Date(2018,5,10);
+    var allowedMin = new Date(2018,3,10);
 
     calend.init(document.querySelector(".width-calendars"),{allowedMin: allowedMin});
 
