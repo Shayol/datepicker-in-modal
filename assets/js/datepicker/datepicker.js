@@ -92,10 +92,32 @@ window.addEventListener('load', function () {
 
 
         function render() {
-            wrapper.innerHTML = '';
-            wrapper.innerHTML = `<div class='calendar__inputs'>From <input type='text' class='from'> To <input type='text' class='to'></div>`;
-            wrapper.innerHTML += `<span class='calendar__prev'>Prev</span><span class='calendar__next'>Next</span>`;
-            wrapper.innerHTML += `<div class='calendar__both'>${updateCalendar(yearFrom, monthFrom, 'from')} ${updateCalendar(yearTo, monthTo, 'to')}</div>`;
+            // wrapper.innerHTML = '';
+            wrapper.innerHTML = '<div class="modal-content S SModal SModalDatePicker">' 
+                                + '<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>'
+                                + '<div class="Content">'
+                                + '<div class="FromToInputs">'
+                                + '<div class="InputDate">'
+                                +    'From<input class="from" type="text" maxlength="10">'
+                                + '</div>'
+                                + '<div class="InputDate">'
+                                +    'To<input class="to" type="text" maxlength="10">'
+                                + '</div>'
+                                + '</div>'
+                                + '<div class="ModalTitle">Pick a date range</div>'
+                                + '<div class="Container noselect">'
+                                +   '<span class="Previous icon-arrow-left12"></span>'
+                                +   '<span class="Next icon-arrow-right13"></span>'    
+                                + '<div class="calendar__both">' 
+                                +   updateCalendar(yearFrom, monthFrom, 'from') 
+                                +   updateCalendar(yearTo, monthTo, 'to') 
+                                + '</div>'
+                                + '</div>'
+                                + '</div>'
+                                + '<div class="SaveCancelButtons">'
+                                +   '<button type="button" class="btn btn-primary pull-right">Done</button>'
+                                + '</div>'
+                                + '</div>';
 
             inputFrom = wrapper.getElementsByTagName('input')[0];
             inputTo = wrapper.getElementsByTagName('input')[1];
@@ -223,7 +245,7 @@ window.addEventListener('load', function () {
         }
 
         function addNextPrevListener() {
-            wrapper.getElementsByClassName("calendar__prev")[0].addEventListener('click', function () {
+            wrapper.getElementsByClassName("Previous")[0].addEventListener('click', function () {
                 to = new Date(yearTo, monthTo-1, 0);
                 yearTo = to.getFullYear();
                 monthTo = to.getMonth();
@@ -235,7 +257,7 @@ window.addEventListener('load', function () {
                     + updateCalendar(yearTo, monthTo, 'to');
                 addDayListener();
             });
-            wrapper.getElementsByClassName("calendar__next")[0].addEventListener('click', function () {
+            wrapper.getElementsByClassName("Next")[0].addEventListener('click', function () {
                 from = new Date(yearFrom, monthFrom+ 1);
                 yearFrom = from.getFullYear();;
                 monthFrom = from.getMonth();
@@ -253,12 +275,9 @@ window.addEventListener('load', function () {
 
         function updateCalendar(year, month, toOrFrom) {
 
-            var calendar = `<div class='calendar__${toOrFrom}'> 
-                                    <div class='calendar__header'>
-                                        <div class='year'>${year}</div>
-                                        <div class='month'>${month}</div>
-                                    </div>
-                                    <div class='calendar__grid'>`;
+            var calendar = '<div class="CalendarContainer calendar__"' + toOrFrom +  '>' 
+                            +   '<div class="Month">' + month + ' ' + year + '</div>'
+                            +        '<div class="Calendar">';
 
             var firstDay = new Date(year, month, 1);
             var lastDay = new Date(year, month + 1, 0);
@@ -306,8 +325,7 @@ window.addEventListener('load', function () {
 
             }
 
-            calendar += `</div>
-                          </div>`;
+            calendar += '</div></div>';
 
             return calendar;
         }

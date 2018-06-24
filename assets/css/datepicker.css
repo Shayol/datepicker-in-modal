@@ -1,5 +1,4 @@
-.calendar__grid {
-    width: 280px;
+.Calendar {
     display: -ms-grid;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -7,9 +6,9 @@
 }
 
 .calendar__both {
-    display: flex;
+    /* display: flex;
     padding: 24px 58px 0 58px;
-    justify-content: space-between;
+    justify-content: space-between; */
 }
 
 .day {
