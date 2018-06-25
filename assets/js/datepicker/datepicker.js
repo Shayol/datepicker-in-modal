@@ -406,6 +406,7 @@ window.addEventListener('load', function () {
 
             for (var i = 1; i <= days; i++) {
                 var selection = '';
+                var wrapperDiv = '';
 
                 var currentDay = new Date(year, month, i);
 
@@ -413,16 +414,23 @@ window.addEventListener('load', function () {
                     selection = 'disabled'; //used to check also if Previous Next buttons should be disabled
                 }
 
-                else if (currentDay - dayFrom == 0) {
+                else if (dayTo && (currentDay - dayFrom == 0)) {
+                    selection = 'selected start available';
+                    wrapperDiv = 'start';
+                }
+
+                else if(currentDay - dayFrom == 0) {
                     selection = 'selected start available';
                 }
 
                 else if (dayTo && (currentDay - dayTo == 0)) {
                     selection = 'selected end available';
+                    wrapperDiv = 'end';
                 }
 
                 else if (dayTo && (currentDay - dayFrom > 0 && dayTo - currentDay > 0)) {
                     selection = 'inrange available';
+                    wrapperDiv = 'inrange';
                 }
 
                 else if (!dayTo && currentDay > dayFrom) {
@@ -434,10 +442,10 @@ window.addEventListener('load', function () {
                 }
 
                 if (i == 1) {
-                    calendar += '<button class="day ' + toOrFrom + ' ' + selection + '" style="grid-column-start:${offset};" value="' + +currentDay + '">' + i + '</button>';
+                    calendar += '<div class="wrapper-'+ wrapperDiv + '"' + '><button class="day ' + toOrFrom + ' ' + selection + '" style="grid-column-start:${offset};" value="' + +currentDay + '">' + i + '</button></div>';
                 }
                 else {
-                    calendar += '<button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button>';
+                    calendar += '<div class="wrapper-'+ wrapperDiv + '"' + '><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
                 }
 
             }

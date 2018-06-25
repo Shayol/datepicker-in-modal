@@ -23,8 +23,6 @@
     /* margin-left: 21px; */
     position: absolute;
     display: inline-block;
-    /* font-size: 15px; */
-    /* left: 25%; */
     top: 0;
     transition: left 0.7s;
 }
@@ -32,10 +30,6 @@
     margin-right: 0;
 }
 
-/* .calendar__left {
-    left: -50%;
-    top: 0;
-} */
 
 .calendar__from {
     left: 0;
@@ -45,9 +39,6 @@
     left: 53.47%;
 }
 
-/* .calendar__both > div:last-child {
-    margin-right: 0;
-} */
 
 .calendar__both {
     overflow: hidden;
@@ -102,17 +93,27 @@
 
  }
 
- .inrange + .calendar_to::before {
+ .wrapper-start {
+     background-color: #e1f5fe;
+     border-radius: 100% 0 0 100%;
+ }
+
+ .wrapper-end {
+    background-color: #e1f5fe;
+    border-radius: 0 100% 100% 0;
+ }
+ /* .inrange + .end::before {
     content:'';
     display: block;
     position: absolute;
     top: -1px;
     left: -1px;
     z-index: -1;
+    opacity: 1;
     width: 21px;
     height: 40px;
     background-color: #e1f5fe;
- }
+ } */
 
 
 .disabled {
@@ -129,16 +130,4 @@
 .available.selected:hover {
     background-color: white;
     color: #333;
-}
-
-.start-after::after {
-    content:'';
-    display: block;
-    position: absolute;
-    top: -1px;
-    right: -1px;
-    z-index: -1;
-    width: 21px;
-    height: 40px;
-    background-color: #e1f5fe;
 }
