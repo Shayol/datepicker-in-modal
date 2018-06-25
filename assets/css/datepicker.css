@@ -21,16 +21,11 @@
 
 .calendar__both > div {
     float: none !important;
-    /* margin-right: 42px; */
-    /* margin-left: 21px; */
     position: absolute;
     display: inline-block;
     top: 0;
     transition: left 0.7s, margin 0.3s;
 }
-/* .calendar__both > div:last-child {
-    margin-right: 0;
-} */
 
 
 .calendar__from {

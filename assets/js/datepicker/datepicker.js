@@ -37,8 +37,22 @@ window.addEventListener('load', function () {
 
             settings = options || {};
 
-
             func = cb;
+
+            if(settings.allowedMin) {
+                if(RE.test(settings.allowedMin)) { 
+                    var arr = settings.allowedMin.split("-");
+                    var year = parseInt(arr[0]);
+                    var month = parseInt(arr[1]);
+                    var day = parseInt(arr[2]);
+
+                    settings.allowedMin = new Date(year, month,day);
+                }
+            }
+
+            // var optionsStart = parseToDate(settings.start) || null;
+            // var optionsEnd = parseToDate(settings.end) || null;
+
 
             var cookieStart = getCookie("datepickerstart");
             var cookieEnd = getCookie("datepickerend");
@@ -154,7 +168,6 @@ window.addEventListener('load', function () {
                 + updateCalendar(yearTo, monthTo, 'to');
             addDayListener();
 
-            setCookie();
         }
 
         function setCookie() {
@@ -297,7 +310,7 @@ window.addEventListener('load', function () {
             inputTo.addEventListener('input', handleInput);
             inputTo.addEventListener('focusout', updateInputTo);
             inputFrom.addEventListener('focusout', updateInputFrom);
-            
+
 
             var cleaveFrom = new Cleave('input.from', {
                 date: true,
@@ -392,6 +405,8 @@ window.addEventListener('load', function () {
 
         function updateCalendar(year, month, toOrFrom) {
 
+            setCookie();
+
             var calendar = '<div class="CalendarContainer calendar__' + toOrFrom + '"' + '>'
                 + '<div class="Month">' + MONTHS[month] + ' ' + year + '</div>'
                 + '<div class="Calendar">';
@@ -419,7 +434,7 @@ window.addEventListener('load', function () {
                     wrapperDiv = 'start';
                 }
 
-                else if(currentDay - dayFrom == 0) {
+                else if (currentDay - dayFrom == 0) {
                     selection = 'selected start available';
                 }
 
@@ -442,10 +457,10 @@ window.addEventListener('load', function () {
                 }
 
                 if (i == 1) {
-                    calendar += '<div class="wrapper-'+ wrapperDiv + '"' + 'style="-ms-grid-column:' + offset + ';grid-column-start:' + offset + ';"><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
+                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + offset + ';grid-column-start:' + offset + ';"><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
                 }
                 else {
-                    calendar += '<div class="wrapper-'+ wrapperDiv + '"' + '><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
+                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + '><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
                 }
 
             }
@@ -475,33 +490,46 @@ window.addEventListener('load', function () {
 
     var calend = new Picker();
 
-    var allowedMin = new Date(2018, 3, 10);
+    fetch('pickerdata.json')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
 
-    calend.init(document.querySelector(".width-calendars"), { allowedMin: allowedMin },
-        function (start, end) {
-            var target = $("li > a[data-target='#modal_date_picker']"),//recieves data-from data-to attributes 
-                parent = target.parent('li'),
-                ul = parent.parent('ul'),
-                button = $(ul.data('button'));
+            var allowedMin = data["first_transaction"];
+
+            calend.init(document.querySelector(".width-calendars"), { allowedMin: allowedMin },
+                function (start, end) {
+                    var target = $("li > a[data-target='#modal_date_picker']"),//recieves data-from data-to attributes 
+                        parent = target.parent('li'),
+                        ul = parent.parent('ul'),
+                        button = $(ul.data('button'));
 
 
-            // start = start.format('YYYY-MM-DD');
-            // end = end.format('YYYY-MM-DD');
-            // target.data('from', start);
-            // target.data('to', end);
-            // button.html(start + ' - ' + end + ' <span class="caret"></span>');
-            // ul.parent().off('hide.bs.dropdown');
-            // ul.dropdown('toggle');
+                    // start = start.format('YYYY-MM-DD');
+                    // end = end.format('YYYY-MM-DD');
+                    // target.data('from', start);
+                    // target.data('to', end);
+                    // button.html(start + ' - ' + end + ' <span class="caret"></span>');
+                    // ul.parent().off('hide.bs.dropdown');
+                    // ul.dropdown('toggle');
 
-            // if (ul.attr('id') === 'top-spendings-date')
-            //     topSpendingsCallback();
-            // else {
-            //     var modal = $('#modal_all_transactions');
-            //     modal.data('from', start)
-            //         .data('to', end);
+                    // if (ul.attr('id') === 'top-spendings-date')
+                    //     topSpendingsCallback();
+                    // else {
+                    //     var modal = $('#modal_all_transactions');
+                    //     modal.data('from', start)
+                    //         .data('to', end);
 
-            //     loadItems(modal, 0, 50, true, false);
-            // }
+                    //     loadItems(modal, 0, 50, true, false);
+                    // }
+                });
         });
+
+
+
+
+
+
 
 });
