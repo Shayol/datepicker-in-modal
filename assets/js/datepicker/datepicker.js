@@ -39,19 +39,8 @@ window.addEventListener('load', function () {
 
             func = cb;
 
-            if(settings.allowedMin) {
-                if(RE.test(settings.allowedMin)) { 
-                    var arr = settings.allowedMin.split("-");
-                    var year = parseInt(arr[0]);
-                    var month = parseInt(arr[1]);
-                    var day = parseInt(arr[2]);
-
-                    settings.allowedMin = new Date(year, month,day);
-                }
-            }
-
-            // var optionsStart = parseToDate(settings.start) || null;
-            // var optionsEnd = parseToDate(settings.end) || null;
+            var optionsStart = parseDate(settings.start);
+            var optionsEnd = parseDate(settings.end);
 
 
             var cookieStart = getCookie("datepickerstart");
@@ -65,28 +54,34 @@ window.addEventListener('load', function () {
                 cookieEnd = new Date(cookieEnd);
             }
 
-            allowedMin = settings.allowedMin || new Date(2000, 0);
-            allowedMax = new Date();
+            allowedMin = parseDate(settings.allowedMin) || new Date(2000, 0);
+            allowedMax = parseDate(settings.allowedMax) || new Date();
+
+            console.log(allowedMax);
+
             allowedMax = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
 
-            dayTo = cookieEnd || new Date();
+            dayTo = parseDate(settings.end) || cookieEnd || new Date();
             dayTo = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
+
+            if(dayTo > allowedMax || dayTo < allowedMin) {
+                dayTo = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
+            }
 
             to = new Date(dayTo.getFullYear(), dayTo.getMonth());
 
             yearTo = to.getFullYear();
             monthTo = to.getMonth();
 
-            if (cookieStart) {
-                dayFrom = cookieStart;
-            }
+            
+            dayFrom = parseDate(settings.start) || cookieStart;
 
-            else {
+            if(!dayFrom) {
                 dayFrom = new Date(yearTo, monthTo, dayTo.getDate());
                 dayFrom.setDate(dayFrom.getDate() - 30); //start date - 30 days ago
             }
 
-            if (dayFrom < allowedMin) { //only dates since last transaction allowed
+            if (dayFrom < allowedMin || dayFrom > allowedMax) { //only dates since last transaction allowed
                 dayFrom = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
             }
 
@@ -142,6 +137,18 @@ window.addEventListener('load', function () {
             doneListener();
         }
 
+        function parseDate(arg) {
+            if(RE.test(arg)) { 
+                var arr = arg.split("-");
+                var year = parseInt(arr[0]);
+                var month = parseInt(arr[1]);
+                var day = parseInt(arr[2]);
+
+                return new Date(year, month-1,day);
+            }
+            else return null;
+        }
+
         function update(e) {
             var el = e.target;
             var input = new Date(parseInt(el.value));
@@ -171,7 +178,7 @@ window.addEventListener('load', function () {
         }
 
         function setCookie() {
-            if (dayFrom && dayTo) {
+            if (dayFrom || dayTo) {
                 document.cookie = "datepickerstart=" + +dayFrom + ";";
                 document.cookie = "datepickerend=" + +dayTo + ";";
             }
@@ -254,7 +261,7 @@ window.addEventListener('load', function () {
                     var day = parseInt(arr[2]);
 
                     if (e.target == inputFrom) {
-                        if (allowedMin > new Date(year, month - 1, day)) {
+                        if (allowedMin > new Date(year, month - 1, day) || allowedMax < new Date(year, month - 1, day)) {
                             updateInputFrom();
                             return;
                         }
@@ -276,7 +283,7 @@ window.addEventListener('load', function () {
                     }
 
                     else if (e.target == inputTo) {
-                        if (allowedMax < new Date(year, month - 1, day)) {
+                        if (allowedMin > new Date(year, month - 1, day) || allowedMax < new Date(year, month - 1, day)) {
                             updateInputTo();
                             return;
                         }
@@ -479,6 +486,12 @@ window.addEventListener('load', function () {
                         + "-" + ("0" + dayTo.getDate()).slice(-2);
                     func(startDate, endDate);
                 }
+
+                else if(dayFrom) {
+                    var startDate = dayFrom.getFullYear() + "-" + ("0" + (dayFrom.getMonth() + 1)).slice(-2)
+                        + "-" + ("0" + dayFrom.getDate()).slice(-2);
+                    func(startDate,startDate);
+                }
             });
         }
 
@@ -497,8 +510,9 @@ window.addEventListener('load', function () {
         .then(function (data) {
 
             var allowedMin = data["first_transaction"];
+            var allowedMax = data["last_transaction"];
 
-            calend.init(document.querySelector(".width-calendars"), { allowedMin: allowedMin },
+            calend.init(document.querySelector(".width-calendars"), { allowedMin: allowedMin, allowedMax: allowedMax },
                 function (start, end) {
                     var target = $("li > a[data-target='#modal_date_picker']"),//recieves data-from data-to attributes 
                         parent = target.parent('li'),
