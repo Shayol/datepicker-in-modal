@@ -442,7 +442,7 @@ window.addEventListener('load', function () {
                 }
 
                 if (i == 1) {
-                    calendar += '<div class="wrapper-'+ wrapperDiv + '"' + '><button class="day ' + toOrFrom + ' ' + selection + '" style="grid-column-start:${offset};" value="' + +currentDay + '">' + i + '</button></div>';
+                    calendar += '<div class="wrapper-'+ wrapperDiv + '"' + 'style="-ms-grid-column:' + offset + ';grid-column-start:' + offset + ';"><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
                 }
                 else {
                     calendar += '<div class="wrapper-'+ wrapperDiv + '"' + '><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
