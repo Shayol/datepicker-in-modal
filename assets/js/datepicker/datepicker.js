@@ -109,7 +109,7 @@ window.addEventListener('load', function () {
                 + '</div>'
                 + '</div>'
                 + '<div class="SaveCancelButtons">'
-                + '<button type="button" class="btn done btn-primary pull-right">Done</button>'
+                + '<button type="button" data-dismiss="modal" class="btn done btn-primary pull-right">Done</button>'
                 + '</div>'
                 + '</div>';
 
@@ -236,7 +236,7 @@ window.addEventListener('load', function () {
             if (e.target.value.length == 10) {
                 if (RE.test(e.target.value)) {
 
-                    var arr = e.target.value.split("-");    // handle input, errors properly
+                    var arr = e.target.value.split("-");
                     var year = parseInt(arr[0]);
                     var month = parseInt(arr[1]);
                     var day = parseInt(arr[2]);
@@ -298,6 +298,23 @@ window.addEventListener('load', function () {
             inputTo.addEventListener('input', handleInput);
             inputTo.addEventListener('focusout', updateInputTo);
             inputFrom.addEventListener('focusout', updateInputFrom);
+
+
+            var cleaveFrom = new Cleave('input.from', {
+                date: true,
+                datePattern: ['Y', 'm', 'd'],
+                delimiter: '-'
+
+            });
+
+            var cleaveTo = new Cleave('input.to', {
+                date: true,
+                datePattern: ['Y', 'm', 'd'],
+                delimiter: '-'
+
+            });
+
+
 
         }
 
@@ -434,10 +451,10 @@ window.addEventListener('load', function () {
             wrapper.querySelector(".done").addEventListener('click', function () {
                 if (dayFrom && dayTo) {
                     var startDate = dayFrom.getFullYear() + "-" + ("0" + (dayFrom.getMonth() + 1)).slice(-2)
-                    + "-" + ("0" + dayFrom.getDate()).slice(-2);
+                        + "-" + ("0" + dayFrom.getDate()).slice(-2);
                     var endDate = dayTo.getFullYear() + "-" + ("0" + (dayTo.getMonth() + 1)).slice(-2)
-                    + "-" + ("0" + dayTo.getDate()).slice(-2);
-                    func(startDate,endDate);
+                        + "-" + ("0" + dayTo.getDate()).slice(-2);
+                    func(startDate, endDate);
                 }
             });
         }
@@ -454,30 +471,29 @@ window.addEventListener('load', function () {
 
     calend.init(document.querySelector(".width-calendars"), { allowedMin: allowedMin },
         function (start, end) {
-            var target = $("li > a[data-target='#modal_date_picker']"),
+            var target = $("li > a[data-target='#modal_date_picker']"),//recieves data-from data-to attributes 
                 parent = target.parent('li'),
                 ul = parent.parent('ul'),
                 button = $(ul.data('button'));
 
-                console.log(target);
 
             // start = start.format('YYYY-MM-DD');
             // end = end.format('YYYY-MM-DD');
-            target.data('from', start);
-            target.data('to', end);
-            button.html(start + ' - ' + end + ' <span class="caret"></span>');
-            ul.parent().off('hide.bs.dropdown');
-            ul.dropdown('toggle');
+            // target.data('from', start);
+            // target.data('to', end);
+            // button.html(start + ' - ' + end + ' <span class="caret"></span>');
+            // ul.parent().off('hide.bs.dropdown');
+            // ul.dropdown('toggle');
 
-            if (ul.attr('id') === 'top-spendings-date')
-                topSpendingsCallback();
-            else {
-                var modal = $('#modal_all_transactions');
-                modal.data('from', start)
-                    .data('to', end);
+            // if (ul.attr('id') === 'top-spendings-date')
+            //     topSpendingsCallback();
+            // else {
+            //     var modal = $('#modal_all_transactions');
+            //     modal.data('from', start)
+            //         .data('to', end);
 
-                loadItems(modal, 0, 50, true, false);
-            }
+            //     loadItems(modal, 0, 50, true, false);
+            // }
         });
 
 });
