@@ -67,31 +67,17 @@
     border: 1px solid #039be5;
 }
 .inrange {
-    background-color: #e1f5fe;
+    background-color: transparent;
     border-radius: 0;
 }
 .inrange:hover {
-    border: none;
-}
-.inrange::after {
-    content:'';
-    display: block;
-    position: absolute;
-    top: 0;
-    height: 100%;
-    background-color: transparent;
-    z-index: 1;
-}
-
-.inrange:hover::after {
-    width: 100%;
-    right: 0;
-    bottom: 0;
-    left:0;
-    border-radius: 100%;
     border:1px solid #039be5;
+    border-radius: 100%;
+}
 
- }
+.wrapper-inrange {
+    background-color: #e1f5fe;
+}
 
  .wrapper-start {
      background-color: #e1f5fe;
@@ -102,18 +88,6 @@
     background-color: #e1f5fe;
     border-radius: 0 100% 100% 0;
  }
- /* .inrange + .end::before {
-    content:'';
-    display: block;
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    z-index: -1;
-    opacity: 1;
-    width: 21px;
-    height: 40px;
-    background-color: #e1f5fe;
- } */
 
 
 .disabled {
