@@ -21,16 +21,16 @@
 
 .calendar__both > div {
     float: none !important;
-    margin-right: 42px;
+    /* margin-right: 42px; */
     /* margin-left: 21px; */
     position: absolute;
     display: inline-block;
     top: 0;
-    transition: left 0.7s;
+    transition: left 0.7s, margin 0.3s;
 }
-.calendar__both > div:last-child {
+/* .calendar__both > div:last-child {
     margin-right: 0;
-}
+} */
 
 
 .calendar__from {
@@ -38,7 +38,18 @@
 }
 
 .calendar__to {
-    left: 53.47%;
+    left: 50%;
+}
+
+.calendar__both > div:first-child {
+    margin-right: 21px;
+}
+.calendar__both > div:nth-child(2) {
+    margin-left: 21px;
+}
+
+.calendar__both > div:nth-child(2) + div:nth-child(3) {
+    margin-left: 42px;
 }
 
 

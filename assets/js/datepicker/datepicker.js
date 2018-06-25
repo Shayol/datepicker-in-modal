@@ -117,7 +117,6 @@ window.addEventListener('load', function () {
             inputTo = wrapper.getElementsByTagName('input')[1];
             calBoth = wrapper.querySelector(".calendar__both");
 
-            inputFrom.focus();  //place cursor on load in from input
 
             addDayListener();
             addNextPrevListener();
@@ -298,7 +297,7 @@ window.addEventListener('load', function () {
             inputTo.addEventListener('input', handleInput);
             inputTo.addEventListener('focusout', updateInputTo);
             inputFrom.addEventListener('focusout', updateInputFrom);
-
+            
 
             var cleaveFrom = new Cleave('input.from', {
                 date: true,
@@ -307,13 +306,14 @@ window.addEventListener('load', function () {
 
             });
 
+            inputFrom.focus();  //place cursor on load in from input
+
             var cleaveTo = new Cleave('input.to', {
                 date: true,
                 datePattern: ['Y', 'm', 'd'],
                 delimiter: '-'
 
             });
-
 
 
         }
@@ -347,14 +347,14 @@ window.addEventListener('load', function () {
                 calBoth.children[0].style.left = "-50%";
                 window.getComputedStyle(calBoth.children[0]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
                 calBoth.children[0].style.left = "0%";
-                calBoth.children[1].style.left = "53.47%";
+                calBoth.children[1].style.left = "50%";
                 calBoth.children[2].style.left = "100%";
 
                 setTimeout(function () {
                     calBoth.removeChild(calBoth.children[2]);
                     checkPrev();
                     checkNext();
-                }, 700);
+                }, 300);
                 addDayListener();
 
 
@@ -374,7 +374,7 @@ window.addEventListener('load', function () {
                 calBoth.appendChild(newNode);
                 calBoth.children[2].style.left = "100%";
                 window.getComputedStyle(calBoth.children[2]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
-                calBoth.children[2].style.left = "53.47%";
+                calBoth.children[2].style.left = "50%";
                 calBoth.children[1].style.left = "0%";
                 calBoth.children[0].style.left = "-50%";
 
@@ -382,7 +382,7 @@ window.addEventListener('load', function () {
                     calBoth.removeChild(calBoth.children[0]);
                     checkNext();
                     checkPrev();
-                }, 700);
+                }, 300);
 
                 addDayListener();
 
