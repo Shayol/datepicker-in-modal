@@ -3,6 +3,7 @@ window.addEventListener('load', function () {
 
         var wrapper;
         var settings;
+        var func; //user provided callback function
 
         var to; //current right calendar
 
@@ -36,14 +37,17 @@ window.addEventListener('load', function () {
 
             settings = options || {};
 
+
+            func = cb;
+
             var cookieStart = getCookie("datepickerstart");
             var cookieEnd = getCookie("datepickerend");
 
-            if(cookieStart) {
+            if (cookieStart) {
                 cookieStart = new Date(cookieStart);
             }
 
-            if(cookieEnd) {
+            if (cookieEnd) {
                 cookieEnd = new Date(cookieEnd);
             }
 
@@ -80,6 +84,51 @@ window.addEventListener('load', function () {
             render();
         }
 
+
+        function render() {
+            // wrapper.innerHTML = '';
+            wrapper.innerHTML = '<div class="modal-content S SModal SModalDatePicker">'
+                + '<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>'
+                + '<div class="Content">'
+                + '<div class="FromToInputs">'
+                + '<div class="InputDate">'
+                + 'From<input class="from" type="text" maxlength="10">'
+                + '</div>'
+                + '<div class="InputDate">'
+                + 'To<input class="to" type="text" maxlength="10">'
+                + '</div>'
+                + '</div>'
+                + '<div class="ModalTitle">Pick a date range</div>'
+                + '<div class="Container noselect">'
+                + '<span class="Previous icon-arrow-left12"></span>'
+                + '<span class="Next icon-arrow-right13"></span>'
+                + '<div class="calendar__both">'
+                + updateCalendar(yearFrom, monthFrom, 'from')
+                + updateCalendar(yearTo, monthTo, 'to')
+                + '</div>'
+                + '</div>'
+                + '</div>'
+                + '<div class="SaveCancelButtons">'
+                + '<button type="button" class="btn done btn-primary pull-right">Done</button>'
+                + '</div>'
+                + '</div>';
+
+            inputFrom = wrapper.getElementsByTagName('input')[0];
+            inputTo = wrapper.getElementsByTagName('input')[1];
+            calBoth = wrapper.querySelector(".calendar__both");
+
+            inputFrom.focus();  //place cursor on load in from input
+
+            addDayListener();
+            addNextPrevListener();
+            updateInputFrom();
+            updateInputTo();
+            addInputListener();
+            checkPrev();
+            checkNext();
+            doneListener();
+        }
+
         function update(e) {
             var el = e.target;
             var input = new Date(parseInt(el.value));
@@ -107,63 +156,20 @@ window.addEventListener('load', function () {
             addDayListener();
 
             setCookie();
-        };
-
-
-        function render() {
-            // wrapper.innerHTML = '';
-            wrapper.innerHTML = '<div class="modal-content S SModal SModalDatePicker">'
-                + '<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>'
-                + '<div class="Content">'
-                + '<div class="FromToInputs">'
-                + '<div class="InputDate">'
-                + 'From<input class="from" type="text" maxlength="10">'
-                + '</div>'
-                + '<div class="InputDate">'
-                + 'To<input class="to" type="text" maxlength="10">'
-                + '</div>'
-                + '</div>'
-                + '<div class="ModalTitle">Pick a date range</div>'
-                + '<div class="Container noselect">'
-                + '<span class="Previous icon-arrow-left12"></span>'
-                + '<span class="Next icon-arrow-right13"></span>'
-                + '<div class="calendar__both">'
-                + updateCalendar(yearFrom, monthFrom, 'from')
-                + updateCalendar(yearTo, monthTo, 'to')
-                + '</div>'
-                + '</div>'
-                + '</div>'
-                + '<div class="SaveCancelButtons">'
-                + '<button type="button" class="btn btn-primary pull-right">Done</button>'
-                + '</div>'
-                + '</div>';
-
-            inputFrom = wrapper.getElementsByTagName('input')[0];
-            inputTo = wrapper.getElementsByTagName('input')[1];
-            calBoth = wrapper.querySelector(".calendar__both");
-
-            inputFrom.focus();  //place cursor on load in from input
-
-            addDayListener();
-            addNextPrevListener();
-            updateInputFrom();
-            updateInputTo();
-            addInputListener();
-            checkPrev();
-            checkNext();
         }
 
         function setCookie() {
-            document.cookie = "datepickerstart=" + +dayFrom + ";";
-            document.cookie = "datepickerend=" + +dayTo + ";";
-            console.log(document.cookie);
+            if (dayFrom && dayTo) {
+                document.cookie = "datepickerstart=" + +dayFrom + ";";
+                document.cookie = "datepickerend=" + +dayTo + ";";
+            }
         }
 
         function getCookie(cname) {
             var name = cname + "=";
             var decodedCookie = decodeURIComponent(document.cookie);
             var ca = decodedCookie.split(';');
-            for(var i = 0; i <ca.length; i++) {
+            for (var i = 0; i < ca.length; i++) {
                 var c = ca[i];
                 while (c.charAt(0) == ' ') {
                     c = c.substring(1);
@@ -424,6 +430,18 @@ window.addEventListener('load', function () {
             return calendar;
         }
 
+        function doneListener() {
+            wrapper.querySelector(".done").addEventListener('click', function () {
+                if (dayFrom && dayTo) {
+                    var startDate = dayFrom.getFullYear() + "-" + ("0" + (dayFrom.getMonth() + 1)).slice(-2)
+                    + "-" + ("0" + dayFrom.getDate()).slice(-2);
+                    var endDate = dayTo.getFullYear() + "-" + ("0" + (dayTo.getMonth() + 1)).slice(-2)
+                    + "-" + ("0" + dayTo.getDate()).slice(-2);
+                    func(startDate,endDate);
+                }
+            });
+        }
+
         return {
             init: init
         }
@@ -434,6 +452,32 @@ window.addEventListener('load', function () {
 
     var allowedMin = new Date(2018, 3, 10);
 
-    calend.init(document.querySelector(".width-calendars"), { allowedMin: allowedMin });
+    calend.init(document.querySelector(".width-calendars"), { allowedMin: allowedMin },
+        function (start, end) {
+            var target = $("li > a[data-target='#modal_date_picker']"),
+                parent = target.parent('li'),
+                ul = parent.parent('ul'),
+                button = $(ul.data('button'));
+
+                console.log(target);
+
+            // start = start.format('YYYY-MM-DD');
+            // end = end.format('YYYY-MM-DD');
+            target.data('from', start);
+            target.data('to', end);
+            button.html(start + ' - ' + end + ' <span class="caret"></span>');
+            ul.parent().off('hide.bs.dropdown');
+            ul.dropdown('toggle');
+
+            if (ul.attr('id') === 'top-spendings-date')
+                topSpendingsCallback();
+            else {
+                var modal = $('#modal_all_transactions');
+                modal.data('from', start)
+                    .data('to', end);
+
+                loadItems(modal, 0, 50, true, false);
+            }
+        });
 
 });
