@@ -28,17 +28,30 @@ window.addEventListener('load', function () {
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"];
 
+        var RE = /(\d{4})-(\d{2})-(\d{2})/;
+
         function init(obj, options, cb) {
 
             wrapper = obj;
 
             settings = options || {};
 
+            var cookieStart = getCookie("datepickerstart");
+            var cookieEnd = getCookie("datepickerend");
+
+            if(cookieStart) {
+                cookieStart = new Date(cookieStart);
+            }
+
+            if(cookieEnd) {
+                cookieEnd = new Date(cookieEnd);
+            }
+
             allowedMin = settings.allowedMin || new Date(2000, 0);
             allowedMax = new Date();
             allowedMax = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
 
-            dayTo = settings.end || new Date();
+            dayTo = cookieEnd || new Date();
             dayTo = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
 
             to = new Date(dayTo.getFullYear(), dayTo.getMonth());
@@ -46,8 +59,8 @@ window.addEventListener('load', function () {
             yearTo = to.getFullYear();
             monthTo = to.getMonth();
 
-            if (settings.start) {
-                dayFrom = settings.start;
+            if (cookieStart) {
+                dayFrom = cookieStart;
             }
 
             else {
@@ -89,9 +102,11 @@ window.addEventListener('load', function () {
                 updateInputTo();
             }
 
-            wrapper.getElementsByClassName("calendar__both")[0].innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
+            calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
                 + updateCalendar(yearTo, monthTo, 'to');
             addDayListener();
+
+            setCookie();
         };
 
 
@@ -125,7 +140,7 @@ window.addEventListener('load', function () {
 
             inputFrom = wrapper.getElementsByTagName('input')[0];
             inputTo = wrapper.getElementsByTagName('input')[1];
-            calBoth = wrapper.getElementsByClassName("calendar__both")[0];
+            calBoth = wrapper.querySelector(".calendar__both");
 
             inputFrom.focus();  //place cursor on load in from input
 
@@ -136,6 +151,28 @@ window.addEventListener('load', function () {
             addInputListener();
             checkPrev();
             checkNext();
+        }
+
+        function setCookie() {
+            document.cookie = "datepickerstart=" + +dayFrom + ";";
+            document.cookie = "datepickerend=" + +dayTo + ";";
+            console.log(document.cookie);
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return parseInt(c.substring(name.length, c.length));
+                }
+            }
+            return false;
         }
 
         function updateInputFrom() {
@@ -189,73 +226,73 @@ window.addEventListener('load', function () {
             }
         }
 
-        function addInputListener() {
-            inputFrom.addEventListener('input', handleInput);
-            inputTo.addEventListener('input', handleInput);
+        function handleInput(e) {
+            if (e.target.value.length == 10) {
+                if (RE.test(e.target.value)) {
 
-            function handleInput(e) {
-                if (e.target.value.length == 10) {
                     var arr = e.target.value.split("-");    // handle input, errors properly
                     var year = parseInt(arr[0]);
                     var month = parseInt(arr[1]);
                     var day = parseInt(arr[2]);
 
-                    if (year >= allowedMin.getFullYear() && year <= allowedMax.getFullYear() + 1) {
-                        if (month >= 0 && month < 12) {
-                            if (day > 0 && day < 32) {
-
-                                if (e.target == inputFrom) {
-                                    if (allowedMin > new Date(year, month - 1, day)) {
-                                        updateInputFrom();
-                                        return;
-                                    }
-
-                                    dayFrom = new Date(year, month - 1, day);
-
-                                    from = new Date(year, month - 1);
-                                    yearFrom = from.getFullYear();
-                                    monthFrom = from.getMonth();
-
-
-
-                                    to = new Date(yearFrom, monthFrom + 1);
-                                    yearTo = to.getFullYear();
-                                    monthTo = to.getMonth();
-
-                                    wrapper.getElementsByClassName("calendar__both")[0].innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
-                                        + updateCalendar(yearTo, monthTo, 'to');
-                                    addDayListener();
-
-                                    inputTo.focus(); //after entering start data focus on end input
-                                }
-
-                                else if (e.target == inputTo) {
-                                    if (allowedMax < new Date(year, month - 1, day)) {
-                                        updateInputTo();
-                                        return;
-                                    }
-                                    to = new Date(year, month - 1, day);
-                                    yearTo = to.getFullYear();
-                                    monthTo = to.getMonth();
-                                    dayTo = new Date(yearTo, monthTo, to.getDate());
-
-                                    from = new Date(yearTo, monthTo - 1, 1);
-                                    yearFrom = from.getFullYear();
-                                    monthFrom = from.getMonth();
-
-                                    wrapper.getElementsByClassName("calendar__both")[0].innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
-                                        + updateCalendar(yearTo, monthTo, 'to');
-                                    addDayListener();
-                                }
-                                checkPrev();
-                                checkNext();
-
-                            }
+                    if (e.target == inputFrom) {
+                        if (allowedMin > new Date(year, month - 1, day)) {
+                            updateInputFrom();
+                            return;
                         }
+
+                        dayFrom = new Date(year, month - 1, day);
+
+                        from = new Date(year, month - 1);
+                        yearFrom = from.getFullYear();
+                        monthFrom = from.getMonth();
+
+                        to = new Date(yearFrom, monthFrom + 1);
+                        yearTo = to.getFullYear();
+                        monthTo = to.getMonth();
+
+                        calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
+                            + updateCalendar(yearTo, monthTo, 'to');
+
+                        inputTo.focus(); //after entering start data focus on end input
                     }
 
+                    else if (e.target == inputTo) {
+                        if (allowedMax < new Date(year, month - 1, day)) {
+                            updateInputTo();
+                            return;
+                        }
+                        to = new Date(year, month - 1, day);
+                        yearTo = to.getFullYear();
+                        monthTo = to.getMonth();
+                        dayTo = new Date(yearTo, monthTo, to.getDate());
+
+                        from = new Date(yearTo, monthTo - 1, 1);
+                        yearFrom = from.getFullYear();
+                        monthFrom = from.getMonth();
+
+                        calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
+                            + updateCalendar(yearTo, monthTo, 'to');
+                    }
+
+                    addDayListener();
+                    checkPrev();
+                    checkNext();
+
+                }
+                else {
+                    updateInputFrom();
+                    updateInputTo();
                 }
             }
+        }
+
+        function addInputListener() {
+            inputFrom.addEventListener('input', handleInput);
+            inputTo.addEventListener('input', handleInput);
+            inputTo.addEventListener('focusout', updateInputTo);
+            inputFrom.addEventListener('focusout', updateInputFrom);
+
         }
 
         function addDayListener() {
@@ -374,10 +411,10 @@ window.addEventListener('load', function () {
                 }
 
                 if (i == 1) {
-                    calendar += `<button class='day ${toOrFrom} ${selection}' style='grid-column-start:${offset};' value='${+currentDay}'>${i}</button>`;
+                    calendar += '<button class="day ' + toOrFrom + ' ' + selection + '" style="grid-column-start:${offset};" value="' + +currentDay + '">' + i + '</button>';
                 }
                 else {
-                    calendar += `<button class='day ${toOrFrom} ${selection}' value='${+currentDay}'>${i}</button>`;
+                    calendar += '<button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button>';
                 }
 
             }
