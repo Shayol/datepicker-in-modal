@@ -1,4 +1,6 @@
 window.addEventListener('load', function () {
+
+
     var Picker = function () {
 
         var wrapper;
@@ -57,14 +59,10 @@ window.addEventListener('load', function () {
             allowedMin = parseDate(settings.allowedMin) || new Date(2000, 0);
             allowedMax = parseDate(settings.allowedMax) || new Date();
 
-            console.log(allowedMax);
-
-            allowedMax = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
-
-            dayTo = parseDate(settings.end) || cookieEnd || new Date();
+            dayTo = cookieEnd || parseDate(settings.end) || new Date();
             dayTo = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
 
-            if(dayTo > allowedMax || dayTo < allowedMin) {
+            if (dayTo > allowedMax || dayTo < allowedMin) {
                 dayTo = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
             }
 
@@ -73,12 +71,12 @@ window.addEventListener('load', function () {
             yearTo = to.getFullYear();
             monthTo = to.getMonth();
 
-            
-            dayFrom = parseDate(settings.start) || cookieStart;
 
-            if(!dayFrom) {
+            dayFrom = cookieStart || parseDate(settings.start);
+
+            if (!dayFrom) {
                 dayFrom = new Date(yearTo, monthTo, dayTo.getDate());
-                dayFrom.setDate(dayFrom.getDate() - 30); //start date - 30 days ago
+                dayFrom.setDate(dayFrom.getDate() - 29); //start date - 30 days ago
             }
 
             if (dayFrom < allowedMin || dayFrom > allowedMax) { //only dates since last transaction allowed
@@ -138,15 +136,21 @@ window.addEventListener('load', function () {
         }
 
         function parseDate(arg) {
-            if(RE.test(arg)) { 
+
+            if (Object.prototype.toString.call(arg) === '[object Date]') {
+                return arg;
+            }
+            if (RE.test(arg)) {
                 var arr = arg.split("-");
                 var year = parseInt(arr[0]);
                 var month = parseInt(arr[1]);
                 var day = parseInt(arr[2]);
 
-                return new Date(year, month-1,day);
+                return new Date(year, month - 1, day);
             }
-            else return null;
+            else {
+                return null;
+            }
         }
 
         function update(e) {
@@ -178,9 +182,14 @@ window.addEventListener('load', function () {
         }
 
         function setCookie() {
-            if (dayFrom || dayTo) {
+            if (dayFrom && dayTo) {
                 document.cookie = "datepickerstart=" + +dayFrom + ";";
                 document.cookie = "datepickerend=" + +dayTo + ";";
+            }
+
+            else if(dayFrom) {
+                document.cookie = "datepickerstart=" + +dayFrom + ";";
+                document.cookie = "datepickerend=" + +dayFrom + ";";
             }
         }
 
@@ -438,7 +447,10 @@ window.addEventListener('load', function () {
 
                 else if (dayTo && (currentDay - dayFrom == 0)) {
                     selection = 'selected start available';
-                    wrapperDiv = 'start';
+
+                    if(dayTo - dayFrom !=0) {
+                        wrapperDiv = 'start';
+                    }
                 }
 
                 else if (currentDay - dayFrom == 0) {
@@ -487,10 +499,10 @@ window.addEventListener('load', function () {
                     func(startDate, endDate);
                 }
 
-                else if(dayFrom) {
+                else if (dayFrom) {
                     var startDate = dayFrom.getFullYear() + "-" + ("0" + (dayFrom.getMonth() + 1)).slice(-2)
                         + "-" + ("0" + dayFrom.getDate()).slice(-2);
-                    func(startDate,startDate);
+                    func(startDate, startDate);
                 }
             });
         }
@@ -501,45 +513,103 @@ window.addEventListener('load', function () {
 
     };
 
-    var calend = new Picker();
-
-    fetch('pickerdata.json')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-
-            var allowedMin = data["first_transaction"];
-            var allowedMax = data["last_transaction"];
-
-            calend.init(document.querySelector(".width-calendars"), { allowedMin: allowedMin, allowedMax: allowedMax },
-                function (start, end) {
-                    var target = $("li > a[data-target='#modal_date_picker']"),//recieves data-from data-to attributes 
-                        parent = target.parent('li'),
-                        ul = parent.parent('ul'),
-                        button = $(ul.data('button'));
+    var container = document.querySelector(".custom-interval");
+    container.addEventListener('click', addCalendar);
 
 
-                    // start = start.format('YYYY-MM-DD');
-                    // end = end.format('YYYY-MM-DD');
-                    // target.data('from', start);
-                    // target.data('to', end);
-                    // button.html(start + ' - ' + end + ' <span class="caret"></span>');
-                    // ul.parent().off('hide.bs.dropdown');
-                    // ul.dropdown('toggle');
+    function addCalendar(e) {
 
-                    // if (ul.attr('id') === 'top-spendings-date')
-                    //     topSpendingsCallback();
-                    // else {
-                    //     var modal = $('#modal_all_transactions');
-                    //     modal.data('from', start)
-                    //         .data('to', end);
+        var rangesList = ["past-30-days", "this-month", "last-month", "this-year"];
+        var start = null;
+        var end = null;
+        var range;
 
-                    //     loadItems(modal, 0, 50, true, false);
-                    // }
-                });
-        });
+        var ranges = {
+            "past-30-days": {
+                start: new Date(new Date().getFullYear(),
+                    new Date().getMonth(), new Date().getDate() - 29),
+                end: new Date()
+            },
 
+            "this-month": {
+                start: new Date(new Date().getFullYear(),
+                new Date().getMonth(), 1),
+                end: new Date()
+            },
+
+            "last-month": {
+                start: new Date(new Date().getFullYear(),
+                    new Date().getMonth() - 1, 1),
+                end: new Date(new Date().getFullYear(),
+                    new Date().getMonth(), 0)
+            },
+
+            "this-year": {
+                start: new Date(new Date().getFullYear(),
+                    0, 1),
+                end: new Date()
+            }
+        };
+
+        var active = e.target.parentNode.parentNode.querySelector(".active");
+
+        var classNames = active.className.split(" ");
+        
+
+        for (var i = 0; i < classNames.length; i++) {
+            range = ranges[classNames[i]];
+            if (range) {
+                start = range.start;
+                end = range.end;
+                break;
+            }
+        }
+
+        console.log(start);
+
+        var calend = new Picker();
+
+        fetch('pickerdata.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+
+                var allowedMin = data["first_transaction"];
+                var allowedMax = data["last_transaction"];
+
+                calend.init(document.querySelector(".width-calendars"), {
+                    allowedMin: allowedMin,
+                    allowedMax: allowedMax,
+                    start: start, end: end
+                },
+
+                    //callback function that receives start and end in YYYY-MM-DD format 
+                    function (start, end) {
+                        var target = $("li > a[data-target='#modal_date_picker']"),
+                            parent = target.parent('li'),
+                            ul = parent.parent('ul'),
+                            button = $(ul.data('button'));
+
+                        // target.data('from', start);
+                        // target.data('to', end);
+                        // button.html(start + ' - ' + end + ' <span class="caret"></span>');
+                        // ul.parent().off('hide.bs.dropdown');
+                        // ul.dropdown('toggle');
+
+                        // if (ul.attr('id') === 'top-spendings-date')
+                        //     topSpendingsCallback();
+                        // else {
+                        //     var modal = $('#modal_all_transactions');
+                        //     modal.data('from', start)
+                        //         .data('to', end);
+
+                            //     loadItems(modal, 0, 50, true, false);
+                        // }
+                    });
+            });
+
+    }
 
 
 
