@@ -133,6 +133,7 @@ window.addEventListener('load', function () {
             checkPrev();
             checkNext();
             doneListener();
+            setTimeout(function(){inputFrom.focus();},500);
         }
 
         function parseDate(arg) {
@@ -517,7 +518,6 @@ window.addEventListener('load', function () {
 
     function addCalendar(e) {
 
-        var rangesList = ["past-30-days", "this-month", "last-month", "this-year"];
         var start = null;
         var end = null;
         var range;
