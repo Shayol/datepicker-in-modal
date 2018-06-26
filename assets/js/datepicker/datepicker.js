@@ -513,9 +513,7 @@ window.addEventListener('load', function () {
 
     };
 
-    var container = document.querySelector(".custom-interval");
-    container.addEventListener('click', addCalendar);
-
+    document.querySelector(".custom-interval").addEventListener('click', addCalendar);
 
     function addCalendar(e) {
 
@@ -565,20 +563,18 @@ window.addEventListener('load', function () {
             }
         }
 
-        console.log(start);
-
-        var calend = new Picker();
-
         fetch('pickerdata.json')
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
 
+                var calend = new Picker();
+
                 var allowedMin = data["first_transaction"];
                 var allowedMax = data["last_transaction"];
 
-                calend.init(document.querySelector(".width-calendars"), {
+                calend.init(document.querySelector("#modal_date_picker .width-calendars"), {
                     allowedMin: allowedMin,
                     allowedMax: allowedMax,
                     start: start, end: end

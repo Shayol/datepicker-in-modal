@@ -2,7 +2,7 @@
     padding: 32px 40px 40px 40px;
 }
 
-.Container.noselect {
+.SModalDatePicker .Container.noselect {
     width: 100%;
     overflow: hidden;
 }
@@ -10,7 +10,7 @@
 .FromToInputs {
     padding-right: 56px;
 }
-.Calendar {
+.SModalDatePicker .Calendar {
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
