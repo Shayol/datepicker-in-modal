@@ -7,6 +7,7 @@ window.addEventListener('load', function () {
         var currentYear;
         var yearDiv;
         var minMonth;
+        var maxMonth = new Date();
         var settings;
         var prev;
         var next;
@@ -115,13 +116,13 @@ window.addEventListener('load', function () {
             for (var i = 0; i < 12; i++) {
                 var thisMonth = new Date(currentYear, i);
                 if (thisMonth - month == 0) {
-                    monthList[i].parentNode.className = "Selected";
+                    monthList[i].className = "Selected";
                 }
-                else if (thisMonth < minMonth) {
-                    monthList[i].parentNode.className = "Disabled";
+                else if (thisMonth < minMonth || thisMonth > maxMonth) {
+                    monthList[i].className = "Disabled";
                 }
                 else {
-                    monthList[i].parentNode.className = "";
+                    monthList[i].className = "";
                 }
             }
 
@@ -138,11 +139,21 @@ window.addEventListener('load', function () {
 
     function addMonthPicker(e) {
 
-        var index;
-
         var active = e.target.parentNode.parentNode.querySelectorAll("li");
+        var defaultMonth = null;
+        var index = null;
 
+        for(var i=0;i<active.length;i++) {
+            if(active[i].className.indexOf("active") != -1) {
+                index = i;
+                break;
+            }
+        }
 
+        if(index != null) {
+            defaultMonth = new Date();
+            defaultMonth = new Date(defaultMonth.getFullYear(), defaultMonth.getMonth() - index); 
+        }
 
         fetch('monthdata.json')
         .then(function (response) {
@@ -153,9 +164,9 @@ window.addEventListener('load', function () {
 
             var min = data["min_income_month"];
             var arr = min.split("-");
-            var minMonth = new Date(arr[0],arr[1]);
+            var minMonth = new Date(parseInt(arr[0]),parseInt(arr[1])-1);
 
-            monthcalendar.init(document.querySelector("#modal_month_picker .Container"), { minMonth: minMonth },
+            monthcalendar.init(document.querySelector("#modal_month_picker .Container"), { minMonth: minMonth, defaultMonth: defaultMonth },
                 function (month) { console.log(month) });
 
         });
@@ -164,4 +175,4 @@ window.addEventListener('load', function () {
 
 });
 
-// , defaultMonth: defaultMonth
+// 
