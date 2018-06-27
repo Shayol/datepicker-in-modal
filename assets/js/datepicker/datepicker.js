@@ -9,7 +9,7 @@ var ranges = {
 
     "this-month": {
         start: new Date(new Date().getFullYear(),
-        new Date().getMonth(), 1),
+            new Date().getMonth(), 1),
         end: new Date()
     },
 
@@ -162,7 +162,7 @@ window.addEventListener('load', function () {
             checkPrev();
             checkNext();
             doneListener();
-            setTimeout(function(){inputFrom.focus();},500); //place cursor on load in from input
+            setTimeout(function () { inputFrom.focus(); }, 500); //place cursor on load in from input
         }
 
         function parseDate(arg) {
@@ -205,6 +205,10 @@ window.addEventListener('load', function () {
                 updateInputTo();
             }
 
+            if (!dayTo) {
+                inputTo.focus();
+            }
+
             calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
                 + updateCalendar(yearTo, monthTo, 'to');
             addDayListener();
@@ -217,7 +221,7 @@ window.addEventListener('load', function () {
                 document.cookie = "datepickerend=" + +dayTo + ";";
             }
 
-            else if(dayFrom) {
+            else if (dayFrom) {
                 document.cookie = "datepickerstart=" + +dayFrom + ";";
                 document.cookie = "datepickerend=" + +dayFrom + ";";
             }
@@ -264,9 +268,17 @@ window.addEventListener('load', function () {
                 var day = parseInt(hoverDays[i].value)
                 if (day <= thisDay) {
                     hoverDays[i].classList.add('inrange');
+                    hoverDays[i].parentNode.classList.add('wrapper-inrange');
+                    hoverDays[i].addEventListener('mouseout', function () {
+                        for (var i = 0; i < hoverDays.length; i++) {
+                            hoverDays[i].classList.remove('inrange');
+                            hoverDays[i].parentNode.classList.remove('wrapper-inrange');
+                        }
+                    });
                 }
                 else {
                     hoverDays[i].classList.remove('inrange');
+                    hoverDays[i].parentNode.classList.remove('wrapper-inrange');
                 }
             }
 
@@ -478,7 +490,7 @@ window.addEventListener('load', function () {
                 else if (dayTo && (currentDay - dayFrom == 0)) {
                     selection = 'selected start available';
 
-                    if(dayTo - dayFrom !=0) {
+                    if (dayTo - dayFrom != 0) {
                         wrapperDiv = 'start';
                     }
                 }
@@ -497,7 +509,7 @@ window.addEventListener('load', function () {
                     wrapperDiv = 'inrange';
                 }
 
-                else if (!dayTo && currentDay > dayFrom) {
+                else if (!dayTo && (currentDay > dayFrom)) {
                     selection = 'hoverable available'
                 }
 
@@ -509,8 +521,8 @@ window.addEventListener('load', function () {
                     calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + offset + ';grid-column-start:' + offset + ';"><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
                 }
                 else {
-                    var row = Math.ceil((i + offset - 1)/7);
-                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + currentOffset + ';-ms-grid-row:' + row  + ';"><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
+                    var row = Math.ceil((i + offset - 1) / 7);
+                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + currentOffset + ';-ms-grid-row:' + row + ';"><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
                 }
 
             }
@@ -557,7 +569,7 @@ window.addEventListener('load', function () {
         var active = e.target.parentNode.parentNode.querySelector(".active");
 
         var classNames = active.className.split(" ");
-        
+
 
         for (var i = 0; i < classNames.length; i++) {
             range = ranges[classNames[i]];
@@ -605,7 +617,7 @@ window.addEventListener('load', function () {
                         //     modal.data('from', start)
                         //         .data('to', end);
 
-                            //     loadItems(modal, 0, 50, true, false);
+                        //     loadItems(modal, 0, 50, true, false);
                         // }
                     });
             });
