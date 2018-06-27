@@ -3,8 +3,8 @@ var JSON_URL = "data.json";
 var width = 510,
     height = 340,
     outerRadius = 114,
-    innerRadius = 66.5,
-    labelR = outerRadius + 30,
+    innerRadius = Math.round(outerRadius / 1.7),
+    labelR = outerRadius + 32,
     labelWidth = Math.round(width / 4.25);
 
 
@@ -20,7 +20,7 @@ function getColor(keyword) {
     })
 
     for (var x = 0; x < classes.length; x++) {
-        if (classes[x].selectorText.includes(prefix + keyword)) {
+        if (classes[x].selectorText.indexOf(prefix + keyword) != -1) {
             (classes[x].style.color) ? color = classes[x].style.color : color = false;
         }
 
@@ -57,17 +57,21 @@ d3.json(JSON_URL, { crossOrigin: "anonymous" }).then(function (raw_data) {
         .innerRadius(innerRadius);
 
     var lineArc1 = d3.arc()
-        .outerRadius(outerRadius + 2)
-        .innerRadius(outerRadius + 2);
+        .outerRadius(outerRadius + 4)
+        .innerRadius(outerRadius + 4);
 
     var lineArc2 = d3.arc()
-        .outerRadius(outerRadius + 19)
-        .innerRadius(outerRadius + 19);
+        .outerRadius(outerRadius + 21)
+        .innerRadius(outerRadius + 21);
 
 
-    function fetchData(raw_data, parent = '') {
+    function fetchData(raw_data, parent) {
 
-        temp = raw_data.filter(item => item.parent === parent);
+        parent = parent || '';
+
+        temp = raw_data.filter(function (item) {
+            return item.parent === parent;
+        });
 
         return temp;
     }
@@ -147,10 +151,10 @@ d3.json(JSON_URL, { crossOrigin: "anonymous" }).then(function (raw_data) {
 
                     //change opacity and cursor of slice on hover
                     d3.select(this).style("opacity", 0.5).style("cursor", "zoom-in");
-                    
+
                 }
             })
-            .on("mouseout", function (d) {                
+            .on("mouseout", function (d) {
                 d3.select(this).style("opacity", 1).style("cursor", "default");
             })
 
@@ -184,7 +188,7 @@ d3.json(JSON_URL, { crossOrigin: "anonymous" }).then(function (raw_data) {
                 self.append(function (d) {
                     return svgNode;
                 })
-                    .attr("width", 18).attr("height", 18)
+                    .attr("width", 16).attr("height", 16)
                     .attr("class", "icon")
                     .attr("x", function (d) {
                         d.endAngle = endAngle;
@@ -204,7 +208,7 @@ d3.json(JSON_URL, { crossOrigin: "anonymous" }).then(function (raw_data) {
                                 if (key == 0) {
                                     parent2[key].style.opacity = "0.5";
                                     parent2[key].style.cursor = "zoom-in";
-                                } 
+                                }
                             })
                         }
                     })
@@ -225,7 +229,10 @@ d3.json(JSON_URL, { crossOrigin: "anonymous" }).then(function (raw_data) {
             .attr("class", "d3-tip")
             .offset([-15, 0])
             .html(function (d) {
-                return "<a href='#' class='pie-baloon-link'><div class='pie-baloon-transactions'>" + d.data.transactions + " transactions </div>"
+                return "<a class='pie-baloon-link' "
+                    + "data-name=" + d.data.data_name + " " + "data-icon=" + d.data.data_icon + " " 
+                    + "data-id=" + d.data.data_id + " " + "data-toggle=" + d.data.data_toggle + ">"
+                    + "<div class='pie-baloon-transactions'>" + d.data.transactions + " transactions </div>"
                     + "<div class='pie-baloon-amount'>"
                     + d.data.value + " €</div>"
                     + "<div>" + calcPerc(d.data.value) + "%</div></a>";
@@ -244,10 +251,10 @@ d3.json(JSON_URL, { crossOrigin: "anonymous" }).then(function (raw_data) {
                     (y / h * labelR) + ")";
             })
             .attr("dy", ".35em")
-            .attr("dx", function(d) {
+            .attr("dx", function (d) {
                 return (d.endAngle + d.startAngle) / 2 > Math.PI ?
                     "6px" : "-6px";
-                    
+
             })
             .attr("text-anchor", function (d) {
                 // are we past the center?
@@ -287,21 +294,21 @@ d3.json(JSON_URL, { crossOrigin: "anonymous" }).then(function (raw_data) {
 
             //add title visible on hover to label
             .append("title")
-            .text(function(d, i) { return d.data.label;});
+            .text(function (d, i) { return d.data.label; });
 
-            //function adding ellipsis to text in labels
+        //function adding ellipsis to text in labels
 
-            function wrap() {
-                var self = d3.select(this),
-                    textLength = self.node().getComputedTextLength(),
-                    text = self.text();
-                while (textLength > labelWidth && text.length > 0) {
-                    text = text.slice(0, -1);
-                    self.text(text + '…');
-                    textLength = self.node().getComputedTextLength();
-                }
+        function wrap() {
+            var self = d3.select(this),
+                textLength = self.node().getComputedTextLength(),
+                text = self.text();
+            while (textLength > labelWidth && text.length > 0) {
+                text = text.slice(0, -1);
+                self.text(text + '...');
+                textLength = self.node().getComputedTextLength();
             }
-  
+        }
+
 
         // make lines 
 

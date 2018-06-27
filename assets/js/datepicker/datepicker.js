@@ -133,7 +133,7 @@ window.addEventListener('load', function () {
             checkPrev();
             checkNext();
             doneListener();
-            setTimeout(function(){inputFrom.focus();},500);
+            setTimeout(function(){inputFrom.focus();},500); //place cursor on load in from input
         }
 
         function parseDate(arg) {
@@ -336,8 +336,6 @@ window.addEventListener('load', function () {
 
             });
 
-            inputFrom.focus();  //place cursor on load in from input
-
             var cleaveTo = new Cleave('input.to', {
                 date: true,
                 datePattern: ['Y', 'm', 'd'],
@@ -441,6 +439,8 @@ window.addEventListener('load', function () {
                 var wrapperDiv = '';
 
                 var currentDay = new Date(year, month, i);
+                var currentOffset = currentDay.getDay();
+                var currentOffset = currentOffset == 0 ? 7 : currentOffset
 
                 if (currentDay < allowedMin || currentDay > allowedMax) {
                     selection = 'disabled'; //used to check also if Previous Next buttons should be disabled
@@ -480,7 +480,8 @@ window.addEventListener('load', function () {
                     calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + offset + ';grid-column-start:' + offset + ';"><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
                 }
                 else {
-                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + '><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
+                    var row = Math.ceil((i + offset - 1)/7);
+                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + currentOffset + ';-ms-grid-row:' + row  + ';"><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
                 }
 
             }
