@@ -56,6 +56,9 @@ window.addEventListener('load', function () {
         var allowedMin;
         var allowedMax;
 
+        var calAll;
+        var currentNumber;
+
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"];
 
@@ -149,7 +152,7 @@ window.addEventListener('load', function () {
 
             inputFrom = wrapper.getElementsByTagName('input')[0];
             inputTo = wrapper.getElementsByTagName('input')[1];
-            // calBoth = wrapper.querySelector(".calendar__all");
+            calAll = wrapper.querySelector(".calendar__all");
 
 
             addDayListener();
@@ -157,10 +160,23 @@ window.addEventListener('load', function () {
             updateInputFrom();
             updateInputTo();
             addInputListener();
-            checkPrev();
-            checkNext();
+            // checkPrev();
+            // checkNext();
             doneListener();
-            setTimeout(function () { inputFrom.focus(); }, 500); //place cursor on load in from input
+            positionCalendar();
+
+            calAll.style.transition = "left 0.4s";
+            
+            setTimeout(function () { inputFrom.focus(); }, 500); //place cursor on load in from input           
+
+        }
+
+        function positionCalendar() {
+            var id = new Date(yearFrom, monthFrom);
+            var cal = wrapper.querySelector("#n-" + +id);
+            if(cal) {
+                calAll.style.left ="-" + 322*cal.dataset.number + "px";
+            }
         }
 
         function parseDate(arg) {
@@ -193,7 +209,9 @@ window.addEventListener('load', function () {
 
             updateCalendar(yearFrom, monthFrom)
             updateCalendar(yearTo, monthTo);
+            positionCalendar();
             addDayListener();
+            setCookie();
             inputTo.focus();
 
         }
@@ -325,6 +343,7 @@ window.addEventListener('load', function () {
 
             updateCalendar(yearFrom, monthFrom)
             updateCalendar(yearTo, monthTo);
+            positionCalendar();
         }
 
         function highlight(e) {
@@ -412,9 +431,10 @@ window.addEventListener('load', function () {
                     updateCalendar(yearFrom, monthFrom)
                     updateCalendar(yearTo, monthTo);
                     addDayListener();
-                    addDayListener();
-                    checkPrev();
-                    checkNext();
+                    setCookie();
+                    positionCalendar();
+                    // checkPrev();
+                    // checkNext();
 
                 }
                 else {
@@ -467,58 +487,27 @@ window.addEventListener('load', function () {
 
         function addNextPrevListener() {
             wrapper.querySelector(".Previous").addEventListener('click', function () {
-                // to = new Date(yearTo, monthTo - 1);
-                // yearTo = to.getFullYear();
-                // monthTo = to.getMonth();
+                to = new Date(yearTo, monthTo - 1);
+                yearTo = to.getFullYear();
+                monthTo = to.getMonth();
 
-                // from = new Date(yearFrom, monthFrom - 1);
-                // yearFrom = from.getFullYear();
-                // monthFrom = from.getMonth();
-                // var newNode = document.createElement('div');
-                // newNode.innerHTML = updateCalendar(yearFrom, monthFrom, 'left');
+                from = new Date(yearFrom, monthFrom - 1);
+                yearFrom = from.getFullYear();
+                monthFrom = from.getMonth();
 
-                // calBoth.insertBefore(newNode, calBoth.children[0]);
-                // calBoth.children[0].style.left = "-50%";
-                // window.getComputedStyle(calBoth.children[0]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
-                // calBoth.children[0].style.left = "0%";
-                // calBoth.children[1].style.left = "50%";
-                // calBoth.children[2].style.left = "100%";
-
-                // setTimeout(function () {
-                //     calBoth.removeChild(calBoth.children[2]);
-                //     checkPrev();
-                //     checkNext();
-                // }, 300);
-                // addDayListener();
-
+                positionCalendar();
 
             });
             wrapper.querySelector(".Next").addEventListener('click', function () {
-                // from = new Date(yearFrom, monthFrom + 1);
-                // yearFrom = from.getFullYear();;
-                // monthFrom = from.getMonth();
+                from = new Date(yearFrom, monthFrom + 1);
+                yearFrom = from.getFullYear();;
+                monthFrom = from.getMonth();
 
-                // to = new Date(yearTo, monthTo + 1);
-                // yearTo = to.getFullYear();
-                // monthTo = to.getMonth();
+                to = new Date(yearTo, monthTo + 1);
+                yearTo = to.getFullYear();
+                monthTo = to.getMonth();
 
-                // var newNode = document.createElement('div');
-                // newNode.innerHTML = updateCalendar(yearTo, monthTo, 'right');
-
-                // calBoth.appendChild(newNode);
-                // calBoth.children[2].style.left = "100%";
-                // window.getComputedStyle(calBoth.children[2]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
-                // calBoth.children[2].style.left = "50%";
-                // calBoth.children[1].style.left = "0%";
-                // calBoth.children[0].style.left = "-50%";
-
-                // setTimeout(function () {
-                //     calBoth.removeChild(calBoth.children[0]);
-                //     checkNext();
-                //     checkPrev();
-                // }, 300);
-
-                // addDayListener();
+                positionCalendar();
 
             });
         }
@@ -528,33 +517,31 @@ window.addEventListener('load', function () {
             var today = new Date();
             var startMonth = new Date(today.getFullYear() - 3, today.getMonth());
             var year = startMonth.getFullYear();
-            var month = startMonth.getMonth() + i;
+            var month = startMonth.getMonth();
             var result = '';
 
             for (var i = 0; i < 37; i++) {
-                result += buildCalendar(year, month + i, i);
+                var current = new Date(year, month + i);
+                result += buildCalendar(current.getFullYear(), current.getMonth(), i);
             }
 
             return result;
         }
 
         function updateCalendar(year, month) {
-            var id = new Date(year, month);
-            var cal = wrapper.querySelector("#" + id);
-            var number = cal.dataset.number;
 
-            var days = cal.querySelectorAll("day");
 
-            for (var i = 1; i <= days; i++) {
+            var days = wrapper.querySelectorAll(".day");
+
+            for (var i = 0; i < days.length; i++) {
                 var selection = '';
                 var wrapperDiv = '';
 
-                var currentDay = new Date(year, month, i);
-                var currentOffset = currentDay.getDay();
-                var currentOffset = currentOffset == 0 ? 7 : currentOffset;
+                var currentDay = new Date(parseInt(days[i].value));
+
 
                 if (currentDay < allowedMin || currentDay > allowedMax) {
-                    selection = 'disabled'; //used to check also if Previous Next buttons should be disabled
+                    selection = 'disabled';
                 }
 
                 else if (dayTo && (currentDay - dayFrom == 0)) {
@@ -587,25 +574,19 @@ window.addEventListener('load', function () {
                     selection = 'available';
                 }
 
-                if (i == 1) {
-                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + offset + ';grid-column-start:' + offset + ';"><button class="day ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
-                }
-                else {
-                    var row = Math.ceil((i + offset - 1) / 7);
-                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + currentOffset + ';-ms-grid-row:' + row + ';"><button class="day ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
-                }
+                days[i].className = "day " + selection;
+                days[i].parentNode.className = "wrapper-" + wrapperDiv;
 
             }
-
 
         }
 
         function buildCalendar(year, month, n) {
 
-            // setCookie(); \\\\\ important
+            setCookie();
             var id = new Date(year, month);
 
-            var calendar = '<div class="CalendarContainer" data-number="' + n + '"  id="' + +id + '">'
+            var calendar = '<div class="CalendarContainer" data-number="' + n + '"  id="n-' + +id + '">'
                 + '<div class="Month">' + MONTHS[month] + ' ' + year + '</div>'
                 + '<div class="Calendar">';
 

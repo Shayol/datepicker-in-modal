@@ -3,9 +3,8 @@
 }
 
 .SModalDatePicker .Container.noselect {
-    width: 280px;
+    width: 100%;
     overflow: hidden;
-    margin-right: 42px;
 }
 
 .SModalDatePicker .FromToInputs {
@@ -39,6 +38,10 @@
 .SModalDatePicker .calendar__both > div:nth-child(2) + div:nth-child(3) {
     margin-left: 42px;
 } */
+
+.SModalDatePicker .CalendarContainer {
+    margin-right: 42px;
+}
 
 
 .SModalDatePicker .calendar__all {
