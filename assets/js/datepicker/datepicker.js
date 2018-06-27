@@ -52,7 +52,6 @@ window.addEventListener('load', function () {
 
         var inputFrom;
         var inputTo;
-        var calBoth;
 
         var allowedMin;
         var allowedMax;
@@ -138,9 +137,8 @@ window.addEventListener('load', function () {
                 + '<div class="Container noselect">'
                 + '<span class="Previous icon-arrow-left12"></span>'
                 + '<span class="Next icon-arrow-right13"></span>'
-                + '<div class="calendar__both">'
-                + updateCalendar(yearFrom, monthFrom, 'from')
-                + updateCalendar(yearTo, monthTo, 'to')
+                + '<div class="calendar__all">'
+                + createCalendars()
                 + '</div>'
                 + '</div>'
                 + '</div>'
@@ -151,7 +149,7 @@ window.addEventListener('load', function () {
 
             inputFrom = wrapper.getElementsByTagName('input')[0];
             inputTo = wrapper.getElementsByTagName('input')[1];
-            calBoth = wrapper.querySelector(".calendar__both");
+            // calBoth = wrapper.querySelector(".calendar__all");
 
 
             addDayListener();
@@ -193,8 +191,8 @@ window.addEventListener('load', function () {
 
             updateInputTo();
 
-            calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
-                + updateCalendar(yearTo, monthTo, 'to');
+            updateCalendar(yearFrom, monthFrom)
+            updateCalendar(yearTo, monthTo);
             addDayListener();
             inputTo.focus();
 
@@ -325,8 +323,8 @@ window.addEventListener('load', function () {
             yearFrom = from.getFullYear();
             monthFrom = from.getMonth();
 
-            calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
-                + updateCalendar(yearTo, monthTo, 'to');
+            updateCalendar(yearFrom, monthFrom)
+            updateCalendar(yearTo, monthTo);
         }
 
         function highlight(e) {
@@ -359,21 +357,21 @@ window.addEventListener('load', function () {
         }
 
         function checkPrev() {
-            if (calBoth.children[0].querySelector(".disabled")) {
-                wrapper.querySelector(".Previous").classList.add("Disabled");
-            }
-            else {
-                wrapper.querySelector(".Previous").classList.remove("Disabled");
-            }
-        }
+            //     if (calBoth.children[0].querySelector(".disabled")) {
+            //         wrapper.querySelector(".Previous").classList.add("Disabled");
+            //     }
+            //     else {
+            //         wrapper.querySelector(".Previous").classList.remove("Disabled");
+            //     }
+            // }
 
-        function checkNext() {
-            if (calBoth.children[calBoth.children.length - 1].querySelector(".disabled")) {
-                wrapper.querySelector(".Next").classList.add("Disabled");
-            }
-            else {
-                wrapper.querySelector(".Next").classList.remove("Disabled");
-            }
+            // function checkNext() {
+            //     if (calBoth.children[calBoth.children.length - 1].querySelector(".disabled")) {
+            //         wrapper.querySelector(".Next").classList.add("Disabled");
+            //     }
+            //     else {
+            //         wrapper.querySelector(".Next").classList.remove("Disabled");
+            //     }
         }
 
         function handleInput(e) {
@@ -411,8 +409,8 @@ window.addEventListener('load', function () {
 
                         updateVars();
                     }
-                    calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
-                        + updateCalendar(yearTo, monthTo, 'to');
+                    updateCalendar(yearFrom, monthFrom)
+                    updateCalendar(yearTo, monthTo);
                     addDayListener();
                     addDayListener();
                     checkPrev();
@@ -469,68 +467,145 @@ window.addEventListener('load', function () {
 
         function addNextPrevListener() {
             wrapper.querySelector(".Previous").addEventListener('click', function () {
-                to = new Date(yearTo, monthTo - 1);
-                yearTo = to.getFullYear();
-                monthTo = to.getMonth();
+                // to = new Date(yearTo, monthTo - 1);
+                // yearTo = to.getFullYear();
+                // monthTo = to.getMonth();
 
-                from = new Date(yearFrom, monthFrom - 1);
-                yearFrom = from.getFullYear();
-                monthFrom = from.getMonth();
-                var newNode = document.createElement('div');
-                newNode.innerHTML = updateCalendar(yearFrom, monthFrom, 'left');
+                // from = new Date(yearFrom, monthFrom - 1);
+                // yearFrom = from.getFullYear();
+                // monthFrom = from.getMonth();
+                // var newNode = document.createElement('div');
+                // newNode.innerHTML = updateCalendar(yearFrom, monthFrom, 'left');
 
-                calBoth.insertBefore(newNode, calBoth.children[0]);
-                calBoth.children[0].style.left = "-50%";
-                window.getComputedStyle(calBoth.children[0]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
-                calBoth.children[0].style.left = "0%";
-                calBoth.children[1].style.left = "50%";
-                calBoth.children[2].style.left = "100%";
+                // calBoth.insertBefore(newNode, calBoth.children[0]);
+                // calBoth.children[0].style.left = "-50%";
+                // window.getComputedStyle(calBoth.children[0]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
+                // calBoth.children[0].style.left = "0%";
+                // calBoth.children[1].style.left = "50%";
+                // calBoth.children[2].style.left = "100%";
 
-                setTimeout(function () {
-                    calBoth.removeChild(calBoth.children[2]);
-                    checkPrev();
-                    checkNext();
-                }, 300);
-                addDayListener();
+                // setTimeout(function () {
+                //     calBoth.removeChild(calBoth.children[2]);
+                //     checkPrev();
+                //     checkNext();
+                // }, 300);
+                // addDayListener();
 
 
             });
             wrapper.querySelector(".Next").addEventListener('click', function () {
-                from = new Date(yearFrom, monthFrom + 1);
-                yearFrom = from.getFullYear();;
-                monthFrom = from.getMonth();
+                // from = new Date(yearFrom, monthFrom + 1);
+                // yearFrom = from.getFullYear();;
+                // monthFrom = from.getMonth();
 
-                to = new Date(yearTo, monthTo + 1);
-                yearTo = to.getFullYear();
-                monthTo = to.getMonth();
+                // to = new Date(yearTo, monthTo + 1);
+                // yearTo = to.getFullYear();
+                // monthTo = to.getMonth();
 
-                var newNode = document.createElement('div');
-                newNode.innerHTML = updateCalendar(yearTo, monthTo, 'right');
+                // var newNode = document.createElement('div');
+                // newNode.innerHTML = updateCalendar(yearTo, monthTo, 'right');
 
-                calBoth.appendChild(newNode);
-                calBoth.children[2].style.left = "100%";
-                window.getComputedStyle(calBoth.children[2]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
-                calBoth.children[2].style.left = "50%";
-                calBoth.children[1].style.left = "0%";
-                calBoth.children[0].style.left = "-50%";
+                // calBoth.appendChild(newNode);
+                // calBoth.children[2].style.left = "100%";
+                // window.getComputedStyle(calBoth.children[2]).left; // nessary for animation due to batching reflows by browsers https://stackoverflow.com/questions/24148403/trigger-css-transition-on-appended-element
+                // calBoth.children[2].style.left = "50%";
+                // calBoth.children[1].style.left = "0%";
+                // calBoth.children[0].style.left = "-50%";
 
-                setTimeout(function () {
-                    calBoth.removeChild(calBoth.children[0]);
-                    checkNext();
-                    checkPrev();
-                }, 300);
+                // setTimeout(function () {
+                //     calBoth.removeChild(calBoth.children[0]);
+                //     checkNext();
+                //     checkPrev();
+                // }, 300);
 
-                addDayListener();
+                // addDayListener();
 
             });
         }
 
+        function createCalendars() {
 
-        function updateCalendar(year, month, toOrFrom) {
+            var today = new Date();
+            var startMonth = new Date(today.getFullYear() - 3, today.getMonth());
+            var year = startMonth.getFullYear();
+            var month = startMonth.getMonth() + i;
+            var result = '';
 
-            setCookie();
+            for (var i = 0; i < 37; i++) {
+                result += buildCalendar(year, month + i, i);
+            }
 
-            var calendar = '<div class="CalendarContainer calendar__' + toOrFrom + '"' + '>'
+            return result;
+        }
+
+        function updateCalendar(year, month) {
+            var id = new Date(year, month);
+            var cal = wrapper.querySelector("#" + id);
+            var number = cal.dataset.number;
+
+            var days = cal.querySelectorAll("day");
+
+            for (var i = 1; i <= days; i++) {
+                var selection = '';
+                var wrapperDiv = '';
+
+                var currentDay = new Date(year, month, i);
+                var currentOffset = currentDay.getDay();
+                var currentOffset = currentOffset == 0 ? 7 : currentOffset;
+
+                if (currentDay < allowedMin || currentDay > allowedMax) {
+                    selection = 'disabled'; //used to check also if Previous Next buttons should be disabled
+                }
+
+                else if (dayTo && (currentDay - dayFrom == 0)) {
+                    selection = 'selected start available';
+
+                    if (dayTo - dayFrom != 0) {
+                        wrapperDiv = 'start';
+                    }
+                }
+
+                else if (currentDay - dayFrom == 0) {
+                    selection = 'selected start available';
+                }
+
+                else if (dayTo && (currentDay - dayTo == 0)) {
+                    selection = 'selected end available';
+                    wrapperDiv = 'end';
+                }
+
+                else if (dayTo && (currentDay - dayFrom > 0 && dayTo - currentDay > 0)) {
+                    selection = 'inrange available';
+                    wrapperDiv = 'inrange';
+                }
+
+                else if ((dayFrom - dayTo == 0) && (currentDay > dayFrom)) {
+                    selection = 'hoverable available';
+                }
+
+                else {
+                    selection = 'available';
+                }
+
+                if (i == 1) {
+                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + offset + ';grid-column-start:' + offset + ';"><button class="day ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
+                }
+                else {
+                    var row = Math.ceil((i + offset - 1) / 7);
+                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + currentOffset + ';-ms-grid-row:' + row + ';"><button class="day ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
+                }
+
+            }
+
+
+        }
+
+        function buildCalendar(year, month, n) {
+
+            // setCookie(); \\\\\ important
+            var id = new Date(year, month);
+
+            var calendar = '<div class="CalendarContainer" data-number="' + n + '"  id="' + +id + '">'
                 + '<div class="Month">' + MONTHS[month] + ' ' + year + '</div>'
                 + '<div class="Calendar">';
 
@@ -585,11 +660,11 @@ window.addEventListener('load', function () {
                 }
 
                 if (i == 1) {
-                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + offset + ';grid-column-start:' + offset + ';"><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
+                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + offset + ';grid-column-start:' + offset + ';"><button class="day ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
                 }
                 else {
                     var row = Math.ceil((i + offset - 1) / 7);
-                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + currentOffset + ';-ms-grid-row:' + row + ';"><button class="day ' + toOrFrom + ' ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
+                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + currentOffset + ';-ms-grid-row:' + row + ';"><button class="day ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
                 }
 
             }
