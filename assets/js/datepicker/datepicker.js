@@ -299,6 +299,7 @@ window.addEventListener('load', function () {
         function updateInputFrom() {
             inputFrom.value = dayFrom.getFullYear() + "-" + ("0" + (dayFrom.getMonth() + 1)).slice(-2)
                 + "-" + ("0" + dayFrom.getDate()).slice(-2);
+            wrapper.querySelector(".done").classList.remove("Disabled");
         }
 
         function updateInputTo() {
@@ -309,6 +310,7 @@ window.addEventListener('load', function () {
             else {
                 inputTo.value = '';
             }
+            wrapper.querySelector(".done").classList.remove("Disabled");
 
         }
 
@@ -375,6 +377,7 @@ window.addEventListener('load', function () {
         }
 
         function handleInput(e) {
+
             if (e.target.value.length == 10) {
                 if (RE.test(e.target.value)) {
 
@@ -420,6 +423,10 @@ window.addEventListener('load', function () {
                     updateInputFrom();
                     updateInputTo();
                 }
+            }
+
+            else {
+                wrapper.querySelector(".done").classList.add("Disabled");
             }
         }
 
@@ -600,12 +607,6 @@ window.addEventListener('load', function () {
                     var endDate = dayTo.getFullYear() + "-" + ("0" + (dayTo.getMonth() + 1)).slice(-2)
                         + "-" + ("0" + dayTo.getDate()).slice(-2);
                     func(startDate, endDate);
-                }
-
-                else if (dayFrom) {
-                    var startDate = dayFrom.getFullYear() + "-" + ("0" + (dayFrom.getMonth() + 1)).slice(-2)
-                        + "-" + ("0" + dayFrom.getDate()).slice(-2);
-                    func(startDate, startDate);
                 }
             });
         }

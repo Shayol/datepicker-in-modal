@@ -108,6 +108,12 @@
     cursor: default;
 }
 
+.SModalDatePicker .done.Disabled {
+    opacity: 0.5;
+    pointer-events: none !important;
+    cursor: default;
+}
+
 .SModalDatePicker .Calendar .selected {
     color: #fff;
     background-color: #039be5;
