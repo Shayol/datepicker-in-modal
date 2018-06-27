@@ -1,3 +1,32 @@
+var PICKER_DATA_JSON = 'pickerdata.json';
+
+var ranges = {
+    "past-30-days": {
+        start: new Date(new Date().getFullYear(),
+            new Date().getMonth(), new Date().getDate() - 29),
+        end: new Date()
+    },
+
+    "this-month": {
+        start: new Date(new Date().getFullYear(),
+        new Date().getMonth(), 1),
+        end: new Date()
+    },
+
+    "last-month": {
+        start: new Date(new Date().getFullYear(),
+            new Date().getMonth() - 1, 1),
+        end: new Date(new Date().getFullYear(),
+            new Date().getMonth(), 0)
+    },
+
+    "this-year": {
+        start: new Date(new Date().getFullYear(),
+            0, 1),
+        end: new Date()
+    }
+};
+
 window.addEventListener('load', function () {
 
 
@@ -522,33 +551,8 @@ window.addEventListener('load', function () {
         var start = null;
         var end = null;
         var range;
-
-        var ranges = {
-            "past-30-days": {
-                start: new Date(new Date().getFullYear(),
-                    new Date().getMonth(), new Date().getDate() - 29),
-                end: new Date()
-            },
-
-            "this-month": {
-                start: new Date(new Date().getFullYear(),
-                new Date().getMonth(), 1),
-                end: new Date()
-            },
-
-            "last-month": {
-                start: new Date(new Date().getFullYear(),
-                    new Date().getMonth() - 1, 1),
-                end: new Date(new Date().getFullYear(),
-                    new Date().getMonth(), 0)
-            },
-
-            "this-year": {
-                start: new Date(new Date().getFullYear(),
-                    0, 1),
-                end: new Date()
-            }
-        };
+        var allowedMin = null;
+        var allowedMax = null;
 
         var active = e.target.parentNode.parentNode.querySelector(".active");
 
@@ -564,7 +568,7 @@ window.addEventListener('load', function () {
             }
         }
 
-        fetch('pickerdata.json')
+        fetch(PICKER_DATA_JSON)
             .then(function (response) {
                 return response.json();
             })
@@ -572,8 +576,8 @@ window.addEventListener('load', function () {
 
                 var calend = new Picker();
 
-                var allowedMin = data["first_transaction"];
-                var allowedMax = data["last_transaction"];
+                allowedMin = data["first_transaction"];
+                allowedMax = data["last_transaction"];
 
                 calend.init(document.querySelector("#modal_date_picker .width-calendars"), {
                     allowedMin: allowedMin,

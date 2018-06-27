@@ -1,3 +1,6 @@
+var MONTH_DATA_JSON = 'monthdata.json';
+
+
 window.addEventListener('load', function () {
     var Monthpicker = function () {
 
@@ -142,6 +145,7 @@ window.addEventListener('load', function () {
         var active = e.target.parentNode.parentNode.querySelectorAll("li");
         var defaultMonth = null;
         var index = null;
+        var minMonth = null;
 
         for(var i=0;i<active.length;i++) {
             if(active[i].className.indexOf("active") != -1) {
@@ -155,7 +159,7 @@ window.addEventListener('load', function () {
             defaultMonth = new Date(defaultMonth.getFullYear(), defaultMonth.getMonth() - index); 
         }
 
-        fetch('monthdata.json')
+        fetch(MONTH_DATA_JSON)
         .then(function (response) {
             return response.json();
         })
@@ -164,7 +168,7 @@ window.addEventListener('load', function () {
 
             var min = data["min_income_month"];
             var arr = min.split("-");
-            var minMonth = new Date(parseInt(arr[0]),parseInt(arr[1])-1);
+            minMonth = new Date(parseInt(arr[0]),parseInt(arr[1])-1);
 
             monthcalendar.init(document.querySelector("#modal_month_picker .Container"), { minMonth: minMonth, defaultMonth: defaultMonth },
                 function (month) { console.log(month) });
