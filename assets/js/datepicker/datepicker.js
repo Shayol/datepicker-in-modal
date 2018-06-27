@@ -187,32 +187,77 @@ window.addEventListener('load', function () {
             var el = e.target;
             var input = new Date(parseInt(el.value));
 
-            if (dayFrom && dayTo) {
-                dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                dayTo = null;
-                updateInputTo();
-                updateInputFrom();
-            }
-            else if (dayFrom && dayFrom - input < 0) {
-                dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                updateInputTo();
-            }
+            validateInput(input);
 
-            else if (dayFrom && dayFrom - input > 0) {
-                dayTo = new Date(dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate());
-                dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                updateInputFrom();
-                updateInputTo();
+            updateInputFrom();
+
+            updateInputTo();
+
+            calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
+                + updateCalendar(yearTo, monthTo, 'to');
+            addDayListener();
+
+        }
+
+        function validateInput(input) {
+            if (dayFrom && dayTo) {
+
+                if((input - dayFrom == 0) || (input - dayTo == 0)) {
+                    dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+
+                    dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                }
+
+                if (input < dayFrom) {
+                    dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                }
+
+                if (input > dayTo) {
+                    dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                }
+
+                if (input > dayFrom && input < dayTo) {
+                    if ((input - dayFrom) < (dayTo - input)) {
+                        dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                    }
+                    else {
+                        dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                    }
+                }
+
+            }
+            else if (dayFrom && !dayTo) {
+
+                if (input < dayFrom) {
+                    dayTo = new Date(dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate());
+                    dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                }
+
+                else if (input > dayFrom) {
+                    dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                }
             }
 
             if (!dayTo) {
                 inputTo.focus();
             }
 
-            calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
-                + updateCalendar(yearTo, monthTo, 'to');
-            addDayListener();
+        }
 
+        function validateFrom(input) {
+            if (input > dayTo) {
+                dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                dayTo = null;
+                updateInputFrom();
+                updateInputTo();
+            }
+        }
+
+        function validateTo(input) {
+            if(input < dayFrom) {
+                dayTo = new Date(dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate());
+                updateInputTo();
+            }
         }
 
         function setCookie() {
@@ -257,6 +302,21 @@ window.addEventListener('load', function () {
                 inputTo.value = '';
             }
 
+        }
+
+        function updateVars() {
+            to = new Date(dayTo.getFullYear(), dayTo.getMonth());
+
+            yearTo = to.getFullYear();
+            monthTo = to.getMonth();
+
+            from = new Date(dayTo.getFullYear(), dayTo.getMonth() - 1);
+
+            yearFrom = from.getFullYear();
+            monthFrom = from.getMonth();
+
+            calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
+                + updateCalendar(yearTo, monthTo, 'to');
         }
 
         function highlight(e) {
@@ -311,44 +371,30 @@ window.addEventListener('load', function () {
                     var month = parseInt(arr[1]);
                     var day = parseInt(arr[2]);
 
+                    var input = new Date(year, month - 1, day);
+
                     if (e.target == inputFrom) {
-                        if (allowedMin > new Date(year, month - 1, day) || allowedMax < new Date(year, month - 1, day)) {
+                        if (allowedMin > input || allowedMax < input) {
                             updateInputFrom();
                             return;
                         }
 
-                        dayFrom = new Date(year, month - 1, day);
+                        validateFrom(input);
 
-                        from = new Date(year, month - 1);
-                        yearFrom = from.getFullYear();
-                        monthFrom = from.getMonth();
-
-                        to = new Date(yearFrom, monthFrom + 1);
-                        yearTo = to.getFullYear();
-                        monthTo = to.getMonth();
-
-                        calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
-                            + updateCalendar(yearTo, monthTo, 'to');
+                        updateVars();
 
                         inputTo.focus(); //after entering start data focus on end input
                     }
 
                     else if (e.target == inputTo) {
-                        if (allowedMin > new Date(year, month - 1, day) || allowedMax < new Date(year, month - 1, day)) {
+                        if (allowedMin > input || allowedMax < input) {
                             updateInputTo();
                             return;
                         }
-                        to = new Date(year, month - 1, day);
-                        yearTo = to.getFullYear();
-                        monthTo = to.getMonth();
-                        dayTo = new Date(yearTo, monthTo, to.getDate());
 
-                        from = new Date(yearTo, monthTo - 1, 1);
-                        yearFrom = from.getFullYear();
-                        monthFrom = from.getMonth();
+                        validateTo(input);
 
-                        calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
-                            + updateCalendar(yearTo, monthTo, 'to');
+                        updateVars();
                     }
 
                     addDayListener();
