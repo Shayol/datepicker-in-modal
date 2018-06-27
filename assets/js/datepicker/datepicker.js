@@ -196,13 +196,14 @@ window.addEventListener('load', function () {
             calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
                 + updateCalendar(yearTo, monthTo, 'to');
             addDayListener();
+            inputTo.focus();
 
         }
 
         function validateInput(input) {
             if (dayFrom && dayTo) {
 
-                if((input - dayFrom == 0) || (input - dayTo == 0)) {
+                if ((input - dayFrom == 0) || (input - dayTo == 0)) {
                     dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
 
                     dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
@@ -247,16 +248,23 @@ window.addEventListener('load', function () {
         function validateFrom(input) {
             if (input > dayTo) {
                 dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                dayTo = null;
+                dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
                 updateInputFrom();
                 updateInputTo();
+            }
+            else {
+                dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
             }
         }
 
         function validateTo(input) {
-            if(input < dayFrom) {
+            if (input < dayFrom) {
                 dayTo = new Date(dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate());
                 updateInputTo();
+            }
+
+            else {
+                dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
             }
         }
 
@@ -324,13 +332,17 @@ window.addEventListener('load', function () {
             var thisDay = parseInt(e.target.value);
 
             var hoverDays = wrapper.getElementsByClassName('hoverable');
+            var start = wrapper.querySelector(".selected");
             for (var i = 0; i < hoverDays.length; i++) {
                 var day = parseInt(hoverDays[i].value)
                 if (day <= thisDay) {
+                    start.parentNode.classList.add("wrapper-start");
                     hoverDays[i].classList.add('inrange');
                     hoverDays[i].parentNode.classList.add('wrapper-inrange');
                     hoverDays[i].addEventListener('mouseout', function () {
+
                         for (var i = 0; i < hoverDays.length; i++) {
+                            start.parentNode.classList.remove("wrapper-start");
                             hoverDays[i].classList.remove('inrange');
                             hoverDays[i].parentNode.classList.remove('wrapper-inrange');
                         }
@@ -396,7 +408,9 @@ window.addEventListener('load', function () {
 
                         updateVars();
                     }
-
+                    calBoth.innerHTML = updateCalendar(yearFrom, monthFrom, 'from')
+                        + updateCalendar(yearTo, monthTo, 'to');
+                    addDayListener();
                     addDayListener();
                     checkPrev();
                     checkNext();
@@ -527,7 +541,7 @@ window.addEventListener('load', function () {
 
                 var currentDay = new Date(year, month, i);
                 var currentOffset = currentDay.getDay();
-                var currentOffset = currentOffset == 0 ? 7 : currentOffset
+                var currentOffset = currentOffset == 0 ? 7 : currentOffset;
 
                 if (currentDay < allowedMin || currentDay > allowedMax) {
                     selection = 'disabled'; //used to check also if Previous Next buttons should be disabled
@@ -555,8 +569,8 @@ window.addEventListener('load', function () {
                     wrapperDiv = 'inrange';
                 }
 
-                else if (!dayTo && (currentDay > dayFrom)) {
-                    selection = 'hoverable available'
+                else if ((dayFrom - dayTo == 0) && (currentDay > dayFrom)) {
+                    selection = 'hoverable available';
                 }
 
                 else {
