@@ -160,13 +160,13 @@ window.addEventListener('load', function () {
             updateInputFrom();
             updateInputTo();
             addInputListener();
-            // checkPrev();
-            // checkNext();
+            checkPrev();
+            checkNext();
             doneListener();
             positionCalendar();
 
             calAll.style.transition = "left 0.4s";
-            
+
             setTimeout(function () { inputFrom.focus(); }, 500); //place cursor on load in from input           
 
         }
@@ -174,8 +174,8 @@ window.addEventListener('load', function () {
         function positionCalendar() {
             var id = new Date(yearFrom, monthFrom);
             var cal = wrapper.querySelector("#n-" + +id);
-            if(cal) {
-                calAll.style.left ="-" + 322*cal.dataset.number + "px";
+            if (cal) {
+                calAll.style.left = "-" + 322 * cal.dataset.number + "px";
             }
         }
 
@@ -207,8 +207,7 @@ window.addEventListener('load', function () {
 
             updateInputTo();
 
-            updateCalendar(yearFrom, monthFrom)
-            updateCalendar(yearTo, monthTo);
+            updateCalendar();
             positionCalendar();
             addDayListener();
             setCookie();
@@ -376,21 +375,47 @@ window.addEventListener('load', function () {
         }
 
         function checkPrev() {
-            //     if (calBoth.children[0].querySelector(".disabled")) {
-            //         wrapper.querySelector(".Previous").classList.add("Disabled");
-            //     }
-            //     else {
-            //         wrapper.querySelector(".Previous").classList.remove("Disabled");
-            //     }
-            // }
+            var id = new Date(yearFrom, monthFrom - 1);
+            var cal = wrapper.querySelector("#n-" + +id);
 
-            // function checkNext() {
-            //     if (calBoth.children[calBoth.children.length - 1].querySelector(".disabled")) {
-            //         wrapper.querySelector(".Next").classList.add("Disabled");
-            //     }
-            //     else {
-            //         wrapper.querySelector(".Next").classList.remove("Disabled");
-            //     }
+            if (cal) {
+                var days = cal.querySelectorAll(".day");
+                var dis = cal.querySelectorAll(".day.disabled");
+
+                if (days.length == dis.length) {
+                    wrapper.querySelector(".Previous").classList.add("Disabled");
+                }
+                else {
+                    wrapper.querySelector(".Previous").classList.remove("Disabled");
+                }
+            }
+
+            else {
+                wrapper.querySelector(".Previous").classList.add("Disabled");
+            }
+
+        }
+
+        function checkNext() {
+
+            var id = new Date(yearTo, monthTo + 1);
+            var cal = wrapper.querySelector("#n-" + +id);
+
+            if (cal) {
+                var days = cal.querySelectorAll(".day");
+                var dis = cal.querySelectorAll(".day.disabled");
+
+                if (days.length == dis.length) {
+                    wrapper.querySelector(".Next").classList.add("Disabled");
+                }
+                else {
+                    wrapper.querySelector(".Next").classList.remove("Disabled");
+                }
+            }
+
+            else {
+                wrapper.querySelector(".Next").classList.add("Disabled");
+            }
         }
 
         function handleInput(e) {
@@ -433,8 +458,8 @@ window.addEventListener('load', function () {
                     addDayListener();
                     setCookie();
                     positionCalendar();
-                    // checkPrev();
-                    // checkNext();
+                    checkPrev();
+                    checkNext();
 
                 }
                 else {
@@ -487,6 +512,7 @@ window.addEventListener('load', function () {
 
         function addNextPrevListener() {
             wrapper.querySelector(".Previous").addEventListener('click', function () {
+                
                 to = new Date(yearTo, monthTo - 1);
                 yearTo = to.getFullYear();
                 monthTo = to.getMonth();
@@ -496,6 +522,8 @@ window.addEventListener('load', function () {
                 monthFrom = from.getMonth();
 
                 positionCalendar();
+                checkPrev();
+                checkNext();
 
             });
             wrapper.querySelector(".Next").addEventListener('click', function () {
@@ -508,6 +536,8 @@ window.addEventListener('load', function () {
                 monthTo = to.getMonth();
 
                 positionCalendar();
+                checkNext();
+                checkPrev();
 
             });
         }
