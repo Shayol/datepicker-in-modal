@@ -63,11 +63,11 @@ window.addEventListener('load', function () {
 
         function buildCalendars() {
 
-            var startYear = new Date().getFullYear() - 14;
+            var startYear = new Date().getFullYear() - 7;
 
             var str = '';
 
-            for (var i = 0; i < 9; i++) {
+            for (var i = 0; i < 11; i++) {
 
                 var yearNow = startYear + i;
 
@@ -98,7 +98,7 @@ window.addEventListener('load', function () {
 
         function setPosition() {
             for (var i = 0; i < cals.length; i++) {
-                var year = cals[i].querySelector(".Year").innerText;
+                var year = parseInt(cals[i].querySelector(".Year").innerText);
                 if (currentYear == year) {
                     currentPosition = i;
                 }
