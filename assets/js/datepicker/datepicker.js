@@ -140,8 +140,10 @@ window.addEventListener('load', function () {
                 + '<div class="Container noselect">'
                 + '<span class="Previous icon-arrow-left12"></span>'
                 + '<span class="Next icon-arrow-right13"></span>'
+                + '<div class="calendar-wrapper">'
                 + '<div class="calendar__all">'
                 + createCalendars()
+                + '</div>'
                 + '</div>'
                 + '</div>'
                 + '</div>'

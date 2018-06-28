@@ -1,0 +1,15 @@
+
+#modal_month_picker .CalendarContainer {
+    overflow: hidden;
+} 
+
+#modal_month_picker .cal-wrapper {
+    display: flex;
+    position: relative;
+    width: auto;
+}
+
+#modal_month_picker .year-container {
+    width: 284px;
+    
+}
