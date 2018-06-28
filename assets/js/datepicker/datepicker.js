@@ -211,38 +211,18 @@ window.addEventListener('load', function () {
             positionCalendar();
             addDayListener();
             setCookie();
-            inputTo.focus();
 
         }
 
         function validateInput(input) {
-            if (dayFrom && dayTo) {
+            if (dayFrom && dayTo && (dayFrom - dayTo != 0)) {
+                dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
 
-                if ((input - dayFrom == 0) || (input - dayTo == 0)) {
-                    dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-
-                    dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                }
-
-                if (input < dayFrom) {
-                    dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                }
-
-                if (input > dayTo) {
-                    dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                }
-
-                if (input > dayFrom && input < dayTo) {
-                    if ((input - dayFrom) < (dayTo - input)) {
-                        dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                    }
-                    else {
-                        dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                    }
-                }
+                inputFrom.focus();
 
             }
-            else if (dayFrom && !dayTo) {
+            else if (dayFrom - dayTo == 0) {
 
                 if (input < dayFrom) {
                     dayTo = new Date(dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate());
@@ -252,9 +232,7 @@ window.addEventListener('load', function () {
                 else if (input > dayFrom) {
                     dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
                 }
-            }
 
-            if (!dayTo) {
                 inputTo.focus();
             }
 
@@ -262,7 +240,7 @@ window.addEventListener('load', function () {
 
         function validateFrom(input) {
             if (input > dayTo) {
-                dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                dayFrom = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
                 dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
                 updateInputFrom();
                 updateInputTo();
@@ -275,7 +253,9 @@ window.addEventListener('load', function () {
         function validateTo(input) {
             if (input < dayFrom) {
                 dayTo = new Date(dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate());
+                dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
                 updateInputTo();
+                updateInputFrom();
             }
 
             else {
@@ -318,7 +298,7 @@ window.addEventListener('load', function () {
         }
 
         function updateInputTo() {
-            if (dayTo) {
+            if (dayTo && (dayTo - dayFrom != 0)) {
                 inputTo.value = dayTo.getFullYear() + "-" + ("0" + (dayTo.getMonth() + 1)).slice(-2)
                     + "-" + ("0" + dayTo.getDate()).slice(-2);
             }
@@ -453,8 +433,7 @@ window.addEventListener('load', function () {
 
                         updateVars();
                     }
-                    updateCalendar(yearFrom, monthFrom)
-                    updateCalendar(yearTo, monthTo);
+                    updateCalendar()
                     addDayListener();
                     setCookie();
                     positionCalendar();
@@ -468,7 +447,7 @@ window.addEventListener('load', function () {
                 }
             }
 
-            else {
+            else if(e.target.value.length > 0) {
                 wrapper.querySelector(".done").classList.add("Disabled");
             }
         }
@@ -512,7 +491,7 @@ window.addEventListener('load', function () {
 
         function addNextPrevListener() {
             wrapper.querySelector(".Previous").addEventListener('click', function () {
-                
+
                 to = new Date(yearTo, monthTo - 1);
                 yearTo = to.getFullYear();
                 monthTo = to.getMonth();
@@ -693,6 +672,12 @@ window.addEventListener('load', function () {
                     var endDate = dayTo.getFullYear() + "-" + ("0" + (dayTo.getMonth() + 1)).slice(-2)
                         + "-" + ("0" + dayTo.getDate()).slice(-2);
                     func(startDate, endDate);
+                }
+
+                if (dayFrom) {
+                    var startDate = dayFrom.getFullYear() + "-" + ("0" + (dayFrom.getMonth() + 1)).slice(-2)
+                        + "-" + ("0" + dayFrom.getDate()).slice(-2);
+                    func(startDate, startDate);
                 }
             });
         }
