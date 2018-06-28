@@ -183,7 +183,7 @@ window.addEventListener('load', function () {
                     var str = createCalendars(new Date(id));
                     var newNode = document.createElement("div");
                     var prependedNode = calAll.insertBefore(newNode, cal);
-                    prependedNode.style.display = "none";
+                    prependedNode.style.display = "flex";
                     prependedNode.innerHTML = str;
 
                     var list = calAll.querySelectorAll(".CalendarContainer");
@@ -196,7 +196,6 @@ window.addEventListener('load', function () {
 
                     cal = wrapper.querySelector("#n-" + +id);
                     calAll.style.left = "-" + 322 * cal.dataset.number + "px";
-                    prependedNode.style.display = "flex";
                 }
             }
         }
@@ -550,14 +549,13 @@ window.addEventListener('load', function () {
             
             var start = new Date();
             var monthAfterStart = 37;
-            var startMonth = new Date(start.getFullYear() - 3, start.getMonth());
 
             if(arg) {
                 start = arg;
-                monthAfterStart = 1;
-                startMonth = new Date(start.getFullYear(), start.getMonth()-1);
+                monthAfterStart = 36;
             }
 
+            var startMonth = new Date(start.getFullYear() - 3, start.getMonth());
             var year = startMonth.getFullYear();
             var month = startMonth.getMonth();
             var result = '';
