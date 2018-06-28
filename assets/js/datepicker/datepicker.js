@@ -178,6 +178,26 @@ window.addEventListener('load', function () {
             var cal = wrapper.querySelector("#n-" + +id);
             if (cal) {
                 calAll.style.left = "-" + 322 * cal.dataset.number + "px";
+                if(cal.dataset.number == 0) {
+
+                    var str = createCalendars(new Date(id));
+                    var newNode = document.createElement("div");
+                    var prependedNode = calAll.insertBefore(newNode, cal);
+                    prependedNode.style.display = "none";
+                    prependedNode.innerHTML = str;
+
+                    var list = calAll.querySelectorAll(".CalendarContainer");
+
+                    for(var i=0; i < list.length; i++) {
+                        list[i].dataset.number = i;
+                    }
+                    updateCalendar();
+                    addDayListener();
+
+                    cal = wrapper.querySelector("#n-" + +id);
+                    calAll.style.left = "-" + 322 * cal.dataset.number + "px";
+                    prependedNode.style.display = "flex";
+                }
             }
         }
 
@@ -526,15 +546,23 @@ window.addEventListener('load', function () {
             });
         }
 
-        function createCalendars() {
+        function createCalendars(arg) {
+            
+            var start = new Date();
+            var monthAfterStart = 37;
+            var startMonth = new Date(start.getFullYear() - 3, start.getMonth());
 
-            var today = new Date();
-            var startMonth = new Date(today.getFullYear() - 3, today.getMonth());
+            if(arg) {
+                start = arg;
+                monthAfterStart = 1;
+                startMonth = new Date(start.getFullYear(), start.getMonth()-1);
+            }
+
             var year = startMonth.getFullYear();
             var month = startMonth.getMonth();
             var result = '';
 
-            for (var i = 0; i < 37; i++) {
+            for (var i = 0; i < monthAfterStart; i++) {
                 var current = new Date(year, month + i);
                 result += buildCalendar(current.getFullYear(), current.getMonth(), i);
             }
@@ -542,7 +570,7 @@ window.addEventListener('load', function () {
             return result;
         }
 
-        function updateCalendar(year, month) {
+        function updateCalendar() {
 
 
             var days = wrapper.querySelectorAll(".day");
