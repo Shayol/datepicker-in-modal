@@ -241,11 +241,17 @@ window.addEventListener('load', function () {
         }
 
         function validateFrom(input) {
-            if (input > dayTo) {
+            if ((input > dayTo) && (dayTo - dayFrom) != 0) {
                 dayFrom = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
                 dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
                 updateInputFrom();
                 updateInputTo();
+
+            }
+
+            else if ((dayTo - dayFrom) == 0) {
+                dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+                dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
             }
             else {
                 dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
