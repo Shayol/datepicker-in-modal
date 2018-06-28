@@ -421,8 +421,6 @@ window.addEventListener('load', function () {
                         validateFrom(input);
 
                         updateVars();
-
-                        inputTo.focus(); //after entering start data focus on end input
                     }
 
                     else if (e.target == inputTo) {
