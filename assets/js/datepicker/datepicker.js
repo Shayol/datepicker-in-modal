@@ -244,8 +244,7 @@ window.addEventListener('load', function () {
             if ((input > dayTo) && (dayTo - dayFrom) != 0) {
                 dayFrom = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
                 dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                updateInputFrom();
-                updateInputTo();
+
 
             }
 
@@ -256,6 +255,9 @@ window.addEventListener('load', function () {
             else {
                 dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
             }
+
+            updateInputFrom();
+            updateInputTo();
         }
 
         function validateTo(input) {
@@ -306,12 +308,9 @@ window.addEventListener('load', function () {
         }
 
         function updateInputTo() {
-            if (dayTo && (dayTo - dayFrom != 0)) {
+            if (dayFrom && dayTo) {
                 inputTo.value = dayTo.getFullYear() + "-" + ("0" + (dayTo.getMonth() + 1)).slice(-2)
                     + "-" + ("0" + dayTo.getDate()).slice(-2);
-            }
-            else {
-                inputTo.value = '';
             }
             wrapper.querySelector(".done").classList.remove("Disabled");
 
@@ -453,7 +452,7 @@ window.addEventListener('load', function () {
                 }
             }
 
-            else if(e.target.value.length > 0) {
+            else if (e.target.value.length > 0) {
                 wrapper.querySelector(".done").classList.add("Disabled");
             }
         }
