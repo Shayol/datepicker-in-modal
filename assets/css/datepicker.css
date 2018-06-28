@@ -1,11 +1,9 @@
 .SModalDatePicker .Content { 
     padding: 32px 40px 40px 40px;
-    overflow: hidden;
 }
 
 .SModalDatePicker .Container.noselect {
     width: 100%;
-    overflow: hidden;
 }
 
 .SModalDatePicker .FromToInputs {
@@ -23,25 +21,6 @@
 .SModalDatePicker .calendar-wrapper {
     overflow: hidden;
 }
-
-/* .SModalDatePicker .calendar__from {
-    left: 0;
-}
-
-.SModalDatePicker .calendar__to {
-    left: 50%;
-}
-
-.SModalDatePicker .calendar__both > div:first-child {
-    margin-right: 21px;
-}
-.SModalDatePicker .calendar__both > div:nth-child(2) {
-    margin-left: 21px;
-}
-
-.SModalDatePicker .calendar__both > div:nth-child(2) + div:nth-child(3) {
-    margin-left: 42px;
-} */
 
 .SModalDatePicker .CalendarContainer {
     margin-right: 42px;
