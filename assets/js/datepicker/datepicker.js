@@ -72,10 +72,6 @@ window.addEventListener('load', function () {
 
             func = cb;
 
-            var optionsStart = parseDate(settings.start);
-            var optionsEnd = parseDate(settings.end);
-
-
             var cookieStart = getCookie("datepickerstart");
             var cookieEnd = getCookie("datepickerend");
 
@@ -124,7 +120,7 @@ window.addEventListener('load', function () {
 
 
         function render() {
-            // wrapper.innerHTML = '';
+            wrapper.innerHTML = '';
             wrapper.innerHTML = '<div class="modal-content S SModal SModalDatePicker">'
                 + '<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>'
                 + '<div class="Content">'
@@ -175,14 +171,27 @@ window.addEventListener('load', function () {
         }
 
         function positionOnload() {
-            var id = new Date(yearTo, monthTo);
+            var id = new Date(yearFrom, monthFrom);
             var cal = wrapper.querySelector("#n-" + +id);
+            var pos;
+
             if(cal) {
+
                 cal.scrollIntoView({block: "start", inline: "start"});
+
+                // for(var i=0; i<list.length;i++) {
+                //     if(list[i] == cal) {
+                //         pos = i;
+                //     }
+                // }
+                // calAll.style.left = "-" + pos*322 + "px";
+                
             }
         }
 
         function positionCalendar() {
+            
+
             var id = new Date(yearFrom, monthFrom);
             var cal = wrapper.querySelector("#n-" + +id);
             if (cal) {
@@ -353,8 +362,7 @@ window.addEventListener('load', function () {
             yearFrom = from.getFullYear();
             monthFrom = from.getMonth();
 
-            updateCalendar(yearFrom, monthFrom)
-            updateCalendar(yearTo, monthTo);
+            updateCalendar()
             positionCalendar();
         }
 

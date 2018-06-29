@@ -21,6 +21,7 @@
 
 .SModalDatePicker .calendar__all {
     /* overflow-x: scroll; */
+    /* position: relative; */
     display: flex;
     min-height: 335px;
 }
