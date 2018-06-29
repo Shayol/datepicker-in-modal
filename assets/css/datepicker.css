@@ -28,7 +28,7 @@
 
 .SModalDatePicker .done.Disabled {
     opacity: 0.5;
-    pointer-events: none !important;
+    pointer-events: none;
     cursor: default;
 }
 
