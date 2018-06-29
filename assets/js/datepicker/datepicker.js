@@ -57,7 +57,7 @@ window.addEventListener('load', function () {
         var allowedMax;
 
         var calAll;
-        var currentNumber;
+        var list;
 
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"];
@@ -155,6 +155,7 @@ window.addEventListener('load', function () {
             inputFrom = wrapper.getElementsByTagName('input')[0];
             inputTo = wrapper.getElementsByTagName('input')[1];
             calAll = wrapper.querySelector(".calendar__all");
+            list = wrapper.querySelectorAll(".CalendarContainer");
 
 
             addDayListener();
@@ -167,7 +168,7 @@ window.addEventListener('load', function () {
             doneListener();
             positionCalendar();
 
-            calAll.style.transition = "left 0.4s";
+            // calAll.style.transition = "left 0.4s";
 
             setTimeout(function () { inputFrom.focus(); }, 500); //place cursor on load in from input           
 
@@ -177,8 +178,11 @@ window.addEventListener('load', function () {
             var id = new Date(yearFrom, monthFrom);
             var cal = wrapper.querySelector("#n-" + +id);
             if (cal) {
-                calAll.style.left = "-" + 322 * cal.dataset.number + "px";
-                if(cal.dataset.number == 0) {
+
+                cal.scrollIntoView({behavior: "smooth", block: "start", inline: "start"});
+                // calAll.style.left = "-" + 322 * cal.dataset.number + "px";
+                list = wrapper.querySelectorAll(".CalendarContainer");
+                if(list[0] == cal) {
 
                     var str = createCalendars(new Date(id));
                     var newNode = document.createElement("div");
@@ -188,14 +192,14 @@ window.addEventListener('load', function () {
 
                     var list = calAll.querySelectorAll(".CalendarContainer");
 
-                    for(var i=0; i < list.length; i++) {
-                        list[i].dataset.number = i;
-                    }
+                    // for(var i=0; i < list.length; i++) {
+                    //     list[i].dataset.number = i;
+                    // }
                     updateCalendar();
                     addDayListener();
 
-                    cal = wrapper.querySelector("#n-" + +id);
-                    calAll.style.left = "-" + 322 * cal.dataset.number + "px";
+                    // cal = wrapper.querySelector("#n-" + +id);
+                    // calAll.style.left = "-" + 322 * cal.dataset.number + "px";
                 }
             }
         }
