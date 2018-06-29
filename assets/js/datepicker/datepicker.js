@@ -159,7 +159,6 @@ window.addEventListener('load', function () {
             updateInputFrom();
             updateInputTo();
             addInputListener();
-            positionOnload();
             checkPrev();
             checkNext();
             doneListener();
@@ -167,7 +166,10 @@ window.addEventListener('load', function () {
 
             // calAll.style.transition = "left 0.4s";
 
-            setTimeout(function () { inputFrom.focus(); }, 500); //place cursor on load in from input           
+            setTimeout(function () { 
+                inputFrom.focus(); 
+                positionOnload();
+            }, 100); //place cursor on load in from input           
         }
 
         function positionOnload() {
