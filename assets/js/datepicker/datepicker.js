@@ -72,10 +72,6 @@ window.addEventListener('load', function () {
 
             func = cb;
 
-            var optionsStart = parseDate(settings.start);
-            var optionsEnd = parseDate(settings.end);
-
-
             var cookieStart = getCookie("datepickerstart");
             var cookieEnd = getCookie("datepickerend");
 
