@@ -327,8 +327,7 @@ window.addEventListener('load', function () {
             yearFrom = from.getFullYear();
             monthFrom = from.getMonth();
 
-            updateCalendar(yearFrom, monthFrom)
-            updateCalendar(yearTo, monthTo);
+            updateCalendar();
             positionCalendar();
         }
 
@@ -363,10 +362,9 @@ window.addEventListener('load', function () {
             var cal = wrapper.querySelector("#n-" + +id);
 
             if (cal) {
-                var days = cal.querySelectorAll("i");
-                var dis = cal.querySelectorAll(".Disabled");
+                var days = cal.querySelectorAll(".available");
 
-                if (days.length == dis.length) {
+                if (days.length == 0) {
                     wrapper.querySelector(".Previous").classList.add("Disabled");
                 }
                 else {
@@ -377,19 +375,17 @@ window.addEventListener('load', function () {
             else {
                 wrapper.querySelector(".Previous").classList.add("Disabled");
             }
-
         }
-
+        
         function checkNext() {
 
             var id = new Date(yearTo, monthTo + 1);
             var cal = wrapper.querySelector("#n-" + +id);
 
             if (cal) {
-                var days = cal.querySelectorAll("i");
-                var dis = cal.querySelectorAll("Disabled");
+                var days = cal.querySelectorAll(".available");
 
-                if (days.length == dis.length) {
+                if (days.length == 0) {
                     wrapper.querySelector(".Next").classList.add("Disabled");
                 }
                 else {
@@ -441,6 +437,7 @@ window.addEventListener('load', function () {
                     positionCalendar();
                     checkPrev();
                     checkNext();
+                    wrapper.querySelector(".done").classList.remove("Disabled");
 
                 }
                 else {
@@ -449,7 +446,7 @@ window.addEventListener('load', function () {
                 }
             }
 
-            else if (e.target.value.length >= 0) {
+            else if (e.target.value.length >= 0 && e.target.value.length < 10) {
                 wrapper.querySelector(".done").classList.add("Disabled");
             }
         }
@@ -539,7 +536,7 @@ window.addEventListener('load', function () {
             return result;
         }
 
-        function updateCalendar(year, month) {
+        function updateCalendar() {
 
 
             var days = wrapper.querySelectorAll("i");
@@ -552,7 +549,7 @@ window.addEventListener('load', function () {
 
 
                 if (currentDay < allowedMin || currentDay > allowedMax) {
-                    selection = 'Disabled';
+                    wrapperDiv = 'Disabled';
                 }
 
                 else if (dayTo && (currentDay - dayFrom == 0)) {
@@ -611,7 +608,7 @@ window.addEventListener('load', function () {
             offset = offset == 0 ? 7 : offset; // 0 is Sunday
 
             for (var n = 1; n < offset; n++) {
-                calendar += '<div><i class="Disabled"></i></div>';
+                calendar += '<div class="Disabled"><em></em></div>';
             }
 
             for (var i = 1; i <= days; i++) {
@@ -623,7 +620,7 @@ window.addEventListener('load', function () {
                 var currentOffset = currentOffset == 0 ? 7 : currentOffset;
 
                 if (currentDay < allowedMin || currentDay > allowedMax) {
-                    selection = 'Disabled';
+                    wrapperDiv = 'Disabled';
                 }
 
                 else if (dayTo && (currentDay - dayFrom == 0)) {
@@ -656,7 +653,7 @@ window.addEventListener('load', function () {
                 else {
                     selection = 'available';
                 }
-                
+
                 calendar += '<div class="' + wrapperDiv + '"><i class="' + selection + '" data-value="' + +currentDay + '">' + i + '</i></div>';
 
             }
