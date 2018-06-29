@@ -163,6 +163,7 @@ window.addEventListener('load', function () {
             updateInputFrom();
             updateInputTo();
             addInputListener();
+            positionOnload();
             checkPrev();
             checkNext();
             doneListener();
@@ -171,7 +172,6 @@ window.addEventListener('load', function () {
             // calAll.style.transition = "left 0.4s";
 
             setTimeout(function () { inputFrom.focus(); }, 500); //place cursor on load in from input           
-            positionOnload();
         }
 
         function positionOnload() {
@@ -355,6 +355,7 @@ window.addEventListener('load', function () {
 
             updateCalendar(yearFrom, monthFrom)
             updateCalendar(yearTo, monthTo);
+            positionCalendar();
         }
 
         function highlight(e) {
@@ -458,12 +459,12 @@ window.addEventListener('load', function () {
 
                         updateVars();
                     }
-                    updateCalendar()
+                    updateCalendar();
                     addDayListener();
                     setCookie();
-                    positionCalendar();
                     checkPrev();
                     checkNext();
+                    wrapper.querySelector(".done").classList.remove("Disabled");
 
                 }
                 else {
@@ -472,7 +473,7 @@ window.addEventListener('load', function () {
                 }
             }
 
-            else if (e.target.value.length >= 0) {
+            else if (e.target.value.length >= 0 && e.target.value.length < 10) {
                 wrapper.querySelector(".done").classList.add("Disabled");
             }
         }
@@ -549,7 +550,7 @@ window.addEventListener('load', function () {
         function createCalendars(arg) {
             
             var start = new Date();
-            var monthAfterStart = 37;
+            var monthAfterStart = 38;
 
             if(arg) {
                 start = arg;
