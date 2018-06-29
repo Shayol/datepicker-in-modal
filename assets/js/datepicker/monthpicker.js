@@ -10,7 +10,7 @@ window.addEventListener('load', function () {
         var currentYear;
         var currentPosition;
         var minMonth;
-        var maxMonth = new Date();
+        var maxMonth;
         var settings;
         var prev;
         var next;
@@ -26,6 +26,7 @@ window.addEventListener('load', function () {
 
 
             minMonth = settings.minMonth || new Date(1970, 0);
+            maxMonth = settings.maxMonth || new Date();
 
             month = settings.defaultMonth || new Date(new Date().getFullYear(), new Date().getMonth());
 
@@ -33,7 +34,12 @@ window.addEventListener('load', function () {
                 month = new Date(minMonth.getFullYear(), minMonth.getMonth());
             }
 
+            if(month > maxMonth) {
+                month = new Date(maxMonth.getFullYear(), maxMonth.getMonth());
+            }
+
             currentYear = month.getFullYear();
+            console.log(maxMonth);
 
             render()
         }
@@ -196,6 +202,7 @@ window.addEventListener('load', function () {
         var defaultMonth = null;
         var index = null;
         var minMonth = null;
+        var MaxMonth = null;
 
         for (var i = 0; i < active.length; i++) {
             if (active[i].className.indexOf("active") != -1) {
@@ -217,10 +224,13 @@ window.addEventListener('load', function () {
                 var monthcalendar = new Monthpicker();
 
                 var min = data["min_income_month"];
-                var arr = min.split("-");
-                minMonth = new Date(parseInt(arr[0]), parseInt(arr[1]) - 1);
+                var max = data["max_income_month"];
+                var arrMin = min.split("-");
+                var arrMax = max.split("-");
+                minMonth = new Date(parseInt(arrMin[0]), parseInt(arrMin[1]) - 1);
+                maxMonth = new Date(parseInt(arrMax[0]), parseInt(arrMax[1]) - 1);
 
-                monthcalendar.init(document.querySelector("#modal_month_picker .Container"), { minMonth: minMonth, defaultMonth: defaultMonth },
+                monthcalendar.init(document.querySelector("#modal_month_picker .Container"), { minMonth: minMonth, maxMonth: maxMonth, defaultMonth: defaultMonth },
                     function (month) { console.log(month) });
 
             });
