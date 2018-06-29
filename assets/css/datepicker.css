@@ -20,10 +20,8 @@
 
 
 .SModalDatePicker .calendar__all {
-    /* position: relative; */
     /* overflow-x: scroll; */
     display: flex;
-    /* right: 0; */
     min-height: 335px;
 }
 
@@ -33,4 +31,13 @@
     cursor: default;
 }
 
+.SModalDatePicker .Calendar div:hover em {
+	color: #333;
+	border:1px solid #039be5;
+	padding-top:7px !important;
+	-webkit-transition: all .15s ease-out;
+    -moz-transition: all .15s ease-out;
+    -ms-transition: all .15s ease-out;
+    -o-transition: all .15s ease-out;
+}
 

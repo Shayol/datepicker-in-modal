@@ -166,12 +166,20 @@ window.addEventListener('load', function () {
             checkPrev();
             checkNext();
             doneListener();
-            positionCalendar();
+            
 
             // calAll.style.transition = "left 0.4s";
 
             setTimeout(function () { inputFrom.focus(); }, 500); //place cursor on load in from input           
+            positionOnload();
+        }
 
+        function positionOnload() {
+            var id = new Date(yearTo, monthTo);
+            var cal = wrapper.querySelector("#n-" + +id);
+            if(cal) {
+                cal.scrollIntoView({block: "start", inline: "start"});
+            }
         }
 
         function positionCalendar() {
@@ -180,7 +188,7 @@ window.addEventListener('load', function () {
             if (cal) {
 
                 cal.scrollIntoView({behavior: "smooth", block: "start", inline: "start"});
-                // calAll.style.left = "-" + 322 * cal.dataset.number + "px";
+                
                 list = wrapper.querySelectorAll(".CalendarContainer");
                 if(list[0] == cal) {
 
@@ -192,14 +200,9 @@ window.addEventListener('load', function () {
 
                     var list = calAll.querySelectorAll(".CalendarContainer");
 
-                    // for(var i=0; i < list.length; i++) {
-                    //     list[i].dataset.number = i;
-                    // }
                     updateCalendar();
                     addDayListener();
 
-                    // cal = wrapper.querySelector("#n-" + +id);
-                    // calAll.style.left = "-" + 322 * cal.dataset.number + "px";
                 }
             }
         }
@@ -352,7 +355,6 @@ window.addEventListener('load', function () {
 
             updateCalendar(yearFrom, monthFrom)
             updateCalendar(yearTo, monthTo);
-            positionCalendar();
         }
 
         function highlight(e) {
@@ -386,10 +388,9 @@ window.addEventListener('load', function () {
             var cal = wrapper.querySelector("#n-" + +id);
 
             if (cal) {
-                var days = cal.querySelectorAll("i");
-                var dis = cal.querySelectorAll(".Disabled");
-
-                if (days.length == dis.length) {
+                var days = cal.querySelectorAll(".available");
+                
+                if (days.length == 0) {
                     wrapper.querySelector(".Previous").classList.add("Disabled");
                 }
                 else {
@@ -409,10 +410,9 @@ window.addEventListener('load', function () {
             var cal = wrapper.querySelector("#n-" + +id);
 
             if (cal) {
-                var days = cal.querySelectorAll("i");
-                var dis = cal.querySelectorAll("Disabled");
+                var days = cal.querySelectorAll(".available");
 
-                if (days.length == dis.length) {
+                if (days.length == 0) {
                     wrapper.querySelector(".Next").classList.add("Disabled");
                 }
                 else {
@@ -582,7 +582,7 @@ window.addEventListener('load', function () {
 
 
                 if (currentDay < allowedMin || currentDay > allowedMax) {
-                    selection = 'Disabled';
+                    wrapperDiv = 'Disabled';
                 }
 
                 else if (dayTo && (currentDay - dayFrom == 0)) {
@@ -641,7 +641,7 @@ window.addEventListener('load', function () {
             offset = offset == 0 ? 7 : offset; // 0 is Sunday
 
             for (var n = 1; n < offset; n++) {
-                calendar += '<div><i class="Disabled"></i></div>';
+                calendar += '<div class="Disabled"><em></em></div>';
             }
 
             for (var i = 1; i <= days; i++) {
@@ -653,7 +653,7 @@ window.addEventListener('load', function () {
                 var currentOffset = currentOffset == 0 ? 7 : currentOffset;
 
                 if (currentDay < allowedMin || currentDay > allowedMax) {
-                    selection = 'Disabled';
+                    wrapperDiv = 'Disabled';
                 }
 
                 else if (dayTo && (currentDay - dayFrom == 0)) {
