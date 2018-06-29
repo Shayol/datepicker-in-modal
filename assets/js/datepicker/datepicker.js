@@ -220,7 +220,7 @@ window.addEventListener('load', function () {
 
         function update(e) {
             var el = e.target;
-            var input = new Date(parseInt(el.value));
+            var input = new Date(parseInt(el.dataset.value));
 
             validateInput(input);
 
@@ -353,28 +353,25 @@ window.addEventListener('load', function () {
 
         function highlight(e) {
 
-            var thisDay = parseInt(e.target.value);
+            var thisDay = parseInt(e.target.dataset.value);
 
             var hoverDays = wrapper.getElementsByClassName('hoverable');
-            var start = wrapper.querySelector(".selected");
+            var start = wrapper.querySelector(".Selected");
             for (var i = 0; i < hoverDays.length; i++) {
-                var day = parseInt(hoverDays[i].value)
+                var day = parseInt(hoverDays[i].dataset.value)
                 if (day <= thisDay) {
-                    start.parentNode.classList.add("wrapper-start");
-                    hoverDays[i].classList.add('inrange');
-                    hoverDays[i].parentNode.classList.add('wrapper-inrange');
+                    start.parentNode.classList.add("From");
+                    hoverDays[i].parentNode.classList.add('Included');
                     hoverDays[i].addEventListener('mouseout', function () {
 
                         for (var i = 0; i < hoverDays.length; i++) {
-                            start.parentNode.classList.remove("wrapper-start");
-                            hoverDays[i].classList.remove('inrange');
-                            hoverDays[i].parentNode.classList.remove('wrapper-inrange');
+                            start.parentNode.classList.remove("From");
+                            hoverDays[i].parentNode.classList.remove('Included');
                         }
                     });
                 }
                 else {
-                    hoverDays[i].classList.remove('inrange');
-                    hoverDays[i].parentNode.classList.remove('wrapper-inrange');
+                    hoverDays[i].parentNode.classList.remove('Included');
                 }
             }
 
@@ -385,8 +382,8 @@ window.addEventListener('load', function () {
             var cal = wrapper.querySelector("#n-" + +id);
 
             if (cal) {
-                var days = cal.querySelectorAll(".day");
-                var dis = cal.querySelectorAll(".day.disabled");
+                var days = cal.querySelectorAll("i");
+                var dis = cal.querySelectorAll(".Disabled");
 
                 if (days.length == dis.length) {
                     wrapper.querySelector(".Previous").classList.add("Disabled");
@@ -408,8 +405,8 @@ window.addEventListener('load', function () {
             var cal = wrapper.querySelector("#n-" + +id);
 
             if (cal) {
-                var days = cal.querySelectorAll(".day");
-                var dis = cal.querySelectorAll(".day.disabled");
+                var days = cal.querySelectorAll("i");
+                var dis = cal.querySelectorAll("Disabled");
 
                 if (days.length == dis.length) {
                     wrapper.querySelector(".Next").classList.add("Disabled");
@@ -471,7 +468,7 @@ window.addEventListener('load', function () {
                 }
             }
 
-            else if (e.target.value.length > 0) {
+            else if (e.target.value.length >= 0) {
                 wrapper.querySelector(".done").classList.add("Disabled");
             }
         }
@@ -571,39 +568,40 @@ window.addEventListener('load', function () {
         function updateCalendar() {
 
 
-            var days = wrapper.querySelectorAll(".day");
+            var days = wrapper.querySelectorAll("i");
 
             for (var i = 0; i < days.length; i++) {
                 var selection = '';
                 var wrapperDiv = '';
 
-                var currentDay = new Date(parseInt(days[i].value));
+                var currentDay = new Date(parseInt(days[i].dataset.value));
 
 
                 if (currentDay < allowedMin || currentDay > allowedMax) {
-                    selection = 'disabled';
+                    selection = 'Disabled';
                 }
 
                 else if (dayTo && (currentDay - dayFrom == 0)) {
-                    selection = 'selected start available';
+                    selection = 'Selected available';
 
                     if (dayTo - dayFrom != 0) {
-                        wrapperDiv = 'start';
+                        wrapperDiv = 'From';
                     }
                 }
 
                 else if (currentDay - dayFrom == 0) {
-                    selection = 'selected start available';
+                    selection = 'Selected available';
+                    wrapperDiv = 'From'
                 }
 
                 else if (dayTo && (currentDay - dayTo == 0)) {
-                    selection = 'selected end available';
-                    wrapperDiv = 'end';
+                    selection = 'Selected available';
+                    wrapperDiv = 'To';
                 }
 
                 else if (dayTo && (currentDay - dayFrom > 0 && dayTo - currentDay > 0)) {
-                    selection = 'inrange available';
-                    wrapperDiv = 'inrange';
+                    selection = 'available';
+                    wrapperDiv = 'Included';
                 }
 
                 else if ((dayFrom - dayTo == 0) && (currentDay > dayFrom)) {
@@ -614,8 +612,8 @@ window.addEventListener('load', function () {
                     selection = 'available';
                 }
 
-                days[i].className = "day " + selection;
-                days[i].parentNode.className = "wrapper-" + wrapperDiv;
+                days[i].className = selection;
+                days[i].parentNode.className = wrapperDiv;
 
             }
 
@@ -638,6 +636,10 @@ window.addEventListener('load', function () {
 
             offset = offset == 0 ? 7 : offset; // 0 is Sunday
 
+            for (var n = 1; n < offset; n++) {
+                calendar += '<div><i class="Disabled"></i></div>';
+            }
+
             for (var i = 1; i <= days; i++) {
                 var selection = '';
                 var wrapperDiv = '';
@@ -647,29 +649,30 @@ window.addEventListener('load', function () {
                 var currentOffset = currentOffset == 0 ? 7 : currentOffset;
 
                 if (currentDay < allowedMin || currentDay > allowedMax) {
-                    selection = 'disabled'; //used to check also if Previous Next buttons should be disabled
+                    selection = 'Disabled';
                 }
 
                 else if (dayTo && (currentDay - dayFrom == 0)) {
-                    selection = 'selected start available';
+                    selection = 'Selected available';
 
                     if (dayTo - dayFrom != 0) {
-                        wrapperDiv = 'start';
+                        wrapperDiv = 'From';
                     }
                 }
 
                 else if (currentDay - dayFrom == 0) {
-                    selection = 'selected start available';
+                    selection = 'Selected available';
+                    wrapperDiv = 'From'
                 }
 
                 else if (dayTo && (currentDay - dayTo == 0)) {
-                    selection = 'selected end available';
-                    wrapperDiv = 'end';
+                    selection = 'Selected available';
+                    wrapperDiv = 'To';
                 }
 
                 else if (dayTo && (currentDay - dayFrom > 0 && dayTo - currentDay > 0)) {
-                    selection = 'inrange available';
-                    wrapperDiv = 'inrange';
+                    selection = 'available';
+                    wrapperDiv = 'Included';
                 }
 
                 else if ((dayFrom - dayTo == 0) && (currentDay > dayFrom)) {
@@ -679,14 +682,8 @@ window.addEventListener('load', function () {
                 else {
                     selection = 'available';
                 }
-
-                if (i == 1) {
-                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + offset + ';grid-column-start:' + offset + ';"><button class="day ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
-                }
-                else {
-                    var row = Math.ceil((i + offset - 1) / 7);
-                    calendar += '<div class="wrapper-' + wrapperDiv + '"' + 'style="-ms-grid-column:' + currentOffset + ';-ms-grid-row:' + row + ';"><button class="day ' + selection + '" value="' + +currentDay + '">' + i + '</button></div>';
-                }
+                
+                calendar += '<div class="' + wrapperDiv + '"><i class="' + selection + '" data-value="' + +currentDay + '">' + i + '</i></div>';
 
             }
 

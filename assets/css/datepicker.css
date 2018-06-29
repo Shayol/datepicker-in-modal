@@ -1,21 +1,13 @@
-.SModalDatePicker .Content { 
+ .SModalDatePicker .Content { 
     padding: 32px 40px 40px 40px;
 }
 
-.SModalDatePicker .Container.noselect {
+ .SModalDatePicker .Container.noselect {
     width: 100%;
-}
+} 
 
 .SModalDatePicker .FromToInputs {
     padding-right: 56px;
-}
-.SModalDatePicker .Calendar {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    -ms-grid-rows: auto auto auto auto auto auto;
-    grid-template-rows: auto auto auto auto auto auto;
 }
 
 .SModalDatePicker .calendar-wrapper {
@@ -34,81 +26,10 @@
     min-height: 335px;
 }
 
-.SModalDatePicker .Calendar .day {
-    height: 40px;
-    width: 40px;
-    border-radius: 100%;
-    text-align: center;
-    padding-top: 10px;
-    cursor: pointer;
-    background-color: white;
-    border: none;
-    position: relative;
-    padding: 0;
-    outline: none;
-    margin-bottom: 3px;
-}
-
-.SModalDatePicker .Calendar .available:hover {
-    background-color:#e1f5fe;
-    color: #333;
-    border: 1px solid #039be5;
-    -webkit-transition: background .1s linear;
-    -moz-transition: background .1s linear;
-    -ms-transition: background .1s linear;
-    -o-transition: background .1s linear;
-}
-.SModalDatePicker .Calendar .inrange {
-    background-color: transparent;
-    border-radius: 0;
-}
-.SModalDatePicker .Calendar .inrange:hover {
-    border:1px solid #039be5;
-    border-radius: 100%;
-}
-
-.SModalDatePicker .Calendar .wrapper-inrange {
-    background-color: #e1f5fe;
-}
-
-.SModalDatePicker .Calendar .wrapper-start {
-     background-color: #e1f5fe;
-     border-radius: 100% 0 0 100%;
- }
-
- .SModalDatePicker .Calendar .wrapper-end {
-    background-color: #e1f5fe;
-    border-radius: 0 100% 100% 0;
- }
-
-
- .SModalDatePicker .Calendar .disabled {
-    color: #ccc;
+.SModalDatePicker .done.Disabled {
+    opacity: 0.5;
     pointer-events: none;
     cursor: default;
 }
 
-.SModalDatePicker .done.Disabled {
-    opacity: 0.5;
-    pointer-events: none !important;
-    cursor: default;
-}
 
-.SModalDatePicker .Calendar .selected {
-    color: #fff;
-    background-color: #039be5;
-    border: 1px solid #039be5;
-	transition: background .1s linear;
-	-webkit-transition: background .1s linear;
-    -moz-transition: background .1s linear;
-    -ms-transition: background .1s linear;
-    -o-transition: background .1s linear;
-}
-.SModalDatePicker .Calendar .available.selected:hover {
-    background-color: white;
-    color: #333;
-    -webkit-transition: background .1s linear;
-    -moz-transition: background .1s linear;
-    -ms-transition: background .1s linear;
-    -o-transition: background .1s linear;
-}
