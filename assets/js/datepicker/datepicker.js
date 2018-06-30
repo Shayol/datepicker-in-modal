@@ -372,7 +372,7 @@ window.addEventListener('load', function () {
                 wrapper.querySelector(".Previous").classList.add("Disabled");
             }
         }
-        
+
         function checkNext() {
 
             var id = new Date(yearTo, monthTo + 1);
@@ -526,12 +526,12 @@ window.addEventListener('load', function () {
             var y = 0;
 
             while (true) {
-                
+
                 var current = new Date(year, month + y);
                 var currYear = current.getFullYear();
                 var currMonth = current.getMonth();
                 result += buildCalendar(currYear, currMonth, y);
-                if(currYear == maxYear && currMonth == maxMonth) {
+                if (currYear == maxYear && currMonth == maxMonth) {
                     break;
                 }
                 ++y
@@ -728,29 +728,7 @@ window.addEventListener('load', function () {
 
                     //callback function that receives start and end in YYYY-MM-DD format 
                     function (start, end) {
-
-                            console.log(start,end)
-
-                        // var target = $("li > a[data-target='#modal_date_picker']"),
-                        //     parent = target.parent('li'),
-                        //     ul = parent.parent('ul'),
-                        //     button = $(ul.data('button'));
-
-                        // target.data('from', start);
-                        // target.data('to', end);
-                        // button.html(start + ' - ' + end + ' <span class="caret"></span>');
-                        // ul.parent().off('hide.bs.dropdown');
-                        // ul.dropdown('toggle');
-
-                        // if (ul.attr('id') === 'top-spendings-date')
-                        //     topSpendingsCallback();
-                        // else {
-                        //     var modal = $('#modal_all_transactions');
-                        //     modal.data('from', start)
-                        //         .data('to', end);
-
-                        //     loadItems(modal, 0, 50, true, false);
-                        // }
+                        console.log(start, end)
                     });
             });
 
