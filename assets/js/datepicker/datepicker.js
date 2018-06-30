@@ -57,12 +57,11 @@ window.addEventListener('load', function () {
         var allowedMax;
 
         var calAll;
-        var currentNumber;
 
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"];
 
-        var RE = /(\d{4})-(\d{2})-(\d{2})/;
+        var RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 
         function init(obj, options, cb) {
 

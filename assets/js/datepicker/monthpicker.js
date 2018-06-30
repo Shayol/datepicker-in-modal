@@ -35,7 +35,7 @@ window.addEventListener('load', function () {
                 month = new Date(minMonth.getFullYear(), minMonth.getMonth());
             }
 
-            if(month > maxMonth) {
+            if (month > maxMonth) {
                 month = new Date(maxMonth.getFullYear(), maxMonth.getMonth());
             }
 
@@ -80,7 +80,7 @@ window.addEventListener('load', function () {
                 yearNow = startYear + i;
 
                 str += "<div class='year-container'>"
-                    +"<div class='Year'>"
+                    + "<div class='Year'>"
                     + yearNow
                     + "</div>"
                     + "<div class='Calendar noselect'>"
@@ -112,9 +112,9 @@ window.addEventListener('load', function () {
                 if (currentYear == year) {
                     currentPosition = i;
                 }
-             }
-             container.style.left = "-" + 284 * currentPosition + "px";
-             container.style.width = 284 * cals.length + "px";
+            }
+            container.style.left = "-" + 284 * currentPosition + "px";
+            container.style.width = 284 * cals.length + "px";
         }
 
         function addMonthListener() {
@@ -124,7 +124,7 @@ window.addEventListener('load', function () {
                     var monthName = e.target.innerText;
                     var n = MONTHS.indexOf(monthName);
                     month = new Date(currentYear, n);
-                    
+
                     updateCalendar();
 
                     var result = month.getFullYear() + "-" + ("0" + (month.getMonth() + 1)).slice(-2);
@@ -206,13 +206,14 @@ window.addEventListener('load', function () {
 
         var minMonth = null;
         var maxMonth = null;
+        var monthRE = /^(\d{4})-(\d{2})$/;
 
         // provide default month as Date object
 
         var active = e.target.parentNode.parentNode.querySelectorAll("li");
         var defaultMonth = null;
         var index = null;
-        
+
 
         for (var i = 0; i < active.length; i++) {
             if (active[i].className.indexOf("active") != -1) {
@@ -237,10 +238,13 @@ window.addEventListener('load', function () {
 
                 var min = data["min_income_month"];
                 var max = data["max_income_month"];
-                var arrMin = min.split("-");
-                var arrMax = max.split("-");
-                minMonth = new Date(parseInt(arrMin[0]), parseInt(arrMin[1]) - 1);
-                maxMonth = new Date(parseInt(arrMax[0]), parseInt(arrMax[1]) - 1);
+
+                if (monthRE.test(min) && monthRE.test(max)) {
+                    var arrMin = min.split("-");
+                    var arrMax = max.split("-");
+                    minMonth = new Date(parseInt(arrMin[0]), parseInt(arrMin[1]) - 1);
+                    maxMonth = new Date(parseInt(arrMax[0]), parseInt(arrMax[1]) - 1);
+                }
 
                 monthcalendar.init(document.querySelector("#modal_month_picker .Container"), { minMonth: minMonth, maxMonth: maxMonth, defaultMonth: defaultMonth },
                     function (month) { console.log(month) });
