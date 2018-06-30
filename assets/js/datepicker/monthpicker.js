@@ -17,6 +17,7 @@ window.addEventListener('load', function () {
         var callback;
         var container;
         var cals;
+        var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 
         function init(obj, options, cb) {
@@ -25,7 +26,7 @@ window.addEventListener('load', function () {
             callback = cb;
 
 
-            minMonth = settings.minMonth || new Date(1970, 0);
+            minMonth = settings.minMonth || new Date(2010, 0);
             maxMonth = settings.maxMonth || new Date();
 
             month = settings.defaultMonth || new Date(new Date().getFullYear(), new Date().getMonth());
@@ -39,9 +40,8 @@ window.addEventListener('load', function () {
             }
 
             currentYear = month.getFullYear();
-            console.log(maxMonth);
 
-            render()
+            render();
         }
 
         function render() {
@@ -69,13 +69,15 @@ window.addEventListener('load', function () {
 
         function buildCalendars() {
 
-            var startYear = new Date().getFullYear() - 7;
+            var startYear = minMonth.getFullYear();
 
             var str = '';
+            var yearNow;
+            var i = 0;
 
-            for (var i = 0; i < 11; i++) {
+            while (yearNow != maxMonth.getFullYear()) {
 
-                var yearNow = startYear + i;
+                yearNow = startYear + i;
 
                 str += "<div class='year-container'>"
                     +"<div class='Year'>"
@@ -96,6 +98,8 @@ window.addEventListener('load', function () {
                     + "<div><i>Dec</i></div>"
                     + "</div>"
                     + "</div>";
+
+                ++i;
             }
 
             return str;
@@ -117,8 +121,10 @@ window.addEventListener('load', function () {
             var allMonthes = wrapper.querySelectorAll(".Calendar div");
             for (var i = 0; i < allMonthes.length; i++) {
                 allMonthes[i].addEventListener('click', function (e) {
-                    month = new Date(currentYear, i);
-
+                    var monthName = e.target.innerText;
+                    var n = MONTHS.indexOf(monthName);
+                    month = new Date(currentYear, n);
+                    
                     updateCalendar();
 
                     var result = month.getFullYear() + "-" + ("0" + (month.getMonth() + 1)).slice(-2);
@@ -198,11 +204,15 @@ window.addEventListener('load', function () {
 
     function addMonthPicker(e) {
 
+        var minMonth = null;
+        var maxMonth = null;
+
+        // provide default month as Date object
+
         var active = e.target.parentNode.parentNode.querySelectorAll("li");
         var defaultMonth = null;
         var index = null;
-        var minMonth = null;
-        var MaxMonth = null;
+        
 
         for (var i = 0; i < active.length; i++) {
             if (active[i].className.indexOf("active") != -1) {
@@ -215,6 +225,8 @@ window.addEventListener('load', function () {
             defaultMonth = new Date();
             defaultMonth = new Date(defaultMonth.getFullYear(), defaultMonth.getMonth() - index);
         }
+
+        //
 
         fetch(MONTH_DATA_JSON)
             .then(function (response) {

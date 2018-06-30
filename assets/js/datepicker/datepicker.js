@@ -676,12 +676,6 @@ window.addEventListener('load', function () {
                         + "-" + ("0" + dayTo.getDate()).slice(-2);
                     func(startDate, endDate);
                 }
-
-                if (dayFrom) {
-                    var startDate = dayFrom.getFullYear() + "-" + ("0" + (dayFrom.getMonth() + 1)).slice(-2)
-                        + "-" + ("0" + dayFrom.getDate()).slice(-2);
-                    func(startDate, startDate);
-                }
             });
         }
 
@@ -734,10 +728,13 @@ window.addEventListener('load', function () {
 
                     //callback function that receives start and end in YYYY-MM-DD format 
                     function (start, end) {
-                        var target = $("li > a[data-target='#modal_date_picker']"),
-                            parent = target.parent('li'),
-                            ul = parent.parent('ul'),
-                            button = $(ul.data('button'));
+
+                            console.log(start,end)
+
+                        // var target = $("li > a[data-target='#modal_date_picker']"),
+                        //     parent = target.parent('li'),
+                        //     ul = parent.parent('ul'),
+                        //     button = $(ul.data('button'));
 
                         // target.data('from', start);
                         // target.data('to', end);
