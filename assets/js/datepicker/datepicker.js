@@ -178,8 +178,13 @@ window.addEventListener('load', function () {
                 id = new Date(yearFrom, monthFrom);
             }
             var cal = wrapper.querySelector("#n-" + +id);
-            if (cal) {
-                calAll.style.left = "-" + 322 * cal.dataset.number + "px";
+            if (cal && calAll.children.length > 2) {
+                if(cal.dataset.number == calAll.children.length - 1) {
+                    calAll.style.left = "-" + 322 * (cal.dataset.number -1) + "px";
+                }
+                else {
+                    calAll.style.left = "-" + 322 * cal.dataset.number + "px";
+                }
             }
         }
 
@@ -243,15 +248,26 @@ window.addEventListener('load', function () {
         }
 
         function validateFrom(input) {
-            if (allowedMin > input) {
+            if (allowedMin > input && (dayTo - dayFrom) != 0) {
 
                 dayFrom = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
                 updateInputFrom();
             }
 
-            else if (allowedMax < input) {
+            if (allowedMin > input && (dayTo - dayFrom) == 0) {
+                dayTo = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
+                updateInputFrom();
+                dayFrom = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
+                updateInputFrom();
+            }
+
+            else if ((allowedMax < input) && (dayTo - dayFrom) != 0) {
                 dayFrom = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
                 dayTo = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
+            }
+            else if((allowedMax < input) && (dayTo - dayFrom) == 0) {
+                dayTo = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
+                dayFrom = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
             }
             else if ((input > dayTo) && (dayTo - dayFrom) != 0) {
                 dayFrom = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
