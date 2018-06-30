@@ -83,7 +83,7 @@ window.addEventListener('load', function () {
                 cookieEnd = new Date(cookieEnd);
             }
 
-            allowedMin = parseDate(settings.allowedMin) || new Date(2000, 0);
+            allowedMin = parseDate(settings.allowedMin) || new Date(2010, 0);
             allowedMax = parseDate(settings.allowedMax) || new Date();
 
             dayTo = cookieEnd || parseDate(settings.end) || new Date();
@@ -518,15 +518,23 @@ window.addEventListener('load', function () {
 
         function createCalendars() {
 
-            var today = new Date();
-            var startMonth = new Date(today.getFullYear() - 3, today.getMonth());
-            var year = startMonth.getFullYear();
-            var month = startMonth.getMonth();
+            var year = allowedMin.getFullYear();
+            var month = allowedMin.getMonth();
+            var maxYear = allowedMax.getFullYear();
+            var maxMonth = allowedMax.getMonth();
             var result = '';
+            var y = 0;
 
-            for (var i = 0; i < 37; i++) {
-                var current = new Date(year, month + i);
-                result += buildCalendar(current.getFullYear(), current.getMonth(), i);
+            while (true) {
+                
+                var current = new Date(year, month + y);
+                var currYear = current.getFullYear();
+                var currMonth = current.getMonth();
+                result += buildCalendar(currYear, currMonth, y);
+                if(currYear == maxYear && currMonth == maxMonth) {
+                    break;
+                }
+                ++y
             }
 
             return result;
