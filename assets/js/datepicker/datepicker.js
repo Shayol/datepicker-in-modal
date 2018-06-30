@@ -169,8 +169,14 @@ window.addEventListener('load', function () {
 
         }
 
-        function positionCalendar() {
-            var id = new Date(yearFrom, monthFrom);
+        function positionCalendar(moveToDayFrom) {
+            var id;
+            if (moveToDayFrom) {
+                id = new Date(dayFrom.getFullYear(), dayFrom.getMonth());
+            }
+            else {
+                id = new Date(yearFrom, monthFrom);
+            }
             var cal = wrapper.querySelector("#n-" + +id);
             if (cal) {
                 calAll.style.left = "-" + 322 * cal.dataset.number + "px";
@@ -237,7 +243,17 @@ window.addEventListener('load', function () {
         }
 
         function validateFrom(input) {
-            if ((input > dayTo) && (dayTo - dayFrom) != 0) {
+            if (allowedMin > input) {
+
+                dayFrom = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
+                updateInputFrom();
+            }
+
+            else if (allowedMax < input) {
+                dayFrom = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
+                dayTo = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
+            }
+            else if ((input > dayTo) && (dayTo - dayFrom) != 0) {
                 dayFrom = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
                 dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
 
@@ -257,16 +273,26 @@ window.addEventListener('load', function () {
         }
 
         function validateTo(input) {
+
+            if (allowedMin > input) {
+                dayTo = dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate()
+                dayFrom = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
+            }
+
+            else if (allowedMax < input) {
+                dayTo = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
+            }
+
             if (input < dayFrom) {
                 dayTo = new Date(dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate());
                 dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-                updateInputTo();
-                updateInputFrom();
             }
 
             else {
                 dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
             }
+            updateInputTo();
+            updateInputFrom();
         }
 
         function setCookie() {
@@ -324,7 +350,6 @@ window.addEventListener('load', function () {
             monthFrom = from.getMonth();
 
             updateCalendar();
-            positionCalendar();
         }
 
         function highlight(e) {
@@ -407,25 +432,19 @@ window.addEventListener('load', function () {
                     var input = new Date(year, month - 1, day);
 
                     if (e.target == inputFrom) {
-                        if (allowedMin > input || allowedMax < input) {
-                            updateInputFrom();
-                            return;
-                        }
 
                         validateFrom(input);
 
                         updateVars();
+                        positionCalendar('left');
                     }
 
                     else if (e.target == inputTo) {
-                        if (allowedMin > input || allowedMax < input) {
-                            updateInputTo();
-                            return;
-                        }
 
                         validateTo(input);
 
                         updateVars();
+                        positionCalendar();
                     }
                     updateCalendar()
                     addDayListener();
