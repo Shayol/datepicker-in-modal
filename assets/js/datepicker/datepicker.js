@@ -348,8 +348,6 @@ window.addEventListener('load', function () {
 
             yearFrom = from.getFullYear();
             monthFrom = from.getMonth();
-
-            updateCalendar();
         }
 
         function highlight(e) {
@@ -449,7 +447,6 @@ window.addEventListener('load', function () {
                     updateCalendar()
                     addDayListener();
                     setCookie();
-                    positionCalendar();
                     checkPrev();
                     checkNext();
                     wrapper.querySelector(".done").classList.remove("Disabled");
