@@ -1,5 +1,6 @@
 var PICKER_DATA_JSON = 'pickerdata.json';
 
+
 var ranges = {
     "past-30-days": {
         start: new Date(new Date().getFullYear(),
@@ -29,7 +30,6 @@ var ranges = {
 
 window.addEventListener('load', function () {
 
-
     var Picker = function () {
 
         var wrapper;
@@ -57,6 +57,8 @@ window.addEventListener('load', function () {
         var allowedMax;
 
         var calAll;
+        var cleaveFrom;
+        var cleaveFrom;
 
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"];
@@ -178,8 +180,8 @@ window.addEventListener('load', function () {
             }
             var cal = wrapper.querySelector("#n-" + +id);
             if (cal && calAll.children.length > 2) {
-                if(cal.dataset.number == calAll.children.length - 1) {
-                    calAll.style.left = "-" + 322 * (cal.dataset.number -1) + "px";
+                if (cal.dataset.number == calAll.children.length - 1) {
+                    calAll.style.left = "-" + 322 * (cal.dataset.number - 1) + "px";
                 }
                 else {
                     calAll.style.left = "-" + 322 * cal.dataset.number + "px";
@@ -250,28 +252,24 @@ window.addEventListener('load', function () {
             if (allowedMin > input && (dayTo - dayFrom) != 0) {
 
                 dayFrom = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
-                updateInputFrom();
             }
 
             if (allowedMin > input && (dayTo - dayFrom) == 0) {
                 dayTo = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
-                updateInputFrom();
                 dayFrom = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
-                updateInputFrom();
             }
 
             else if ((allowedMax < input) && (dayTo - dayFrom) != 0) {
                 dayFrom = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
                 dayTo = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
             }
-            else if((allowedMax < input) && (dayTo - dayFrom) == 0) {
+            else if ((allowedMax < input) && (dayTo - dayFrom) == 0) {
                 dayTo = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
                 dayFrom = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
             }
             else if ((input > dayTo) && (dayTo - dayFrom) != 0) {
                 dayFrom = new Date(dayTo.getFullYear(), dayTo.getMonth(), dayTo.getDate());
                 dayTo = new Date(input.getFullYear(), input.getMonth(), input.getDate());
-
 
             }
 
@@ -432,71 +430,137 @@ window.addEventListener('load', function () {
             }
         }
 
-        function handleInput(e) {
+        // function handleFromInput(e) {
+        //     var value = e.value;
 
-            if (e.target.value.length == 10) {
-                if (RE.test(e.target.value)) {
+        //     if (value.length == 10) {
+        //         if (RE.test(value)) {
 
-                    var arr = e.target.value.split("-");
+        //             var arr = value.split("-");
+        //             var year = parseInt(arr[0]);
+        //             var month = parseInt(arr[1]);
+        //             var day = parseInt(arr[2]);
+
+        //             var input = new Date(year, month - 1, day);
+
+        //             if (e.target == inputFrom) {
+
+        //                 validateFrom(input);
+
+        //                 updateVars();
+        //                 positionCalendar('left');
+        //             }
+
+        //             else if (e.target == inputTo) {
+
+        //                 validateTo(input);
+
+        //                 updateVars();
+        //                 positionCalendar();
+        //             }
+        //             updateCalendar()
+        //             addDayListener();
+        //             setCookie();
+        //             checkPrev();
+        //             checkNext();
+        //             wrapper.querySelector(".done").classList.remove("Disabled");
+
+        //         }
+        //         else {
+        //             updateInputFrom();
+        //             updateInputTo();
+        //         }
+        //     }
+
+        //     else {
+        //         wrapper.querySelector(".done").classList.add("Disabled");
+        //     }
+        // }
+
+        function handleFromInput(value) {
+
+            var input = testValue(value);
+
+            if (input) {
+
+                validateFrom(input);
+                updateVars();
+                positionCalendar('left');
+                updateCalendar()
+                addDayListener();
+                setCookie();
+                checkPrev();
+                checkNext();
+                wrapper.querySelector(".done").classList.remove("Disabled");
+            }
+        }
+
+        function handleToInput(value) {
+
+            var input = testValue(value);
+
+            if (input) {
+                validateTo(input);
+                updateVars();
+                positionCalendar();
+                updateCalendar()
+                addDayListener();
+                setCookie();
+                checkPrev();
+                checkNext();
+                wrapper.querySelector(".done").classList.remove("Disabled");
+            }
+
+        }
+
+
+        function testValue(value) {
+            if (value.length == 10) {
+                if (RE.test(value)) {
+                    var arr = value.split("-");
                     var year = parseInt(arr[0]);
                     var month = parseInt(arr[1]);
                     var day = parseInt(arr[2]);
 
                     var input = new Date(year, month - 1, day);
-
-                    if (e.target == inputFrom) {
-
-                        validateFrom(input);
-
-                        updateVars();
-                        positionCalendar('left');
-                    }
-
-                    else if (e.target == inputTo) {
-
-                        validateTo(input);
-
-                        updateVars();
-                        positionCalendar();
-                    }
-                    updateCalendar()
-                    addDayListener();
-                    setCookie();
-                    checkPrev();
-                    checkNext();
-                    wrapper.querySelector(".done").classList.remove("Disabled");
-
+                    return input;
                 }
                 else {
                     updateInputFrom();
                     updateInputTo();
                 }
             }
-
-            else if (e.target.value.length >= 0 && e.target.value.length < 10) {
+            else {
                 wrapper.querySelector(".done").classList.add("Disabled");
             }
+            return false;
         }
 
         function addInputListener() {
-            inputFrom.addEventListener('input', handleInput);
-            inputTo.addEventListener('input', handleInput);
+            // inputFrom.addEventListener('input', handleInput);
+            // inputTo.addEventListener('input', handleInput);
             inputTo.addEventListener('focusout', updateInputTo);
             inputFrom.addEventListener('focusout', updateInputFrom);
 
 
-            var cleaveFrom = new Cleave('input.from', {
+            cleaveFrom = new Cleave('input.from', {
                 date: true,
                 datePattern: ['Y', 'm', 'd'],
-                delimiter: '-'
+                delimiter: '-',
+                onValueChanged: function (e) {
+                    handleFromInput(e.target.value);
+                    console.log(e.target);
+                }
 
             });
 
-            var cleaveTo = new Cleave('input.to', {
+            cleaveTo = new Cleave('input.to', {
                 date: true,
                 datePattern: ['Y', 'm', 'd'],
-                delimiter: '-'
-
+                delimiter: '-',
+                onValueChanged: function (e) {
+                    handleToInput(e.target.value);
+                }
             });
 
 
