@@ -254,7 +254,7 @@ window.addEventListener('load', function () {
                 dayFrom = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
             }
 
-            if (allowedMin > input && (dayTo - dayFrom) == 0) {
+            else if (allowedMin > input && (dayTo - dayFrom) == 0) {
                 dayTo = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
                 dayFrom = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
             }
@@ -296,7 +296,7 @@ window.addEventListener('load', function () {
                 dayTo = new Date(allowedMax.getFullYear(), allowedMax.getMonth(), allowedMax.getDate());
             }
 
-            if (input < dayFrom) {
+            else if (input < dayFrom) {
                 dayTo = new Date(dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate());
                 dayFrom = new Date(input.getFullYear(), input.getMonth(), input.getDate());
             }
