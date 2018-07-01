@@ -63,7 +63,6 @@ window.addEventListener('load', function () {
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"];
 
-        var RE = /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/;
 
         function init(obj, options, cb) {
 
@@ -194,7 +193,7 @@ window.addEventListener('load', function () {
             if (Object.prototype.toString.call(arg) === '[object Date]') {
                 return arg;
             }
-            if (RE.test(arg)) {
+            if (moment(arg, 'YYYY-MM-DD', true).isValid()) {
                 var arr = arg.split("-");
                 var year = parseInt(arr[0]);
                 var month = parseInt(arr[1]);
@@ -469,7 +468,7 @@ window.addEventListener('load', function () {
 
         function testValue(value) {
             if (value.length == 10) {
-                if (RE.test(value)) {
+                if (moment(value, 'YYYY-MM-DD', true).isValid()) {
                     var arr = value.split("-");
                     var year = parseInt(arr[0]);
                     var month = parseInt(arr[1]);

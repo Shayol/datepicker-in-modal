@@ -206,7 +206,6 @@ window.addEventListener('load', function () {
 
         var minMonth = null;
         var maxMonth = null;
-        var monthRE = /^(\d{4})-(\d{2})$/;
 
         // provide default month as Date object
 
@@ -239,7 +238,7 @@ window.addEventListener('load', function () {
                 var min = data["min_income_month"];
                 var max = data["max_income_month"];
 
-                if (monthRE.test(min) && monthRE.test(max)) {
+                if (moment(min, 'YYYY-MM', true).isValid() && moment(max, 'YYYY-MM', true).isValid()) {
                     var arrMin = min.split("-");
                     var arrMax = max.split("-");
                     minMonth = new Date(parseInt(arrMin[0]), parseInt(arrMin[1]) - 1);
