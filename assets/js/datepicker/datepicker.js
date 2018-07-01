@@ -63,7 +63,7 @@ window.addEventListener('load', function () {
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"];
 
-        var RE = /^(\d{4})-(\d{2})-(\d{2})$/;
+        var RE = /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/;
 
         function init(obj, options, cb) {
 
