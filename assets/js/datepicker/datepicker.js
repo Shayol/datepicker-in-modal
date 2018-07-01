@@ -500,7 +500,6 @@ window.addEventListener('load', function () {
                 delimiter: '-',
                 onValueChanged: function (e) {
                     handleFromInput(e.target.value);
-                    console.log(e.target);
                 }
 
             });
@@ -511,7 +510,6 @@ window.addEventListener('load', function () {
                 delimiter: '-',
                 onValueChanged: function (e) {
                     handleToInput(e.target.value);
-                    console.log(e.target);
                 }
             });
 
