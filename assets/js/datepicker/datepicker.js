@@ -430,53 +430,6 @@ window.addEventListener('load', function () {
             }
         }
 
-        // function handleFromInput(e) {
-        //     var value = e.value;
-
-        //     if (value.length == 10) {
-        //         if (RE.test(value)) {
-
-        //             var arr = value.split("-");
-        //             var year = parseInt(arr[0]);
-        //             var month = parseInt(arr[1]);
-        //             var day = parseInt(arr[2]);
-
-        //             var input = new Date(year, month - 1, day);
-
-        //             if (e.target == inputFrom) {
-
-        //                 validateFrom(input);
-
-        //                 updateVars();
-        //                 positionCalendar('left');
-        //             }
-
-        //             else if (e.target == inputTo) {
-
-        //                 validateTo(input);
-
-        //                 updateVars();
-        //                 positionCalendar();
-        //             }
-        //             updateCalendar()
-        //             addDayListener();
-        //             setCookie();
-        //             checkPrev();
-        //             checkNext();
-        //             wrapper.querySelector(".done").classList.remove("Disabled");
-
-        //         }
-        //         else {
-        //             updateInputFrom();
-        //             updateInputTo();
-        //         }
-        //     }
-
-        //     else {
-        //         wrapper.querySelector(".done").classList.add("Disabled");
-        //     }
-        // }
-
         function handleFromInput(value) {
 
             var input = testValue(value);
@@ -537,15 +490,14 @@ window.addEventListener('load', function () {
         }
 
         function addInputListener() {
-            // inputFrom.addEventListener('input', handleInput);
-            // inputTo.addEventListener('input', handleInput);
+            
             inputTo.addEventListener('focusout', updateInputTo);
             inputFrom.addEventListener('focusout', updateInputFrom);
 
 
             cleaveFrom = new Cleave('input.from', {
-                date: true,
-                datePattern: ['Y', 'm', 'd'],
+                blocks: [4, 2, 2],
+                numericOnly: true,
                 delimiter: '-',
                 onValueChanged: function (e) {
                     handleFromInput(e.target.value);
@@ -555,11 +507,12 @@ window.addEventListener('load', function () {
             });
 
             cleaveTo = new Cleave('input.to', {
-                date: true,
-                datePattern: ['Y', 'm', 'd'],
+                blocks: [4, 2, 2],
+                numericOnly: true,
                 delimiter: '-',
                 onValueChanged: function (e) {
                     handleToInput(e.target.value);
+                    console.log(e.target);
                 }
             });
 
