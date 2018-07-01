@@ -288,7 +288,7 @@ window.addEventListener('load', function () {
         function validateTo(input) {
 
             if (allowedMin > input) {
-                dayTo = dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate()
+                dayTo = new Date(dayFrom.getFullYear(), dayFrom.getMonth(), dayFrom.getDate());
                 dayFrom = new Date(allowedMin.getFullYear(), allowedMin.getMonth(), allowedMin.getDate());
             }
 
