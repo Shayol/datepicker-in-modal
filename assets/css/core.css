@@ -7910,7 +7910,7 @@ button[class=close]:active {
 .S .TotalSpendings a.Empty {
 	opacity:0.4;
 	pointer-events: none !important;
-	cursor: default !important;
+  cursor: default !important;
 }
 
 .S .TotalSpendings a:hover {

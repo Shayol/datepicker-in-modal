@@ -18,6 +18,7 @@
 	<link href="assets/css/piechart.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="assets/css/datepicker.css">
 	<link rel="stylesheet" href="assets/css/monthpicker.css">
+	<link rel="stylesheet" href="assets/css/hide_empty_categories.css">
 	<!-- /global stylesheets -->
 	
 	<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
@@ -61,6 +62,9 @@
 	<!-- Monthpicker files --> 
 	<script src="assets/js/datepicker/monthpicker.js"></script>
 
+	<!-- Script hiding empty categories on click -->
+	<script src="assets/js/hide_empty_categories/hide_empty_categories.js"></script>
+	
 	<!-- /theme JS files -->
 	
 	<script>
@@ -218,7 +222,7 @@
 										</ul>
 									</div>
 									
-									<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonsMarginBetween toggleEmpty">Hide empty</button>
+									<button type="button" class="btn btn-default btn-rounded-more pull-right ButtonsMarginBetween toggleEmpty">Show empty</button>
 	
 								</div>
 							
@@ -4319,52 +4323,6 @@
 			$('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
 			}, 0);
 		});
-
-		//hide or show top spending categories with 0 sum on click
-		var toggleChoice = getCookie('totalspendingshidempty');
-		var toggleButton = $('.ContainerTotalSpendings .toggleEmpty');
-
-		function toggleHideEmpty() {
-			if(!toggleChoice || toggleChoice == 'show') {
-				$('.ContainerTotalSpendings .Empty').show();
-				toggleButton.text('Hide empty');
-			}
-			else {
-				$('.ContainerTotalSpendings .Empty').hide();
-				toggleButton.text('Show empty');
-			}
-		}
-		toggleHideEmpty();
-		
-
-		toggleButton.on( "click", function( event ) {
-			if(toggleButton.text() == 'Hide empty') {
-				$('.ContainerTotalSpendings .Empty').hide();
-				document.cookie = "totalspendingshidempty=hide";
-				toggleButton.text('Show empty');
-			}
-			else {
-				toggleButton.text('Hide empty');
-				$('.ContainerTotalSpendings .Empty').show();
-				document.cookie = "totalspendingshidempty=show";
-			}
-		});
-
-		function getCookie(cname) {
-			var name = cname + "=";
-			var decodedCookie = decodeURIComponent(document.cookie);
-			var ca = decodedCookie.split(';');
-			for(var i = 0; i <ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0) == ' ') {
-					c = c.substring(1);
-				}
-				if (c.indexOf(name) == 0) {
-					return c.substring(name.length, c.length);
-				}
-			}
-			return "";
-		}
 	</script>
 
 </body>
